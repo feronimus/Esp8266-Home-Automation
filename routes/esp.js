@@ -222,6 +222,7 @@ router.post('/espuploads',  (req, res, next) =>{
 });
 
 router.post("/updater", function (req, res) {
+    
     var h = req.headers;
     console.log(h["ESP8266 - version"]);
     console.log(h["ESP8266-mode"]);

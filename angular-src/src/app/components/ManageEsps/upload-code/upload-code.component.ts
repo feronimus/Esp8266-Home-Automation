@@ -3,8 +3,8 @@ import { FileSelectDirective, FileUploader} from 'ng2-file-upload';
 
 
 
-//const uri = 'http://localhost:3000/esp/espuploads';
-const uri = 'esp/espuploads';
+//const uri = 'http://localhost:3000/../esp/espuploads';
+const uri = '../esp/espuploads';
 @Component({
   selector: 'app-upload-code',
   templateUrl: './upload-code.component.html',
