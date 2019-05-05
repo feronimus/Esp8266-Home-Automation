@@ -16,7 +16,8 @@
     "body-parse": "*",
     "passport": "*",
     "passport-jwt": "*",
-    "nodemon": "*"
+    "nodemon": "*",
+    "multer": "*"
   },
   "author": "Alex",
   "license": "ISC"

@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const User =  require('../models/user');
 const Esp =  require('../models/esp');
+const multer = require('multer');
 
 
 module.exports = router;
@@ -197,3 +198,35 @@ router.get('/profile', passport.authenticate('jwt' , {session:false}), (req, res
     //res.send('PROFILE');
     res.json({user: req.user});
 });
+
+
+//----------- Upload-downalod files .bin codes -----------\\
+
+var store = multer.diskStorage({
+    destination:function(req,file,cb){
+        cb(null, './espUpdates');
+    },
+    filename:function(req,file,cb){
+        cb(null, Date.now()+'.'+file.originalname);
+    }
+});
+
+var upload = multer({storage:store}).single('file');
+
+router.post('/espuploads',  (req, res, next) =>{
+    console.log('got inside esp uploads');
+    upload(req,res,(err)=>{
+        if(err) return res.json({success:false, msg:err});
+        res.json({originalname:req.file.originalname, uploadname:req.file.filename});
+    });
+});
+
+router.post("/updater", function (req, res) {
+    var h = req.headers;
+    console.log(h["ESP8266 - version"]);
+    console.log(h["ESP8266-mode"]);
+    console.log(h["ESP8266-sketch-size"]);
+//    res.send(req);
+  //  return req;
+});
+
