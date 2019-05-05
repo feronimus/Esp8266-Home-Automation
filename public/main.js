@@ -1150,8 +1150,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//const uri = 'http://localhost:3000/esp/espuploads';
-var uri = 'esp/espuploads';
+//const uri = 'http://localhost:3000/../esp/espuploads';
+var uri = '../esp/espuploads';
 var UploadCodeComponent = /** @class */ (function () {
     function UploadCodeComponent() {
         var _this = this;
