@@ -165,7 +165,7 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
 router.post('/authenticate', (req, res, next) => {
     const user = req.body.user;
     const secret = req.body.secret;
-    console.log(req.body);
+    console.log(req);
 
     Esp.getEspBySecret(secret, (err, esp) =>{
         if(err) throw err;
