@@ -437,7 +437,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n\r\n<nav  class=\"navbar navbar-expand-lg fixed-top navbar-dark bg-dark\">\r\n    <div class=\"container\">\r\n    <a class=\"navbar-brand\" href=\"#\">Make It Smart</a>\r\n    <button class=\"navbar-toggler collapsed\" type=\"button\" \r\n    data-toggle=\"collapse\" data-target=\"#navbarColor01\" aria-controls=\"navbarColor01\" \r\n    aria-expanded=\"false\" aria-label=\"Toggle navigation\"\r\n    (click)=\"toggleNavbar()\"\r\n    >\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n    <div class=\"navbar-collapse collapse\" [ngClass]=\"{ 'show': navbarOpen }\" id=\"navbarColor01\" style=\"\">\r\n      <ul class=\"nav navbar-nav mr-auto\">\r\n          <li class=\"nav-item\" *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['/']\">Αρχικη</a>\r\n          </li>\r\n          \r\n          <li  class=\"nav-item\" *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n              <a class=\"nav-link\" [routerLink]=\"['/dashboard']\">Dashboard</a>\r\n          </li>\r\n          <li  class=\"nav-item\" *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['/manage']\">Manage</a>\r\n        </li>\r\n        <li  class=\"nav-item\" *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['/profile']\">Profile</a>\r\n          </li>\r\n      </ul>    \r\n      <ul class=\"nav navbar-nav navbar-right\">\r\n         \r\n      \r\n  \r\n  \r\n          <li  class=\"nav-item\" *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['/login']\">Log IN</a>\r\n          </li>\r\n          <li  class=\"nav-item\" *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['/register']\">Sign Up</a>\r\n          </li>\r\n         \r\n          <li  class=\"nav-item\" *ngIf=\"authService.loggedIn()\" >\r\n            <a class=\"nav-link\" (click)=\"onLogoutClick()\"href=\"#\">Log Off</a>\r\n          </li>\r\n      </ul>  \r\n    </div>  \r\n    </div>\r\n  </nav>\r\n"
+module.exports = "\r\n\r\n<nav  class=\"navbar navbar-expand-lg fixed-top navbar-dark bg-dark\">\r\n    <div class=\"container\">\r\n    <a class=\"navbar-brand\" href=\"#\">Make It Smart</a>\r\n    <button class=\"navbar-toggler collapsed\" type=\"button\" \r\n    data-toggle=\"collapse\" data-target=\"#navbarColor01\" aria-controls=\"navbarColor01\" \r\n    aria-expanded=\"false\" aria-label=\"Toggle navigation\"\r\n    (click)=\"toggleNavbar()\"\r\n    >\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n    <div class=\"navbar-collapse collapse\" [ngClass]=\"{ 'show': navbarOpen }\" id=\"navbarColor01\" style=\"\">\r\n      <ul class=\"nav navbar-nav mr-auto\">\r\n          <li class=\"nav-item\" *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['/']\">Αρχικη</a>\r\n          </li>\r\n          \r\n          <li  class=\"nav-item\" *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n              <a class=\"nav-link\" [routerLink]=\"['/dashboard']\">Dashboard</a>\r\n          </li>\r\n          <li  class=\"nav-item\" *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['/manage']\">Manage</a>\r\n        </li>\r\n        <li  class=\"nav-item\" *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['/profile']\">Profile</a>\r\n          </li>\r\n      </ul>    \r\n      <ul class=\"nav navbar-nav navbar-right\">\r\n         \r\n      \r\n  \r\n  \r\n          <li  class=\"nav-item\" *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['/login']\">Log IN</a>\r\n          </li>\r\n          <li  class=\"nav-item\" *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['/register']\">Sign Up</a>\r\n          </li>\r\n         \r\n          <li  class=\"nav-item\" *ngIf=\"authService.loggedIn()\" >\r\n            <a class=\"nav-link\" (click)=\"onLogoutClick()\"href=\"#\">Log Off</a>\r\n          </li>\r\n      </ul>  \r\n    </div>  \r\n    </div>\r\n  </nav>"
 
 /***/ }),
 
@@ -1129,7 +1129,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h3>1.0.1</h3>\r\n<meta http-equiv=\"Content-Security-Policy\" content=\"upgrade-insecure-requests\">\r\n<div class=\"container-fluid\">\r\n    <div class=\"row\">\r\n        <div class=\"col-md-2\"></div>\r\n        <div class=\"col-md-8\">\r\n            <div class=\"row card\">\r\n                <div class=\"col-sm-12\">\r\n                    <h4>Upload Section</h4>\r\n                    <div id=\"fileSelector\">\r\n                        <input type=\"file\" name=\"fileUplaod\" id=\"fileUpload\"\r\n                        multiple ng2FileSelect [uploader]=\"uploader\">\r\n                    </div>\r\n                    <div>\r\n                        <div class=\"row uploadList\" *ngFor=\"let item of uploader.queue\">\r\n                            <div class=\"col-sm-4\">{{item.file.name}}</div>\r\n                            <div class=\"col-sm-4\">\r\n                                <div class=\"progress\">\r\n                                    <div class=\"progress-bar bg-success\" \r\n                                    [ngStyle]=\"{'width':item.progress+'%'}\"></div>\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"col-sm-4\">\r\n                                    <button type=\"button\" class=\"btn btn-dark\" (click)=\"item.upload()\">Upload</button>\r\n                                    <button type=\"button\" class=\"btn btn-danger\" (click)=\"item.remove()\">Cancel</button>\r\n                            </div>\r\n                        </div>                        \r\n                    </div>\r\n                    <div class=\"row\" *ngIf=\"uploader?.queue?.length > 1\">\r\n                            <button type=\"button\" class=\"btn btn-primary\" (click)=\"uploader.uploadAll()\">Upload All</button>\r\n                    </div>\r\n                </div>                \r\n            </div>\r\n\r\n\r\n            <!-- \r\n            <div class=\"row card\">\r\n                <h4>Download Section</h4>\r\n\r\n                <div class=\"row\" *ngFor=\"let item of attachmentList; let i = index\"\r\n                style=\"margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;\">\r\n                    <div class=\"col-sm-7\">{{item.originalname}}</div>\r\n                    <div class=\"col-sm-5\" style=\"text-align:center;\"><button type=\"button\" class=\"btn btn-primary\" (click)=\"download(i)\">Download</button></div>\r\n                </div>\r\n            </div>\r\n            -->\r\n\r\n\r\n\r\n        </div>\r\n        <div class=\"col-md-2\"></div>\r\n    </div>\r\n</div>"
+module.exports = "\r\n<div class=\"container-fluid\">\r\n    <div class=\"row\">\r\n        <div class=\"col-md-2\"></div>\r\n        <div class=\"col-md-8\">\r\n            <div class=\"row card\">\r\n                <div class=\"col-sm-12\">\r\n                    <h4>Upload Section</h4>\r\n                    <div id=\"fileSelector\">\r\n                        <input type=\"file\" name=\"fileUplaod\" id=\"fileUpload\"\r\n                        multiple ng2FileSelect [uploader]=\"uploader\">\r\n                    </div>\r\n                    <div>\r\n                        <div class=\"row uploadList\" *ngFor=\"let item of uploader.queue\">\r\n                            <div class=\"col-sm-4\">{{item.file.name}}</div>\r\n                            <div class=\"col-sm-4\">\r\n                                <div class=\"progress\">\r\n                                    <div class=\"progress-bar bg-success\" \r\n                                    [ngStyle]=\"{'width':item.progress+'%'}\"></div>\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"col-sm-4\">\r\n                                    <button type=\"button\" class=\"btn btn-dark\" (click)=\"item.upload()\">Upload</button>\r\n                                    <button type=\"button\" class=\"btn btn-danger\" (click)=\"item.remove()\">Cancel</button>\r\n                            </div>\r\n                        </div>                        \r\n                    </div>\r\n                    <div class=\"row\" *ngIf=\"uploader?.queue?.length > 1\">\r\n                            <button type=\"button\" class=\"btn btn-primary\" (click)=\"uploader.uploadAll()\">Upload All</button>\r\n                    </div>\r\n                </div>                \r\n            </div>\r\n        </div>\r\n        <div class=\"col-md-2\"></div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -1383,20 +1383,20 @@ __webpack_require__.r(__webpack_exports__);
 var AuthService = /** @class */ (function () {
     function AuthService(http) {
         this.http = http;
-        this.uri = 'esp/espuploads';
     }
+    //uri = 'esp/espuploads';
     //uri = 'http://localhost:3000/esp/espuploads'; 
     AuthService.prototype.registerUser = function (user) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('users/register', user, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
-        //return this.http.post('http://localhost:3000/users/register', user,{headers: headers}).pipe(map((response: any) => response));
+        //return this.http.post('users/register', user,{headers: headers}).pipe(map((response: any) => response));
+        return this.http.post('http://localhost:3000/users/register', user, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
     };
     AuthService.prototype.authenticateUser = function (user) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('users/authenticate', user, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
-        //return this.http.post('http://localhost:3000/users/authenticate', user,{headers: headers}).pipe(map((response: any) => response));
+        //return this.http.post('users/authenticate', user,{headers: headers}).pipe(map((response: any) => response));    
+        return this.http.post('http://localhost:3000/users/authenticate', user, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
     };
     AuthService.prototype.getProfile = function () {
         this.loadToken();
@@ -1404,14 +1404,14 @@ var AuthService = /** @class */ (function () {
             'Content-Type': 'application/json',
             'Authorization': this.authToken
         });
-        return this.http.get('users/profile', { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
-        //return this.http.get('http://localhost:3000/users/profile',{headers: headers}).pipe(map((response: any) => response));
+        //return this.http.get('users/profile',{headers: headers}).pipe(map((response: any) => response));
+        return this.http.get('http://localhost:3000/users/profile', { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
     };
     AuthService.prototype.userCheck = function (user) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('users/usercheck', user, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
-        //return this.http.post('http://localhost:3000/users/usercheck', user,{headers: headers}).pipe(map((response: any) => response));
+        //return this.http.post('users/usercheck', user,{headers: headers}).pipe(map((response: any) => response));
+        return this.http.post('http://localhost:3000/users/usercheck', user, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
     };
     AuthService.prototype.turnLedOnOFF = function (State) {
         this.loadToken();
@@ -1420,8 +1420,8 @@ var AuthService = /** @class */ (function () {
         });
         var body = { 'led1': State };
         console.log(body);
-        return this.http.post('users/updateESPTESTAdmin', body, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
-        //return this.http.post('http://localhost:3000/users/updateESPTESTAdmin',body,{headers: headers }).pipe(map((response: any) => response));
+        //return this.http.post('users/updateESPTESTAdmin',body,{headers: headers }).pipe(map((response: any) => response));
+        return this.http.post('http://localhost:3000/users/updateESPTESTAdmin', body, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
     };
     AuthService.prototype.getEspState = function () {
         console.log("getting esp state");
@@ -1430,8 +1430,8 @@ var AuthService = /** @class */ (function () {
             'Content-Type': 'application/json',
             'Authorization': this.authToken
         });
-        return this.http.get('users/espState', { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
-        //return this.http.get('http://localhost:3000/users/espState',{headers: headers}).pipe(map((response: any) => response));
+        //return this.http.get('users/espState',{headers: headers}).pipe(map((response: any) => response));
+        return this.http.get('http://localhost:3000/users/espState', { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
     };
     AuthService.prototype.registerEsp = function (esp) {
         this.loadToken();
@@ -1439,8 +1439,8 @@ var AuthService = /** @class */ (function () {
             'Content-Type': 'application/json',
             'Authorization': this.authToken
         });
-        return this.http.post('esp/register', esp, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
-        //return this.http.post('http://localhost:3000/esp/register', esp,{headers: headers}).pipe(map((response: any) => response));
+        //return this.http.post('esp/register', esp,{headers: headers}).pipe(map((response: any) => response));
+        return this.http.post('http://localhost:3000/esp/register', esp, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
     };
     AuthService.prototype.updateEsp = function (esp) {
         this.loadToken();
@@ -1448,8 +1448,8 @@ var AuthService = /** @class */ (function () {
             'Content-Type': 'application/json',
             'Authorization': this.authToken
         });
-        return this.http.post('esp/update', esp, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
-        //return this.http.post('http://localhost:3000/esp/update', esp,{headers: headers}).pipe(map((response: any) => response));
+        //return this.http.post('esp/update', esp,{headers: headers}).pipe(map((response: any) => response));
+        return this.http.post('http://localhost:3000/esp/update', esp, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
     };
     AuthService.prototype.getEspByUser = function () {
         this.loadToken();
@@ -1457,8 +1457,8 @@ var AuthService = /** @class */ (function () {
             'Content-Type': 'application/json',
             'Authorization': this.authToken
         });
-        return this.http.get('esp/esps', { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
-        //return this.http.get('http://localhost:3000/esp/esps',{headers: headers}).pipe(map((response: any) => response));
+        //return this.http.get('esp/esps',{headers: headers}).pipe(map((response: any) => response));
+        return this.http.get('http://localhost:3000/esp/esps', { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
     };
     AuthService.prototype.storeUserData = function (token, user) {
         localStorage.setItem('id_token', token);

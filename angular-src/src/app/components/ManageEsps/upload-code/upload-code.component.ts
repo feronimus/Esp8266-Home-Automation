@@ -4,7 +4,7 @@ import {AuthService} from './../../../services/auth.service';
 
 
 var uri = 'esp/espuploads';
-  //uri = 'http://localhost:3000/esp/espuploads'; 
+//uri = 'http://localhost:3000/esp/espuploads'; 
 @Component({
   selector: 'app-upload-code',
   templateUrl: './upload-code.component.html',
