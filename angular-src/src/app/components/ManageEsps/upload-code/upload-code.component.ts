@@ -4,7 +4,7 @@ import { FileSelectDirective, FileUploader} from 'ng2-file-upload';
 
 
 //const uri = 'http://localhost:3000/../uploads';
-const uri = '../uploads';
+const uri = '/uploads';
 @Component({
   selector: 'app-upload-code',
   templateUrl: './upload-code.component.html',

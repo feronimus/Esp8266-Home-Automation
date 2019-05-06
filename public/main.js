@@ -1151,7 +1151,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 //const uri = 'http://localhost:3000/../uploads';
-var uri = '../uploads';
+var uri = '/uploads';
 var UploadCodeComponent = /** @class */ (function () {
     function UploadCodeComponent() {
         var _this = this;
