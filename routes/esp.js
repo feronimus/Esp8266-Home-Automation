@@ -204,7 +204,7 @@ router.get('/profile', passport.authenticate('jwt' , {session:false}), (req, res
 
 var store = multer.diskStorage({
     destination:function(req,file,cb){
-        cb(null, './espUpdates');
+        cb(null, './../uploads');
     },
     filename:function(req,file,cb){
         cb(null, Date.now()+'.'+file.originalname);

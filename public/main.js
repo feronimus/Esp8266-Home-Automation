@@ -1147,14 +1147,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/index.js");
 /* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(ng2_file_upload__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../../services/auth.service */ "./src/app/services/auth.service.ts");
 
 
 
-//const uri = 'http://localhost:3000/../uploads';
-var uri = '/uploads';
+
+var uri;
 var UploadCodeComponent = /** @class */ (function () {
-    function UploadCodeComponent() {
+    function UploadCodeComponent(authService) {
         var _this = this;
+        this.authService = authService;
         this.uploader = new ng2_file_upload__WEBPACK_IMPORTED_MODULE_2__["FileUploader"]({ url: uri });
         this.attachmentList = [];
         this.uploader.onAfterAddingFile = function (file) { file.withCredentials = false; };
@@ -1163,6 +1165,7 @@ var UploadCodeComponent = /** @class */ (function () {
         };
     }
     UploadCodeComponent.prototype.ngOnInit = function () {
+        uri = this.authService.uri;
     };
     UploadCodeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1170,7 +1173,7 @@ var UploadCodeComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./upload-code.component.html */ "./src/app/components/ManageEsps/upload-code/upload-code.component.html"),
             styles: [__webpack_require__(/*! ./upload-code.component.css */ "./src/app/components/ManageEsps/upload-code/upload-code.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"]])
     ], UploadCodeComponent);
     return UploadCodeComponent;
 }());
@@ -1379,7 +1382,9 @@ __webpack_require__.r(__webpack_exports__);
 var AuthService = /** @class */ (function () {
     function AuthService(http) {
         this.http = http;
+        this.uri = 'esp/espuploads';
     }
+    //uri = 'http://localhost:3000/esp/espuploads'; 
     AuthService.prototype.registerUser = function (user) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
         headers.append('Content-Type', 'application/json');

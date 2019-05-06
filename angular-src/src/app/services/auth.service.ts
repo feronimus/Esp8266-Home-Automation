@@ -13,6 +13,9 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  uri = 'esp/espuploads';
+  //uri = 'http://localhost:3000/esp/espuploads'; 
+
   registerUser(user){
     let headers = new HttpHeaders();
     headers.append('Content-Type','application/json');
