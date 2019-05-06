@@ -1152,7 +1152,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var uri;
+var uri = 'esp/espuploads';
+//uri = 'http://localhost:3000/esp/espuploads'; 
 var UploadCodeComponent = /** @class */ (function () {
     function UploadCodeComponent(authService) {
         var _this = this;
@@ -1165,7 +1166,7 @@ var UploadCodeComponent = /** @class */ (function () {
         };
     }
     UploadCodeComponent.prototype.ngOnInit = function () {
-        uri = this.authService.uri;
+        //uri = this.authService.uri;
     };
     UploadCodeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({

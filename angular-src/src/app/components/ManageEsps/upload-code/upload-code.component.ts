@@ -3,7 +3,8 @@ import { FileSelectDirective, FileUploader} from 'ng2-file-upload';
 import {AuthService} from './../../../services/auth.service';
 
 
-var uri;
+var uri = 'esp/espuploads';
+  //uri = 'http://localhost:3000/esp/espuploads'; 
 @Component({
   selector: 'app-upload-code',
   templateUrl: './upload-code.component.html',
@@ -14,7 +15,7 @@ export class UploadCodeComponent implements OnInit {
 
 
   ngOnInit() {
-    uri = this.authService.uri;
+    //uri = this.authService.uri;
   }
 
   uploader:FileUploader = new FileUploader({url:uri});
