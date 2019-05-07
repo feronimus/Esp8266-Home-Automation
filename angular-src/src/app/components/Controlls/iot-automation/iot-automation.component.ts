@@ -14,20 +14,23 @@ export class IotAutomationComponent implements OnInit {
   //---
 
 
-
   constructor(
     private flashMessage:FlashMessagesService,
     private authService: AuthService,
-    ){}
+    ){   
+      setInterval(()=> { this.UpdateEspListValues() }, 3000);  
+    }
 
-
+    
   ngOnInit() {    
     this.UpdateEspList();  
+    
+    
   }
-  ngOnDestroy() {
-    clearInterval(this.intervalId);
-  }
-  intervalId = setInterval(this.UpdateEspListValues(), 2500);
+  //ngOnDestroy() {
+   // clearInterval(this.intervalId);
+  //}
+
 
 
   UpdateEspList(){
@@ -76,9 +79,13 @@ export class IotAutomationComponent implements OnInit {
     });
   }
 
-    UpdateEspListValues() : any{
+   
+    UpdateEspListValues(){
+      
     this.authService.getEspByUser().subscribe(esps => {
 
+      if(!this.EspList)return;
+     
       //for each change values
       this.EspList.forEach((part, index, theArray)=>{        
         theArray[index].pins.D0.IsHight = esps.esps.esp[index].pins.D0.IsHight;
@@ -124,10 +131,8 @@ export class IotAutomationComponent implements OnInit {
     var d = new Date();
     var t= d.getTime()/1000;
 
-    console.log("Oldtime = "+ oldTime);
-    console.log("new = "+ t);
     
-    console.log(t-oldTime + 5);
+    //console.log(t-oldTime + 5);
     if(oldTime + 5 > t ) return true;
     else return false;
   }

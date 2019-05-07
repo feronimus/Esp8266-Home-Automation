@@ -721,16 +721,17 @@ var IotAutomationComponent = /** @class */ (function () {
     //value = false;
     //---
     function IotAutomationComponent(flashMessage, authService) {
+        var _this = this;
         this.flashMessage = flashMessage;
         this.authService = authService;
-        this.intervalId = setInterval(this.UpdateEspListValues(), 2500);
+        setInterval(function () { _this.UpdateEspListValues(); }, 3000);
     }
     IotAutomationComponent.prototype.ngOnInit = function () {
         this.UpdateEspList();
     };
-    IotAutomationComponent.prototype.ngOnDestroy = function () {
-        clearInterval(this.intervalId);
-    };
+    //ngOnDestroy() {
+    // clearInterval(this.intervalId);
+    //}
     IotAutomationComponent.prototype.UpdateEspList = function () {
         var _this = this;
         this.authService.getEspByUser().subscribe(function (esps) {
@@ -775,6 +776,8 @@ var IotAutomationComponent = /** @class */ (function () {
     IotAutomationComponent.prototype.UpdateEspListValues = function () {
         var _this = this;
         this.authService.getEspByUser().subscribe(function (esps) {
+            if (!_this.EspList)
+                return;
             //for each change values
             _this.EspList.forEach(function (part, index, theArray) {
                 theArray[index].pins.D0.IsHight = esps.esps.esp[index].pins.D0.IsHight;
@@ -810,9 +813,7 @@ var IotAutomationComponent = /** @class */ (function () {
     IotAutomationComponent.prototype.isOnlineNow = function (oldTime) {
         var d = new Date();
         var t = d.getTime() / 1000;
-        console.log("Oldtime = " + oldTime);
-        console.log("new = " + t);
-        console.log(t - oldTime + 5);
+        //console.log(t-oldTime + 5);
         if (oldTime + 5 > t)
             return true;
         else
