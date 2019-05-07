@@ -1,11 +1,10 @@
-<div><app-navbar></app-navbar></div>
+<app-navbar></app-navbar>
 <br>
 <br>
 <br>
-<div class="container">
-  <flash-messages></flash-messages> 
+<div id="grad">
+  <div  class="router-outlet container">
+      <flash-messages></flash-messages> 
+    <router-outlet></router-outlet> 
+  </div>
 </div>
-<div class="container">
-   <router-outlet></router-outlet> 
-</div>
-

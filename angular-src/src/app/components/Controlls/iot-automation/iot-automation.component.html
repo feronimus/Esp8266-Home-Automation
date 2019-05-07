@@ -1,256 +1,85 @@
 
-<!-- 
-<div *ngIf="value">
-
-<mat-accordion multi="true">
-    <mat-expansion-panel  *ngFor="let esp of EspList">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-              {{esp.name}}
-            </mat-panel-title>            
-        </mat-expansion-panel-header>
-        <mat-card>{{esp.description}}</mat-card>
-
-        <mat-grid-list cols="4" rowHeight="2:1">          
-          <mat-grid-tile *ngIf="esp.D0.InUse">
-            <mat-card>
-              <button type="button" *ngIf="esp.D0.InUse && !esp.D0.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D0', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D0</button>
-              <button type="button" *ngIf="esp.D0.InUse && esp.D0.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D0', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D0</button>
-            </mat-card>
-          </mat-grid-tile>
-          <mat-grid-tile *ngIf="esp.D1.InUse">
-            <mat-card>
-              <button type="button" *ngIf="esp.D1.InUse && !esp.D1.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D1', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D1</button>
-              <button type="button" *ngIf="esp.D1.InUse && esp.D1.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D1', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D1</button>
-            </mat-card>
-          </mat-grid-tile>
-          <mat-grid-tile *ngIf="esp.D2.InUse">
-            <mat-card>
-              <button type="button" *ngIf="esp.D2.InUse && !esp.D2.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D2', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D2</button>
-              <button type="button" *ngIf="esp.D2.InUse && esp.D2.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D2', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D2</button>
-            </mat-card>
-          </mat-grid-tile>
-          <mat-grid-tile *ngIf="esp.D3.InUse">
-            <mat-card>
-              <button type="button" *ngIf="esp.D3.InUse && !esp.D3.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D3', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D3</button>
-              <button type="button" *ngIf="esp.D3.InUse && esp.D3.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D3', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D3</button>
-            </mat-card>
-          </mat-grid-tile>
-          <mat-grid-tile *ngIf="esp.D4.InUse">
-            <mat-card>
-              <button type="button" *ngIf="esp.D4.InUse && !esp.D4.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D4', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D4</button>
-              <button type="button" *ngIf="esp.D4.InUse && esp.D4.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D4', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D4</button>
-            </mat-card>
-          </mat-grid-tile>
-          <mat-grid-tile *ngIf="esp.D5.InUse">
-            <mat-card>
-              <button type="button" *ngIf="esp.D5.InUse && !esp.D5.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D5', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D5</button>
-              <button type="button" *ngIf="esp.D5.InUse && esp.D5.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D5', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D5</button>
-            </mat-card>
-          </mat-grid-tile>
-          <mat-grid-tile *ngIf="esp.D6.InUse">
-            <mat-card>
-              <button type="button" *ngIf="esp.D6.InUse && !esp.D6.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D6', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D6</button>
-              <button type="button" *ngIf="esp.D6.InUse && esp.D6.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D6', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D6</button>
-            </mat-card>
-          </mat-grid-tile>
-          <mat-grid-tile *ngIf="esp.D7.InUse">
-            <mat-card>
-              <button type="button" *ngIf="esp.D7.InUse && !esp.D7.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D7', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D7</button>
-              <button type="button" *ngIf="esp.D7.InUse && esp.D7.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D7', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D7</button>
-            </mat-card>
-          </mat-grid-tile>
-          <mat-grid-tile *ngIf="esp.D8.InUse">
-            <mat-card>
-              <button type="button" *ngIf="esp.D8.InUse && !esp.D8.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D8', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D8</button>
-              <button type="button" *ngIf="esp.D8.InUse && esp.D8.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D8', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D8</button>
-            </mat-card>
-          </mat-grid-tile>
-          <mat-grid-tile *ngIf="esp.D9.InUse">
-            <mat-card>
-              <button type="button" *ngIf="esp.D9.InUse && !esp.D9.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D9', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D9</button>
-              <button type="button" *ngIf="esp.D9.InUse && esp.D9.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D9', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D9</button>
-            </mat-card>
-          </mat-grid-tile>
-          <mat-grid-tile *ngIf="esp.D10.InUse">
-            <mat-card>
-              <button type="button" *ngIf="esp.D10.InUse && !esp.D10.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D10', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D10</button>
-              <button type="button" *ngIf="esp.D10.InUse && esp.D10.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D10', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D10</button>
-            </mat-card>
-          </mat-grid-tile>
-          <mat-grid-tile *ngIf="esp.A0.InUse">
-            <mat-card>
-                <h5 class="aria-label">A0 analog Pin At: {{esp.A0.value}}</h5>         
-                <mat-slider *ngIf="esp.A0.InUse" [value]="esp.A0.value" (change)="eventOnChange({key:'A0',value:$event, espItem: esp})" id="sliderA0" thumbLabel  [displayWith]="formatLabel" tickInterval="auto " min="1" max="1000" >></mat-slider>             
-             </mat-card>
-          </mat-grid-tile>
-        </mat-grid-list>
-    </mat-expansion-panel>
-</mat-accordion>
-</div>
-
-<div *ngIf="!value">
-
-    <mat-grid-list cols="3" >
-      <div *ngFor="let esp of EspList">            
-        <mat-grid-tile>
-            <mat-card>
-                <mat-card-title>
-                    {{esp.name}}
-                </mat-card-title>
-                <mat-card-subtitle>
-                    {{esp.description}}
-                </mat-card-subtitle>
-                <mat-card-content>
-                    <mat-grid-list cols="2" rowHeight="fit"> 
-                        <mat-card>        
-                        <mat-grid-tile *ngIf="esp.D0.InUse">
-                          <mat-card>
-                            <button type="button" *ngIf="esp.D0.InUse && !esp.D0.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D0', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D0</button>
-                            <button type="button" *ngIf="esp.D0.InUse && esp.D0.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D0', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D0</button>
-                          </mat-card>
-                        </mat-grid-tile>
-                        <mat-grid-tile *ngIf="esp.D1.InUse">
-                          <mat-card>
-                            <button type="button" *ngIf="esp.D1.InUse && !esp.D1.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D1', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D1</button>
-                            <button type="button" *ngIf="esp.D1.InUse && esp.D1.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D1', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D1</button>
-                          </mat-card>
-                        </mat-grid-tile>
-                        <mat-grid-tile *ngIf="esp.D2.InUse">
-                          <mat-card>
-                            <button type="button" *ngIf="esp.D2.InUse && !esp.D2.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D2', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D2</button>
-                            <button type="button" *ngIf="esp.D2.InUse && esp.D2.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D2', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D2</button>
-                          </mat-card>
-                        </mat-grid-tile>
-                        <mat-grid-tile *ngIf="esp.D3.InUse">
-                          <mat-card>
-                            <button type="button" *ngIf="esp.D3.InUse && !esp.D3.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D3', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D3</button>
-                            <button type="button" *ngIf="esp.D3.InUse && esp.D3.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D3', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D3</button>
-                          </mat-card>
-                        </mat-grid-tile>
-                        <mat-grid-tile *ngIf="esp.D4.InUse">
-                          <mat-card>
-                            <button type="button" *ngIf="esp.D4.InUse && !esp.D4.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D4', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D4</button>
-                            <button type="button" *ngIf="esp.D4.InUse && esp.D4.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D4', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D4</button>
-                          </mat-card>
-                        </mat-grid-tile>
-                        <mat-grid-tile *ngIf="esp.D5.InUse">
-                          <mat-card>
-                            <button type="button" *ngIf="esp.D5.InUse && !esp.D5.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D5', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D5</button>
-                            <button type="button" *ngIf="esp.D5.InUse && esp.D5.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D5', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D5</button>
-                          </mat-card>
-                        </mat-grid-tile>
-                        <mat-grid-tile *ngIf="esp.D6.InUse">
-                          <mat-card>
-                            <button type="button" *ngIf="esp.D6.InUse && !esp.D6.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D6', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D6</button>
-                            <button type="button" *ngIf="esp.D6.InUse && esp.D6.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D6', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D6</button>
-                          </mat-card>
-                        </mat-grid-tile>
-                        <mat-grid-tile *ngIf="esp.D7.InUse">
-                          <mat-card>
-                            <button type="button" *ngIf="esp.D7.InUse && !esp.D7.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D7', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D7</button>
-                            <button type="button" *ngIf="esp.D7.InUse && esp.D7.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D7', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D7</button>
-                          </mat-card>
-                        </mat-grid-tile>
-                        <mat-grid-tile *ngIf="esp.D8.InUse">
-                          <mat-card>
-                            <button type="button" *ngIf="esp.D8.InUse && !esp.D8.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D8', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D8</button>
-                            <button type="button" *ngIf="esp.D8.InUse && esp.D8.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D8', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D8</button>
-                          </mat-card>
-                        </mat-grid-tile>
-                        <mat-grid-tile *ngIf="esp.D9.InUse">
-                          <mat-card>
-                            <button type="button" *ngIf="esp.D9.InUse && !esp.D9.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D9', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D9</button>
-                            <button type="button" *ngIf="esp.D9.InUse && esp.D9.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D9', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D9</button>
-                          </mat-card>
-                        </mat-grid-tile>
-                        <mat-grid-tile *ngIf="esp.D10.InUse">
-                          <mat-card>
-                            <button type="button" *ngIf="esp.D10.InUse && !esp.D10.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D10', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D10</button>
-                            <button type="button" *ngIf="esp.D10.InUse && esp.D10.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D10', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D10</button>
-                          </mat-card>
-                        </mat-grid-tile>
-                        <mat-grid-tile *ngIf="esp.A0.InUse">
-                          <mat-card>
-                              <h5 class="aria-label">A0 analog Pin At: {{esp.A0.value}}</h5>         
-                              <mat-slider *ngIf="esp.A0.InUse" [value]="esp.A0.value" (change)="eventOnChange({key:'A0',value:$event, espItem: esp})" id="sliderA0" thumbLabel  [displayWith]="formatLabel" tickInterval="auto " min="1" max="1000" >></mat-slider>             
-                           </mat-card>
-                        </mat-grid-tile>
-                      </mat-card> 
-                      </mat-grid-list>
-                </mat-card-content>
-            </mat-card>
-        </mat-grid-tile>
-      </div> 
-    </mat-grid-list> 
-
--->
-
-
 <div class="row itemsBlock" >
-  <div class="col-md-4 col-sm-6 col-12-" *ngFor="let esp of EspList">
-    <div    class="card bg-light mb-3" style="max-width: 20rem;">
-      <div class="card-header"></div>
+
+  <div class="col-md-4 col-sm-6 col-12- col-centered " dragula="espsLists" *ngFor="let esp of EspList"  >
+    <div class="card bg-light col-centered mb-3" style="max-width: 20rem;" 
+      *ngIf=" esp.pins.D0.InUse || 
+              esp.pins.D1.InUse ||
+              esp.pins.D2.InUse ||
+              esp.pins.D3.InUse ||
+              esp.pins.D4.InUse ||
+              esp.pins.D5.InUse ||
+              esp.pins.D6.InUse ||
+              esp.pins.D7.InUse ||
+              esp.pins.D8.InUse ||
+              esp.pins.D10.InUse ||
+              esp.pins.A0.InUse ">
+               
+      <div class="card-header">
+        
+          <h4 style="text-align:center;" >{{esp.name}}</h4>
+          <span  style="float:right;" *ngIf="this.isOnlineNow(esp.isOnline)" class="badge  badge-pill badge-success">online</span>
+          <span style="float:right;" *ngIf="!this.isOnlineNow(esp.isOnline)" class="badge  badge-pill badge-danger">offline</span>
+       
+      </div>
       <div class="card-body">
-        <h4 class="card-title">{{esp.name}}</h4>
-        <p class="card-text">{{esp.description}}</p>       
+          <h4 class="card-title">{{esp.Description}}</h4>
         <ul class="list-group">
           <hr class="my-1" >
           <ul class="list-group list-group-flush">
-            <li class="list-group-item bg-light" *ngIf="esp.D0.InUse">
-              <button type="button" *ngIf="esp.D0.InUse && !esp.D0.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D0', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D0</button>
-              <button type="button" *ngIf="esp.D0.InUse && esp.D0.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D0', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D0</button>
+            <li class="list-group-item bg-light" *ngIf="esp.pins.D0.InUse">
+              <button mat-button   mat-button type="button" *ngIf="esp.pins.D0.InUse && !esp.pins.D0.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D0', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D0</button>
+              <button mat-button  mat-button type="button" *ngIf="esp.pins.D0.InUse && esp.pins.D0.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D0', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D0</button>
             </li>
-            <li class="list-group-item bg-light" *ngIf="esp.D1.InUse">
-              <button type="button" *ngIf="esp.D1.InUse && !esp.D1.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D1', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D1</button>
-              <button type="button" *ngIf="esp.D1.InUse && esp.D1.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D1', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D1</button>
+            <li class="list-group-item bg-light" *ngIf="esp.pins.D1.InUse">
+              <button mat-button  type="button" *ngIf="esp.pins.D1.InUse && !esp.pins.D1.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D1', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D1</button>
+              <button mat-button  type="button" *ngIf="esp.pins.D1.InUse && esp.pins.D1.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D1', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D1</button>
             </li>
-            <li class="list-group-item bg-light" *ngIf="esp.D2.InUse"> 
-              <button type="button" *ngIf="esp.D2.InUse && !esp.D2.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D2', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D2</button>
-              <button type="button" *ngIf="esp.D2.InUse && esp.D2.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D2', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D2</button>
+            <li class="list-group-item bg-light" *ngIf="esp.pins.D2.InUse"> 
+              <button mat-button  type="button" *ngIf="esp.pins.D2.InUse && !esp.pins.D2.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D2', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D2</button>
+              <button mat-button  type="button" *ngIf="esp.pins.D2.InUse && esp.pins.D2.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D2', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D2</button>
             </li>
-            <li class="list-group-item bg-light" *ngIf="esp.D3.InUse">
-              <button type="button" *ngIf="esp.D3.InUse && !esp.D3.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D3', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D3</button>
-              <button type="button" *ngIf="esp.D3.InUse && esp.D3.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D3', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D3</button>
+            <li class="list-group-item bg-light" *ngIf="esp.pins.D3.InUse">
+              <button mat-button  type="button" *ngIf="esp.pins.D3.InUse && !esp.pins.D3.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D3', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D3</button>
+              <button mat-button  type="button" *ngIf="esp.pins.D3.InUse && esp.pins.D3.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D3', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D3</button>
             </li>
-            <li class="list-group-item bg-light" *ngIf="esp.D4.InUse">
-              <button type="button" *ngIf="esp.D4.InUse && !esp.D4.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D4', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D4</button>
-              <button type="button" *ngIf="esp.D4.InUse && esp.D4.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D4', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D4</button>
+            <li class="list-group-item bg-light" *ngIf="esp.pins.D4.InUse">
+              <button mat-button  type="button" *ngIf="esp.pins.D4.InUse && !esp.pins.D4.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D4', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D4</button>
+              <button mat-button  type="button" *ngIf="esp.pins.D4.InUse && esp.pins.D4.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D4', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D4</button>
             </li>
-            <li class="list-group-item bg-light" *ngIf="esp.D5.InUse">
-              <button type="button" *ngIf="esp.D5.InUse && !esp.D5.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D5', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D5</button>
-              <button type="button" *ngIf="esp.D5.InUse && esp.D5.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D5', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D5</button>
+            <li class="list-group-item bg-light" *ngIf="esp.pins.D5.InUse">
+              <button mat-button  type="button" *ngIf="esp.pins.D5.InUse && !esp.pins.D5.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D5', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D5</button>
+              <button mat-button  type="button" *ngIf="esp.pins.D5.InUse && esp.pins.D5.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D5', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D5</button>
             </li>
-            <li class="list-group-item bg-light" *ngIf="esp.D6.InUse">
-              <button type="button" *ngIf="esp.D6.InUse && !esp.D6.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D6', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D6</button>
-              <button type="button" *ngIf="esp.D6.InUse && esp.D6.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D6', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D6</button>
+            <li class="list-group-item bg-light" *ngIf="esp.pins.D6.InUse">
+              <button mat-button  type="button" *ngIf="esp.pins.D6.InUse && !esp.pins.D6.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D6', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D6</button>
+              <button mat-button  type="button" *ngIf="esp.pins.D6.InUse && esp.pins.D6.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D6', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D6</button>
             </li>
-            <li class="list-group-item bg-light" *ngIf="esp.D7.InUse">
-              <button type="button" *ngIf="esp.D7.InUse && !esp.D7.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D7', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D7</button>
-              <button type="button" *ngIf="esp.D7.InUse && esp.D7.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D7', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D7</button>
+            <li class="list-group-item bg-light" *ngIf="esp.pins.D7.InUse">
+              <button mat-button  type="button" *ngIf="esp.pins.D7.InUse && !esp.pins.D7.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D7', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D7</button>
+              <button mat-button  type="button" *ngIf="esp.pins.D7.InUse && esp.pins.D7.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D7', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D7</button>
             </li>
-            <li class="list-group-item bg-light" *ngIf="esp.D8.InUse">
-              <button type="button" *ngIf="esp.D8.InUse && !esp.D8.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D8', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D8</button>
-              <button type="button" *ngIf="esp.D8.InUse && esp.D8.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D8', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D8</button>
+            <li class="list-group-item bg-light" *ngIf="esp.pins.D8.InUse">
+              <button mat-button  type="button" *ngIf="esp.pins.D8.InUse && !esp.pins.D8.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D8', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D8</button>
+              <button mat-button  type="button" *ngIf="esp.pins.D8.InUse && esp.pins.D8.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D8', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D8</button>
             </li>
-            <li class="list-group-item bg-light" *ngIf="esp.D9.InUse">
-              <button type="button" *ngIf="esp.D9.InUse && !esp.D9.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D9', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D9</button>
-              <button type="button" *ngIf="esp.D9.InUse && esp.D9.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D9', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D9</button>
+            <li class="list-group-item bg-light" *ngIf="esp.pins.D9.InUse">
+              <button mat-button  type="button" *ngIf="esp.pins.D9.InUse && !esp.pins.D9.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D9', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D9</button>
+              <button mat-button  type="button" *ngIf="esp.pins.D9.InUse && esp.pins.D9.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D9', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D9</button>
             </li>
-            <li class="list-group-item bg-light" *ngIf="esp.D10.InUse">
-              <button type="button" *ngIf="esp.D10.InUse && !esp.D10.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D10', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D10</button>
-              <button type="button" *ngIf="esp.D10.InUse && esp.D10.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D10', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D10</button>
+            <li class="list-group-item bg-light" *ngIf="esp.pins.D10.InUse">
+              <button mat-button  type="button" *ngIf="esp.pins.D10.InUse && !esp.pins.D10.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D10', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D10</button>
+              <button mat-button  type="button" *ngIf="esp.pins.D10.InUse && esp.pins.D10.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D10', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D10</button>
             </li>
-            <li class="list-group-item bg-light" *ngIf="esp.A0.InUse">             
-              <h5 class="aria-label">A0 analog Pin At: {{esp.A0.value}}</h5>         
-              <mat-slider *ngIf="esp.A0.InUse" [value]="esp.A0.value" (change)="eventOnChange({key:'A0',value:$event, espItem: esp})" id="sliderA0" thumbLabel  [displayWith]="formatLabel" tickInterval="auto " min="1" max="1000" >></mat-slider>             
+            <li class="list-group-item bg-light" *ngIf="esp.pins.A0.InUse">             
+              <h5 class="aria-label">A0 analog Pin At: {{esp.pins.A0.value}}</h5>         
+              <mat-slider *ngIf="esp.pins.A0.InUse" [value]="esp.pins.A0.value" (change)="eventOnChange({key:'A0',value:$event, espItem: esp})" id="sliderA0" thumbLabel  [displayWith]="formatLabel" tickInterval="auto " min="1" max="1000" >></mat-slider>             
             </li>
           </ul>
-          <hr class="my-1" *ngIf="esp.A0.InUse">
+          <hr class="my-1" *ngIf="esp.pins.A0.InUse">
         </ul>
       </div>
     </div>
   </div>
 </div>
 
-<!--</div>-->

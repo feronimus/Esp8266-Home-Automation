@@ -18,19 +18,27 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
         description: req.body.description,
         secret: req.body.secret,
         group: req.body.group,
-        D0: { InUse :req.body.D0, IsHight: false},
-        D1: { InUse :req.body.D1, IsHight: false},
-        D2: { InUse :req.body.D2, IsHight: false},
-        D3: { InUse :req.body.D3, IsHight: false},
-        D4: { InUse :req.body.D4, IsHight: false},
-        D5: { InUse :req.body.D5, IsHight: false},
-        D6: { InUse :req.body.D6, IsHight: false},
-        D7: { InUse :req.body.D7, IsHight: false},
-        D8: { InUse :req.body.D8, IsHight: false},
-        D9: { InUse :req.body.D9, IsHight: false},
-        D10: { InUse :req.body.D10, IsHight: false},
-        A0: { InUse :req.body.A0, value : 0},
-        owner: req.body.owner
+        pins : {
+            D0: { InUse :req.body.pins.D0, IsHight: false},
+            D1: { InUse :req.body.pins.D1, IsHight: false},
+            D2: { InUse :req.body.pins.D2, IsHight: false},
+            D3: { InUse :req.body.pins.D3, IsHight: false},
+            D4: { InUse :req.body.pins.D4, IsHight: false},
+            D5: { InUse :req.body.pins.D5, IsHight: false},
+            D6: { InUse :req.body.pins.D6, IsHight: false},
+            D7: { InUse :req.body.pins.D7, IsHight: false},
+            D8: { InUse :req.body.pins.D8, IsHight: false},
+            D9: { InUse :req.body.pins.D9, IsHight: false},
+            D10: { InUse :req.body.pins.D10, IsHight: false},
+            A0: { InUse :req.body.pins.A0, value : 0}
+        },
+        owner: req.body.owner,
+        isOnline: 0,
+        viewOrder: -1,
+        eventSheduler: { },//event object
+        timer: -1,
+        version: 0.1,
+        softwareURL: ""
     });
     console.log(newEsp);
     if(!req.body._id){
@@ -89,19 +97,27 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
         description: req.body.description,
         secret: req.body.secret,
         group: req.body.group,
-        D0: { InUse :req.body.D0.InUse, IsHight: req.body.D0.IsHight},
-        D1: { InUse :req.body.D1.InUse, IsHight: req.body.D1.IsHight},
-        D2: { InUse :req.body.D2.InUse, IsHight: req.body.D2.IsHight},
-        D3: { InUse :req.body.D3.InUse, IsHight: req.body.D3.IsHight},
-        D4: { InUse :req.body.D4.InUse, IsHight: req.body.D4.IsHight},
-        D5: { InUse :req.body.D5.InUse, IsHight: req.body.D5.IsHight},
-        D6: { InUse :req.body.D6.InUse, IsHight: req.body.D6.IsHight},
-        D7: { InUse :req.body.D7.InUse, IsHight: req.body.D7.IsHight},
-        D8: { InUse :req.body.D8.InUse, IsHight: req.body.D8.IsHight},
-        D9: { InUse :req.body.D9.InUse, IsHight: req.body.D9.IsHight},
-        D10: { InUse :req.body.D10.InUse, IsHight: req.body.D10.IsHight},
-        A0: { InUse :req.body.A0.InUse, value : req.body.A0.value},
-        owner: req.body.owner
+        pins : { 
+            D0: { InUse :req.body.pins.D0.InUse, IsHight: req.body.pins.D0.IsHight},
+            D1: { InUse :req.body.pins.D1.InUse, IsHight: req.body.pins.D1.IsHight},
+            D2: { InUse :req.body.pins.D2.InUse, IsHight: req.body.pins.D2.IsHight},
+            D3: { InUse :req.body.pins.D3.InUse, IsHight: req.body.pins.D3.IsHight},
+            D4: { InUse :req.body.pins.D4.InUse, IsHight: req.body.pins.D4.IsHight},
+            D5: { InUse :req.body.pins.D5.InUse, IsHight: req.body.pins.D5.IsHight},
+            D6: { InUse :req.body.pins.D6.InUse, IsHight: req.body.pins.D6.IsHight},
+            D7: { InUse :req.body.pins.D7.InUse, IsHight: req.body.pins.D7.IsHight},
+            D8: { InUse :req.body.pins.D8.InUse, IsHight: req.body.pins.D8.IsHight},
+            D9: { InUse :req.body.pins.D9.InUse, IsHight: req.body.pins.D9.IsHight},
+            D10: { InUse :req.body.pins.D10.InUse, IsHight: req.body.pins.D10.IsHight},
+            A0: { InUse :req.body.pins.A0.InUse, value : req.body.pins.A0.value}
+        },     
+        owner: req.body.owner,
+        isOnline: req.body.isOnline,
+        viewOrder: req.body.viewOrder,
+        eventSheduler: { },//event object
+        timer: req.body.timer,
+        version: req.body.version,
+        softwareURL: req.body.softwareURL
     });
     if(!req.body._id){
         //check Secret
@@ -163,10 +179,9 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
 
 // Authenticate If exists and if user can see it 
 router.post('/authenticate', (req, res, next) => {
-    const user = req.body.user;
+    //const user = req.body.user;
     const secret = req.body.secret;
-    //console.log(req);
-
+    
     Esp.getEspBySecret(secret, (err, esp) =>{
         if(err) throw err;
         if(!esp){
@@ -174,21 +189,27 @@ router.post('/authenticate', (req, res, next) => {
         }  
         //handle data
         //....
-        //respond        
+        //respond
+        var d = new Date();
+        var t= d.getTime();
+        if(esp.isOnline + 3 > t / 1000){       // update esp only once every 3 seconds
+            esp.isOnline = t / 1000 ;// how many seconds have passed since 1970/01/01
+            Esp.updateEsp(esp, (err, esp) => {});
+        }
         res.json({
             success: true,
-            D0 : esp.D0.IsHight,
-            D1 : esp.D1.IsHight,
-            D2 : esp.D2.IsHight,
-            D3 : esp.D3.IsHight,
-            D4 : esp.D4.IsHight,
-            D5 : esp.D5.IsHight,
-            D6 : esp.D6.IsHight,
-            D7 : esp.D7.IsHight,
-            D8 : esp.D8.IsHight,
-            D9 : esp.D9.IsHight,
-            D10 : esp.D10.IsHight,
-            A0 : esp.A0.value            
+            D0 : esp.pins.D0.IsHight,
+            D1 : esp.pins.D1.IsHight,
+            D2 : esp.pins.D2.IsHight,
+            D3 : esp.pins.D3.IsHight,
+            D4 : esp.pins.D4.IsHight,
+            D5 : esp.pins.D5.IsHight,
+            D6 : esp.pins.D6.IsHight,
+            D7 : esp.pins.D7.IsHight,
+            D8 : esp.pins.D8.IsHight,
+            D9 : esp.pins.D9.IsHight,
+            D10 : esp.pins.D10.IsHight,
+            A0 : esp.pins.A0.value            
         })
     })
 });
@@ -221,13 +242,5 @@ router.post('/espuploads',  (req, res, next) =>{
     });
 });
 
-router.post("/updater", function (req, res) {
-    
-    var h = req.headers;
-    console.log(h["ESP8266 - version"]);
-    console.log(h["ESP8266-mode"]);
-    console.log(h["ESP8266-sketch-size"]);
-//    res.send(req);
-  //  return req;
-});
+
 

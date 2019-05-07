@@ -41,7 +41,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div><app-navbar></app-navbar></div>\r\n<br>\r\n<br>\r\n<br>\r\n<div class=\"container\">\r\n  <flash-messages></flash-messages> \r\n</div>\r\n<div class=\"container\">\r\n   <router-outlet></router-outlet> \r\n</div>\r\n\r\n"
+module.exports = "<app-navbar></app-navbar>\r\n<br>\r\n<br>\r\n<br>\r\n<div id=\"grad\">\r\n  <div  class=\"router-outlet container\">\r\n      <flash-messages></flash-messages> \r\n    <router-outlet></router-outlet> \r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -107,15 +107,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _guards_auth_guard__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./guards/auth.guard */ "./src/app/guards/auth.guard.ts");
 /* harmony import */ var _guards_logged_guard__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./guards/logged.guard */ "./src/app/guards/logged.guard.ts");
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
-/* harmony import */ var _components_Controlls_overview_overview_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/Controlls/overview/overview.component */ "./src/app/components/Controlls/overview/overview.component.ts");
-/* harmony import */ var _components_Controlls_iot_automation_iot_automation_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/Controlls/iot-automation/iot-automation.component */ "./src/app/components/Controlls/iot-automation/iot-automation.component.ts");
-/* harmony import */ var _components_ManageEsps_manage_manage_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/ManageEsps/manage/manage.component */ "./src/app/components/ManageEsps/manage/manage.component.ts");
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
-/* harmony import */ var _material_module__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./material-module */ "./src/app/material-module.ts");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var _components_ManageEsps_upload_code_upload_code_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/ManageEsps/upload-code/upload-code.component */ "./src/app/components/ManageEsps/upload-code/upload-code.component.ts");
-/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/index.js");
-/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(ng2_file_upload__WEBPACK_IMPORTED_MODULE_26__);
+/* harmony import */ var _components_Controlls_iot_automation_iot_automation_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/Controlls/iot-automation/iot-automation.component */ "./src/app/components/Controlls/iot-automation/iot-automation.component.ts");
+/* harmony import */ var _components_ManageEsps_manage_manage_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/ManageEsps/manage/manage.component */ "./src/app/components/ManageEsps/manage/manage.component.ts");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
+/* harmony import */ var _material_module__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./material-module */ "./src/app/material-module.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _components_ManageEsps_upload_code_upload_code_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/ManageEsps/upload-code/upload-code.component */ "./src/app/components/ManageEsps/upload-code/upload-code.component.ts");
+/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/index.js");
+/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(ng2_file_upload__WEBPACK_IMPORTED_MODULE_25__);
 
 
 
@@ -137,8 +136,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-//import { MatButtonModule, MatFormFieldModule, MatInputModule, MatRippleModule , MatSliderModule} from '@angular/material';
 
 
 
@@ -150,7 +147,7 @@ var appRoutes = [
     { path: 'login', component: _components_Basic_login_login_component__WEBPACK_IMPORTED_MODULE_6__["LoginComponent"] },
     { path: 'dashboard', component: _components_Basic_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_9__["DashboardComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_16__["AuthGuard"]] },
     { path: 'profile', component: _components_Basic_profile_profile_component__WEBPACK_IMPORTED_MODULE_10__["ProfileComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_16__["AuthGuard"]] },
-    { path: 'manage', component: _components_ManageEsps_manage_manage_component__WEBPACK_IMPORTED_MODULE_21__["ManageComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_16__["AuthGuard"]] }
+    { path: 'manage', component: _components_ManageEsps_manage_manage_component__WEBPACK_IMPORTED_MODULE_20__["ManageComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_16__["AuthGuard"]] }
 ];
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -165,23 +162,22 @@ var AppModule = /** @class */ (function () {
                 _components_Basic_home_home_component__WEBPACK_IMPORTED_MODULE_8__["HomeComponent"],
                 _components_Basic_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_9__["DashboardComponent"],
                 _components_Basic_profile_profile_component__WEBPACK_IMPORTED_MODULE_10__["ProfileComponent"],
-                _components_Controlls_overview_overview_component__WEBPACK_IMPORTED_MODULE_19__["OverviewComponent"],
-                _components_Controlls_iot_automation_iot_automation_component__WEBPACK_IMPORTED_MODULE_20__["IotAutomationComponent"],
-                _components_ManageEsps_manage_manage_component__WEBPACK_IMPORTED_MODULE_21__["ManageComponent"],
-                _components_ManageEsps_upload_code_upload_code_component__WEBPACK_IMPORTED_MODULE_25__["UploadCodeComponent"]
+                _components_Controlls_iot_automation_iot_automation_component__WEBPACK_IMPORTED_MODULE_19__["IotAutomationComponent"],
+                _components_ManageEsps_manage_manage_component__WEBPACK_IMPORTED_MODULE_20__["ManageComponent"],
+                _components_ManageEsps_upload_code_upload_code_component__WEBPACK_IMPORTED_MODULE_24__["UploadCodeComponent"]
             ],
             imports: [
-                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_18__["NgbModule"],
+                _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_18__["NgbModule"].forRoot(),
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
-                ng2_file_upload__WEBPACK_IMPORTED_MODULE_26__["FileUploadModule"],
+                ng2_file_upload__WEBPACK_IMPORTED_MODULE_25__["FileUploadModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_15__["HttpClientModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_11__["RouterModule"].forRoot(appRoutes),
                 angular2_flash_messages__WEBPACK_IMPORTED_MODULE_14__["FlashMessagesModule"].forRoot(),
-                _material_module__WEBPACK_IMPORTED_MODULE_23__["DemoMaterialModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_24__["MatNativeDateModule"],
+                _material_module__WEBPACK_IMPORTED_MODULE_22__["DemoMaterialModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_23__["MatNativeDateModule"],
                 //MatButtonModule,MatFormFieldModule,MatInputModule, MatRippleModule,MatSliderModule,
-                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_22__["BrowserAnimationsModule"]
+                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_21__["BrowserAnimationsModule"]
             ],
             providers: [_services_validate_service__WEBPACK_IMPORTED_MODULE_12__["ValidateService"], _services_auth_service__WEBPACK_IMPORTED_MODULE_13__["AuthService"], _guards_auth_guard__WEBPACK_IMPORTED_MODULE_16__["AuthGuard"], _guards_logged_guard__WEBPACK_IMPORTED_MODULE_17__["LoggedGuard"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
@@ -212,7 +208,7 @@ module.exports = ".h1 { display: inline; }\r\n.p { display: inline; }\r\n/*# sou
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"jumbotron text-center\">\r\n  <h1 >Welcome </h1>\r\n  \r\n    <p>Home automation.</p>    \r\n    \r\n<!-- <button type=\"button\" class=\"btn btn-primary btn-lg\" (click)=\"changeView()\" >Different view</button>-->\r\n</div>\r\n<app-upload-code></app-upload-code>\r\n<app-iot-automation></app-iot-automation>"
+module.exports = "<div class=\"jumbotron text-center\">\r\n  <h1 >Welcome </h1>\r\n  \r\n    <p>Home automation.</p>    \r\n    \r\n<!-- <button type=\"button\" class=\"btn btn-primary btn-lg\" (click)=\"changeView()\" >Different view</button>-->\r\n</div>\r\n<!--<app-upload-code></app-upload-code>--->\r\n<app-iot-automation></app-iot-automation>\r\n\r\n<!---<app-overview></app-overview>-->\r\n"
 
 /***/ }),
 
@@ -437,7 +433,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n\r\n<nav  class=\"navbar navbar-expand-lg fixed-top navbar-dark bg-dark\">\r\n    <div class=\"container\">\r\n    <a class=\"navbar-brand\" href=\"#\">Make It Smart</a>\r\n    <button class=\"navbar-toggler collapsed\" type=\"button\" \r\n    data-toggle=\"collapse\" data-target=\"#navbarColor01\" aria-controls=\"navbarColor01\" \r\n    aria-expanded=\"false\" aria-label=\"Toggle navigation\"\r\n    (click)=\"toggleNavbar()\"\r\n    >\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n    <div class=\"navbar-collapse collapse\" [ngClass]=\"{ 'show': navbarOpen }\" id=\"navbarColor01\" style=\"\">\r\n      <ul class=\"nav navbar-nav mr-auto\">\r\n          <li class=\"nav-item\" *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['/']\">Αρχικη</a>\r\n          </li>\r\n          \r\n          <li  class=\"nav-item\" *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n              <a class=\"nav-link\" [routerLink]=\"['/dashboard']\">Dashboard</a>\r\n          </li>\r\n          <li  class=\"nav-item\" *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['/manage']\">Manage</a>\r\n        </li>\r\n        <li  class=\"nav-item\" *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['/profile']\">Profile</a>\r\n          </li>\r\n      </ul>    \r\n      <ul class=\"nav navbar-nav navbar-right\">\r\n         \r\n      \r\n  \r\n  \r\n          <li  class=\"nav-item\" *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['/login']\">Log IN</a>\r\n          </li>\r\n          <li  class=\"nav-item\" *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['/register']\">Sign Up</a>\r\n          </li>\r\n         \r\n          <li  class=\"nav-item\" *ngIf=\"authService.loggedIn()\" >\r\n            <a class=\"nav-link\" (click)=\"onLogoutClick()\"href=\"#\">Log Off</a>\r\n          </li>\r\n      </ul>  \r\n    </div>  \r\n    </div>\r\n  </nav>"
+module.exports = "\r\n<nav  id=\"navbarGrad\" class=\"navbar navbar-expand-lg fixed-top navbar-dark bg-primary\">\r\n    <div class=\"container\">\r\n    <a class=\"navbar-brand\" href=\"#\">Make It Smart</a>\r\n    <button class=\"navbar-toggler collapsed\" type=\"button\" \r\n    data-toggle=\"collapse\" data-target=\"#navbarColor01\" aria-controls=\"navbarColor01\" \r\n    aria-expanded=\"false\" aria-label=\"Toggle navigation\"\r\n    (click)=\"toggleNavbar()\"\r\n    >\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n    <div class=\"navbar-collapse collapse\" [ngClass]=\"{ 'show': navbarOpen }\" id=\"navbarColor01\" style=\"\">\r\n      <ul class=\"nav navbar-nav mr-auto\">\r\n          <li class=\"nav-item\" *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n            <a class=\"nav-link\"   [routerLink]=\"['/']\">Αρχικη</a>\r\n          </li>\r\n          \r\n          <li  class=\"nav-item\" *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n              <a class=\"nav-link\" [routerLink]=\"['/dashboard']\">Dashboard</a>\r\n          </li>\r\n          <li  class=\"nav-item\" *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['/manage']\">Manage</a>\r\n        </li>\r\n        <li  class=\"nav-item\" *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['/profile']\">Profile</a>\r\n          </li>\r\n      </ul>    \r\n      <ul class=\"nav navbar-nav navbar-right\">\r\n         \r\n      \r\n  \r\n  \r\n          <li  class=\"nav-item\" *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['/login']\">Log IN</a>\r\n          </li>\r\n          <li  class=\"nav-item\" *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n            <a class=\"nav-link\" [routerLink]=\"['/register']\">Sign Up</a>\r\n          </li>\r\n         \r\n          <li  class=\"nav-item\" *ngIf=\"authService.loggedIn()\" >\r\n            <a class=\"nav-link\" (click)=\"onLogoutClick()\"href=\"#\">Log Off</a>\r\n          </li>\r\n      </ul>  \r\n    </div>  \r\n    </div>\r\n  </nav>\r\n\r\n\r\n  "
 
 /***/ }),
 
@@ -687,7 +683,7 @@ var RegisterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "mat-slider {\r\n  width: 100%;\r\n}\r\nmat-card {      \r\n  width: 95%;\r\n  height: 95%;\r\n}\r\nmat-grid-tile{\r\n    border: 1px;\r\n}\r\nbutton {      \r\n  width: 95%;\r\n  height: 95%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9Db250cm9sbHMvaW90LWF1dG9tYXRpb24vaW90LWF1dG9tYXRpb24uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFdBQVc7QUFDYjtBQUNBO0VBQ0UsVUFBVTtFQUNWLFdBQVc7QUFDYjtBQUNBO0lBQ0ksV0FBVztBQUNmO0FBQ0E7RUFDRSxVQUFVO0VBQ1YsV0FBVztBQUNiIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9Db250cm9sbHMvaW90LWF1dG9tYXRpb24vaW90LWF1dG9tYXRpb24uY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIm1hdC1zbGlkZXIge1xyXG4gIHdpZHRoOiAxMDAlO1xyXG59XHJcbm1hdC1jYXJkIHsgICAgICBcclxuICB3aWR0aDogOTUlO1xyXG4gIGhlaWdodDogOTUlO1xyXG59XHJcbm1hdC1ncmlkLXRpbGV7XHJcbiAgICBib3JkZXI6IDFweDtcclxufVxyXG5idXR0b24geyAgICAgIFxyXG4gIHdpZHRoOiA5NSU7XHJcbiAgaGVpZ2h0OiA5NSU7XHJcbn0iXX0= */"
+module.exports = "mat-slider {\r\n  width: 100%;\r\n  \r\n}\r\nmat-card {      \r\n  width: 95%;\r\n  height: 95%;\r\n}\r\nmat-grid-tile{\r\n    border: 1px;\r\n}\r\nbutton {      \r\n  width: 95%;\r\n  height: 95%;\r\n}\r\n.col-centered{\r\n  float: none;\r\n  margin: 0 auto;\r\n  min-width: 270px;\r\n  height: 95%;\r\n}\r\n#fullsize{\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n.fullsizeAll{\r\n  width: 100%; \r\n  height: 100%;\r\n}\r\n/* button primary from  cerulean*/\r\n.btn-success{\r\n  color:#fff;\r\n  background-color:#73A839;\r\n  border-color:#73A839\r\n}\r\n.btn-success:hover\r\n{color:#fff;\r\n  background-color:#5f8b2f;\r\n  border-color:#59822c\r\n}\r\n.btn-success:focus,.btn-success.focus{\r\n  box-shadow:0 0 0 0.2rem rgba(136,181,87,0.5)\r\n}\r\n.btn-success.disabled,.btn-success:disabled{\r\n  color:#fff;\r\n  background-color:#73A839;\r\n  border-color:#73A839\r\n}\r\n.btn-success:not(:disabled):not(.disabled):active,.btn-success:not(:disabled):not(.disabled).active,.show>.btn-success.dropdown-toggle{\r\n  color:#fff;\r\n  background-color:#59822c;\r\n  border-color:#527829\r\n}\r\n.btn-success:not(:disabled):not(.disabled):active:focus,.btn-success:not(:disabled):not(.disabled).active:focus,.show>.btn-success.dropdown-toggle:focus{\r\n  box-shadow:0 0 0 0.2rem rgba(136,181,87,0.5)\r\n}\r\n.btn-danger{color:#fff;background-color:#C71C22;border-color:#C71C22}\r\n.btn-danger:hover{color:#fff;background-color:#a5171c;border-color:#9a161a}\r\n.btn-danger:focus,.btn-danger.focus{box-shadow:0 0 0 0.2rem rgba(207,62,67,0.5)}\r\n.btn-danger.disabled,.btn-danger:disabled{color:#fff;background-color:#C71C22;border-color:#C71C22}\r\n.btn-danger:not(:disabled):not(.disabled):active,.btn-danger:not(:disabled):not(.disabled).active,.show>.btn-danger.dropdown-toggle{color:#fff;background-color:#9a161a;border-color:#8f1418}\r\n.btn-danger:not(:disabled):not(.disabled):active:focus,.btn-danger:not(:disabled):not(.disabled).active:focus,.show>.btn-danger.dropdown-toggle:focus{box-shadow:0 0 0 0.2rem rgba(207,62,67,0.5)}\r\n.btn-light{color:#212529;background-color:#f8f9fa;border-color:#f8f9fa}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9Db250cm9sbHMvaW90LWF1dG9tYXRpb24vaW90LWF1dG9tYXRpb24uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFdBQVc7O0FBRWI7QUFDQTtFQUNFLFVBQVU7RUFDVixXQUFXO0FBQ2I7QUFDQTtJQUNJLFdBQVc7QUFDZjtBQUNBO0VBQ0UsVUFBVTtFQUNWLFdBQVc7QUFDYjtBQUVBO0VBQ0UsV0FBVztFQUNYLGNBQWM7RUFDZCxnQkFBZ0I7RUFDaEIsV0FBVztBQUNiO0FBRUE7RUFDRSxXQUFXO0VBQ1gsWUFBWTtBQUNkO0FBRUE7RUFDRSxXQUFXO0VBQ1gsWUFBWTtBQUNkO0FBR0EsaUNBQWlDO0FBQ2pDO0VBQ0UsVUFBVTtFQUNWLHdCQUF3QjtFQUN4QjtBQUNGO0FBQ0E7Q0FDQyxVQUFVO0VBQ1Qsd0JBQXdCO0VBQ3hCO0FBQ0Y7QUFDQTtFQUVFO0FBQ0Y7QUFDQTtFQUNFLFVBQVU7RUFDVix3QkFBd0I7RUFDeEI7QUFDRjtBQUNBO0VBQ0UsVUFBVTtFQUNWLHdCQUF3QjtFQUN4QjtBQUNGO0FBQ0E7RUFFRTtBQUNGO0FBRUEsWUFBWSxVQUFVLENBQUMsd0JBQXdCLENBQUMsb0JBQW9CO0FBQUMsa0JBQWtCLFVBQVUsQ0FBQyx3QkFBd0IsQ0FBQyxvQkFBb0I7QUFBQyxvQ0FBd0YsMkNBQTJDO0FBQUMsMENBQTBDLFVBQVUsQ0FBQyx3QkFBd0IsQ0FBQyxvQkFBb0I7QUFBQyxvSUFBb0ksVUFBVSxDQUFDLHdCQUF3QixDQUFDLG9CQUFvQjtBQUFDLHNKQUEwTSwyQ0FBMkM7QUFBQyxXQUFXLGFBQWEsQ0FBQyx3QkFBd0IsQ0FBQyxvQkFBb0IiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL0NvbnRyb2xscy9pb3QtYXV0b21hdGlvbi9pb3QtYXV0b21hdGlvbi5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsibWF0LXNsaWRlciB7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgXHJcbn1cclxubWF0LWNhcmQgeyAgICAgIFxyXG4gIHdpZHRoOiA5NSU7XHJcbiAgaGVpZ2h0OiA5NSU7XHJcbn1cclxubWF0LWdyaWQtdGlsZXtcclxuICAgIGJvcmRlcjogMXB4O1xyXG59XHJcbmJ1dHRvbiB7ICAgICAgXHJcbiAgd2lkdGg6IDk1JTtcclxuICBoZWlnaHQ6IDk1JTtcclxufVxyXG5cclxuLmNvbC1jZW50ZXJlZHtcclxuICBmbG9hdDogbm9uZTtcclxuICBtYXJnaW46IDAgYXV0bztcclxuICBtaW4td2lkdGg6IDI3MHB4O1xyXG4gIGhlaWdodDogOTUlO1xyXG59XHJcblxyXG4jZnVsbHNpemV7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG59XHJcblxyXG4uZnVsbHNpemVBbGx7XHJcbiAgd2lkdGg6IDEwMCU7IFxyXG4gIGhlaWdodDogMTAwJTtcclxufVxyXG5cclxuXHJcbi8qIGJ1dHRvbiBwcmltYXJ5IGZyb20gIGNlcnVsZWFuKi9cclxuLmJ0bi1zdWNjZXNze1xyXG4gIGNvbG9yOiNmZmY7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjojNzNBODM5O1xyXG4gIGJvcmRlci1jb2xvcjojNzNBODM5XHJcbn1cclxuLmJ0bi1zdWNjZXNzOmhvdmVyXHJcbntjb2xvcjojZmZmO1xyXG4gIGJhY2tncm91bmQtY29sb3I6IzVmOGIyZjtcclxuICBib3JkZXItY29sb3I6IzU5ODIyY1xyXG59XHJcbi5idG4tc3VjY2Vzczpmb2N1cywuYnRuLXN1Y2Nlc3MuZm9jdXN7XHJcbiAgLXdlYmtpdC1ib3gtc2hhZG93OjAgMCAwIDAuMnJlbSByZ2JhKDEzNiwxODEsODcsMC41KTtcclxuICBib3gtc2hhZG93OjAgMCAwIDAuMnJlbSByZ2JhKDEzNiwxODEsODcsMC41KVxyXG59XHJcbi5idG4tc3VjY2Vzcy5kaXNhYmxlZCwuYnRuLXN1Y2Nlc3M6ZGlzYWJsZWR7XHJcbiAgY29sb3I6I2ZmZjtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiM3M0E4Mzk7XHJcbiAgYm9yZGVyLWNvbG9yOiM3M0E4MzlcclxufVxyXG4uYnRuLXN1Y2Nlc3M6bm90KDpkaXNhYmxlZCk6bm90KC5kaXNhYmxlZCk6YWN0aXZlLC5idG4tc3VjY2Vzczpub3QoOmRpc2FibGVkKTpub3QoLmRpc2FibGVkKS5hY3RpdmUsLnNob3c+LmJ0bi1zdWNjZXNzLmRyb3Bkb3duLXRvZ2dsZXtcclxuICBjb2xvcjojZmZmO1xyXG4gIGJhY2tncm91bmQtY29sb3I6IzU5ODIyYztcclxuICBib3JkZXItY29sb3I6IzUyNzgyOVxyXG59XHJcbi5idG4tc3VjY2Vzczpub3QoOmRpc2FibGVkKTpub3QoLmRpc2FibGVkKTphY3RpdmU6Zm9jdXMsLmJ0bi1zdWNjZXNzOm5vdCg6ZGlzYWJsZWQpOm5vdCguZGlzYWJsZWQpLmFjdGl2ZTpmb2N1cywuc2hvdz4uYnRuLXN1Y2Nlc3MuZHJvcGRvd24tdG9nZ2xlOmZvY3Vze1xyXG4gIC13ZWJraXQtYm94LXNoYWRvdzowIDAgMCAwLjJyZW0gcmdiYSgxMzYsMTgxLDg3LDAuNSk7XHJcbiAgYm94LXNoYWRvdzowIDAgMCAwLjJyZW0gcmdiYSgxMzYsMTgxLDg3LDAuNSlcclxufVxyXG5cclxuLmJ0bi1kYW5nZXJ7Y29sb3I6I2ZmZjtiYWNrZ3JvdW5kLWNvbG9yOiNDNzFDMjI7Ym9yZGVyLWNvbG9yOiNDNzFDMjJ9LmJ0bi1kYW5nZXI6aG92ZXJ7Y29sb3I6I2ZmZjtiYWNrZ3JvdW5kLWNvbG9yOiNhNTE3MWM7Ym9yZGVyLWNvbG9yOiM5YTE2MWF9LmJ0bi1kYW5nZXI6Zm9jdXMsLmJ0bi1kYW5nZXIuZm9jdXN7LXdlYmtpdC1ib3gtc2hhZG93OjAgMCAwIDAuMnJlbSByZ2JhKDIwNyw2Miw2NywwLjUpO2JveC1zaGFkb3c6MCAwIDAgMC4ycmVtIHJnYmEoMjA3LDYyLDY3LDAuNSl9LmJ0bi1kYW5nZXIuZGlzYWJsZWQsLmJ0bi1kYW5nZXI6ZGlzYWJsZWR7Y29sb3I6I2ZmZjtiYWNrZ3JvdW5kLWNvbG9yOiNDNzFDMjI7Ym9yZGVyLWNvbG9yOiNDNzFDMjJ9LmJ0bi1kYW5nZXI6bm90KDpkaXNhYmxlZCk6bm90KC5kaXNhYmxlZCk6YWN0aXZlLC5idG4tZGFuZ2VyOm5vdCg6ZGlzYWJsZWQpOm5vdCguZGlzYWJsZWQpLmFjdGl2ZSwuc2hvdz4uYnRuLWRhbmdlci5kcm9wZG93bi10b2dnbGV7Y29sb3I6I2ZmZjtiYWNrZ3JvdW5kLWNvbG9yOiM5YTE2MWE7Ym9yZGVyLWNvbG9yOiM4ZjE0MTh9LmJ0bi1kYW5nZXI6bm90KDpkaXNhYmxlZCk6bm90KC5kaXNhYmxlZCk6YWN0aXZlOmZvY3VzLC5idG4tZGFuZ2VyOm5vdCg6ZGlzYWJsZWQpOm5vdCguZGlzYWJsZWQpLmFjdGl2ZTpmb2N1cywuc2hvdz4uYnRuLWRhbmdlci5kcm9wZG93bi10b2dnbGU6Zm9jdXN7LXdlYmtpdC1ib3gtc2hhZG93OjAgMCAwIDAuMnJlbSByZ2JhKDIwNyw2Miw2NywwLjUpO2JveC1zaGFkb3c6MCAwIDAgMC4ycmVtIHJnYmEoMjA3LDYyLDY3LDAuNSl9LmJ0bi1saWdodHtjb2xvcjojMjEyNTI5O2JhY2tncm91bmQtY29sb3I6I2Y4ZjlmYTtib3JkZXItY29sb3I6I2Y4ZjlmYX0iXX0= */"
 
 /***/ }),
 
@@ -698,7 +694,7 @@ module.exports = "mat-slider {\r\n  width: 100%;\r\n}\r\nmat-card {      \r\n  w
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<!-- \r\n<div *ngIf=\"value\">\r\n\r\n<mat-accordion multi=\"true\">\r\n    <mat-expansion-panel  *ngFor=\"let esp of EspList\">\r\n        <mat-expansion-panel-header>\r\n            <mat-panel-title>\r\n              {{esp.name}}\r\n            </mat-panel-title>            \r\n        </mat-expansion-panel-header>\r\n        <mat-card>{{esp.description}}</mat-card>\r\n\r\n        <mat-grid-list cols=\"4\" rowHeight=\"2:1\">          \r\n          <mat-grid-tile *ngIf=\"esp.D0.InUse\">\r\n            <mat-card>\r\n              <button type=\"button\" *ngIf=\"esp.D0.InUse && !esp.D0.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D0', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D0</button>\r\n              <button type=\"button\" *ngIf=\"esp.D0.InUse && esp.D0.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D0', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D0</button>\r\n            </mat-card>\r\n          </mat-grid-tile>\r\n          <mat-grid-tile *ngIf=\"esp.D1.InUse\">\r\n            <mat-card>\r\n              <button type=\"button\" *ngIf=\"esp.D1.InUse && !esp.D1.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D1', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D1</button>\r\n              <button type=\"button\" *ngIf=\"esp.D1.InUse && esp.D1.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D1', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D1</button>\r\n            </mat-card>\r\n          </mat-grid-tile>\r\n          <mat-grid-tile *ngIf=\"esp.D2.InUse\">\r\n            <mat-card>\r\n              <button type=\"button\" *ngIf=\"esp.D2.InUse && !esp.D2.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D2', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D2</button>\r\n              <button type=\"button\" *ngIf=\"esp.D2.InUse && esp.D2.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D2', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D2</button>\r\n            </mat-card>\r\n          </mat-grid-tile>\r\n          <mat-grid-tile *ngIf=\"esp.D3.InUse\">\r\n            <mat-card>\r\n              <button type=\"button\" *ngIf=\"esp.D3.InUse && !esp.D3.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D3', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D3</button>\r\n              <button type=\"button\" *ngIf=\"esp.D3.InUse && esp.D3.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D3', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D3</button>\r\n            </mat-card>\r\n          </mat-grid-tile>\r\n          <mat-grid-tile *ngIf=\"esp.D4.InUse\">\r\n            <mat-card>\r\n              <button type=\"button\" *ngIf=\"esp.D4.InUse && !esp.D4.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D4', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D4</button>\r\n              <button type=\"button\" *ngIf=\"esp.D4.InUse && esp.D4.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D4', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D4</button>\r\n            </mat-card>\r\n          </mat-grid-tile>\r\n          <mat-grid-tile *ngIf=\"esp.D5.InUse\">\r\n            <mat-card>\r\n              <button type=\"button\" *ngIf=\"esp.D5.InUse && !esp.D5.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D5', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D5</button>\r\n              <button type=\"button\" *ngIf=\"esp.D5.InUse && esp.D5.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D5', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D5</button>\r\n            </mat-card>\r\n          </mat-grid-tile>\r\n          <mat-grid-tile *ngIf=\"esp.D6.InUse\">\r\n            <mat-card>\r\n              <button type=\"button\" *ngIf=\"esp.D6.InUse && !esp.D6.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D6', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D6</button>\r\n              <button type=\"button\" *ngIf=\"esp.D6.InUse && esp.D6.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D6', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D6</button>\r\n            </mat-card>\r\n          </mat-grid-tile>\r\n          <mat-grid-tile *ngIf=\"esp.D7.InUse\">\r\n            <mat-card>\r\n              <button type=\"button\" *ngIf=\"esp.D7.InUse && !esp.D7.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D7', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D7</button>\r\n              <button type=\"button\" *ngIf=\"esp.D7.InUse && esp.D7.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D7', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D7</button>\r\n            </mat-card>\r\n          </mat-grid-tile>\r\n          <mat-grid-tile *ngIf=\"esp.D8.InUse\">\r\n            <mat-card>\r\n              <button type=\"button\" *ngIf=\"esp.D8.InUse && !esp.D8.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D8', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D8</button>\r\n              <button type=\"button\" *ngIf=\"esp.D8.InUse && esp.D8.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D8', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D8</button>\r\n            </mat-card>\r\n          </mat-grid-tile>\r\n          <mat-grid-tile *ngIf=\"esp.D9.InUse\">\r\n            <mat-card>\r\n              <button type=\"button\" *ngIf=\"esp.D9.InUse && !esp.D9.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D9', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D9</button>\r\n              <button type=\"button\" *ngIf=\"esp.D9.InUse && esp.D9.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D9', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D9</button>\r\n            </mat-card>\r\n          </mat-grid-tile>\r\n          <mat-grid-tile *ngIf=\"esp.D10.InUse\">\r\n            <mat-card>\r\n              <button type=\"button\" *ngIf=\"esp.D10.InUse && !esp.D10.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D10', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D10</button>\r\n              <button type=\"button\" *ngIf=\"esp.D10.InUse && esp.D10.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D10', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D10</button>\r\n            </mat-card>\r\n          </mat-grid-tile>\r\n          <mat-grid-tile *ngIf=\"esp.A0.InUse\">\r\n            <mat-card>\r\n                <h5 class=\"aria-label\">A0 analog Pin At: {{esp.A0.value}}</h5>         \r\n                <mat-slider *ngIf=\"esp.A0.InUse\" [value]=\"esp.A0.value\" (change)=\"eventOnChange({key:'A0',value:$event, espItem: esp})\" id=\"sliderA0\" thumbLabel  [displayWith]=\"formatLabel\" tickInterval=\"auto \" min=\"1\" max=\"1000\" >></mat-slider>             \r\n             </mat-card>\r\n          </mat-grid-tile>\r\n        </mat-grid-list>\r\n    </mat-expansion-panel>\r\n</mat-accordion>\r\n</div>\r\n\r\n<div *ngIf=\"!value\">\r\n\r\n    <mat-grid-list cols=\"3\" >\r\n      <div *ngFor=\"let esp of EspList\">            \r\n        <mat-grid-tile>\r\n            <mat-card>\r\n                <mat-card-title>\r\n                    {{esp.name}}\r\n                </mat-card-title>\r\n                <mat-card-subtitle>\r\n                    {{esp.description}}\r\n                </mat-card-subtitle>\r\n                <mat-card-content>\r\n                    <mat-grid-list cols=\"2\" rowHeight=\"fit\"> \r\n                        <mat-card>        \r\n                        <mat-grid-tile *ngIf=\"esp.D0.InUse\">\r\n                          <mat-card>\r\n                            <button type=\"button\" *ngIf=\"esp.D0.InUse && !esp.D0.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D0', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D0</button>\r\n                            <button type=\"button\" *ngIf=\"esp.D0.InUse && esp.D0.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D0', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D0</button>\r\n                          </mat-card>\r\n                        </mat-grid-tile>\r\n                        <mat-grid-tile *ngIf=\"esp.D1.InUse\">\r\n                          <mat-card>\r\n                            <button type=\"button\" *ngIf=\"esp.D1.InUse && !esp.D1.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D1', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D1</button>\r\n                            <button type=\"button\" *ngIf=\"esp.D1.InUse && esp.D1.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D1', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D1</button>\r\n                          </mat-card>\r\n                        </mat-grid-tile>\r\n                        <mat-grid-tile *ngIf=\"esp.D2.InUse\">\r\n                          <mat-card>\r\n                            <button type=\"button\" *ngIf=\"esp.D2.InUse && !esp.D2.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D2', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D2</button>\r\n                            <button type=\"button\" *ngIf=\"esp.D2.InUse && esp.D2.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D2', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D2</button>\r\n                          </mat-card>\r\n                        </mat-grid-tile>\r\n                        <mat-grid-tile *ngIf=\"esp.D3.InUse\">\r\n                          <mat-card>\r\n                            <button type=\"button\" *ngIf=\"esp.D3.InUse && !esp.D3.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D3', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D3</button>\r\n                            <button type=\"button\" *ngIf=\"esp.D3.InUse && esp.D3.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D3', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D3</button>\r\n                          </mat-card>\r\n                        </mat-grid-tile>\r\n                        <mat-grid-tile *ngIf=\"esp.D4.InUse\">\r\n                          <mat-card>\r\n                            <button type=\"button\" *ngIf=\"esp.D4.InUse && !esp.D4.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D4', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D4</button>\r\n                            <button type=\"button\" *ngIf=\"esp.D4.InUse && esp.D4.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D4', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D4</button>\r\n                          </mat-card>\r\n                        </mat-grid-tile>\r\n                        <mat-grid-tile *ngIf=\"esp.D5.InUse\">\r\n                          <mat-card>\r\n                            <button type=\"button\" *ngIf=\"esp.D5.InUse && !esp.D5.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D5', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D5</button>\r\n                            <button type=\"button\" *ngIf=\"esp.D5.InUse && esp.D5.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D5', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D5</button>\r\n                          </mat-card>\r\n                        </mat-grid-tile>\r\n                        <mat-grid-tile *ngIf=\"esp.D6.InUse\">\r\n                          <mat-card>\r\n                            <button type=\"button\" *ngIf=\"esp.D6.InUse && !esp.D6.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D6', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D6</button>\r\n                            <button type=\"button\" *ngIf=\"esp.D6.InUse && esp.D6.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D6', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D6</button>\r\n                          </mat-card>\r\n                        </mat-grid-tile>\r\n                        <mat-grid-tile *ngIf=\"esp.D7.InUse\">\r\n                          <mat-card>\r\n                            <button type=\"button\" *ngIf=\"esp.D7.InUse && !esp.D7.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D7', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D7</button>\r\n                            <button type=\"button\" *ngIf=\"esp.D7.InUse && esp.D7.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D7', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D7</button>\r\n                          </mat-card>\r\n                        </mat-grid-tile>\r\n                        <mat-grid-tile *ngIf=\"esp.D8.InUse\">\r\n                          <mat-card>\r\n                            <button type=\"button\" *ngIf=\"esp.D8.InUse && !esp.D8.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D8', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D8</button>\r\n                            <button type=\"button\" *ngIf=\"esp.D8.InUse && esp.D8.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D8', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D8</button>\r\n                          </mat-card>\r\n                        </mat-grid-tile>\r\n                        <mat-grid-tile *ngIf=\"esp.D9.InUse\">\r\n                          <mat-card>\r\n                            <button type=\"button\" *ngIf=\"esp.D9.InUse && !esp.D9.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D9', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D9</button>\r\n                            <button type=\"button\" *ngIf=\"esp.D9.InUse && esp.D9.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D9', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D9</button>\r\n                          </mat-card>\r\n                        </mat-grid-tile>\r\n                        <mat-grid-tile *ngIf=\"esp.D10.InUse\">\r\n                          <mat-card>\r\n                            <button type=\"button\" *ngIf=\"esp.D10.InUse && !esp.D10.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D10', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D10</button>\r\n                            <button type=\"button\" *ngIf=\"esp.D10.InUse && esp.D10.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D10', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D10</button>\r\n                          </mat-card>\r\n                        </mat-grid-tile>\r\n                        <mat-grid-tile *ngIf=\"esp.A0.InUse\">\r\n                          <mat-card>\r\n                              <h5 class=\"aria-label\">A0 analog Pin At: {{esp.A0.value}}</h5>         \r\n                              <mat-slider *ngIf=\"esp.A0.InUse\" [value]=\"esp.A0.value\" (change)=\"eventOnChange({key:'A0',value:$event, espItem: esp})\" id=\"sliderA0\" thumbLabel  [displayWith]=\"formatLabel\" tickInterval=\"auto \" min=\"1\" max=\"1000\" >></mat-slider>             \r\n                           </mat-card>\r\n                        </mat-grid-tile>\r\n                      </mat-card> \r\n                      </mat-grid-list>\r\n                </mat-card-content>\r\n            </mat-card>\r\n        </mat-grid-tile>\r\n      </div> \r\n    </mat-grid-list> \r\n\r\n-->\r\n\r\n\r\n<div class=\"row itemsBlock\" >\r\n  <div class=\"col-md-4 col-sm-6 col-12-\" *ngFor=\"let esp of EspList\">\r\n    <div    class=\"card bg-light mb-3\" style=\"max-width: 20rem;\">\r\n      <div class=\"card-header\"></div>\r\n      <div class=\"card-body\">\r\n        <h4 class=\"card-title\">{{esp.name}}</h4>\r\n        <p class=\"card-text\">{{esp.description}}</p>       \r\n        <ul class=\"list-group\">\r\n          <hr class=\"my-1\" >\r\n          <ul class=\"list-group list-group-flush\">\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.D0.InUse\">\r\n              <button type=\"button\" *ngIf=\"esp.D0.InUse && !esp.D0.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D0', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D0</button>\r\n              <button type=\"button\" *ngIf=\"esp.D0.InUse && esp.D0.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D0', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D0</button>\r\n            </li>\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.D1.InUse\">\r\n              <button type=\"button\" *ngIf=\"esp.D1.InUse && !esp.D1.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D1', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D1</button>\r\n              <button type=\"button\" *ngIf=\"esp.D1.InUse && esp.D1.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D1', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D1</button>\r\n            </li>\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.D2.InUse\"> \r\n              <button type=\"button\" *ngIf=\"esp.D2.InUse && !esp.D2.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D2', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D2</button>\r\n              <button type=\"button\" *ngIf=\"esp.D2.InUse && esp.D2.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D2', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D2</button>\r\n            </li>\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.D3.InUse\">\r\n              <button type=\"button\" *ngIf=\"esp.D3.InUse && !esp.D3.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D3', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D3</button>\r\n              <button type=\"button\" *ngIf=\"esp.D3.InUse && esp.D3.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D3', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D3</button>\r\n            </li>\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.D4.InUse\">\r\n              <button type=\"button\" *ngIf=\"esp.D4.InUse && !esp.D4.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D4', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D4</button>\r\n              <button type=\"button\" *ngIf=\"esp.D4.InUse && esp.D4.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D4', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D4</button>\r\n            </li>\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.D5.InUse\">\r\n              <button type=\"button\" *ngIf=\"esp.D5.InUse && !esp.D5.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D5', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D5</button>\r\n              <button type=\"button\" *ngIf=\"esp.D5.InUse && esp.D5.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D5', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D5</button>\r\n            </li>\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.D6.InUse\">\r\n              <button type=\"button\" *ngIf=\"esp.D6.InUse && !esp.D6.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D6', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D6</button>\r\n              <button type=\"button\" *ngIf=\"esp.D6.InUse && esp.D6.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D6', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D6</button>\r\n            </li>\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.D7.InUse\">\r\n              <button type=\"button\" *ngIf=\"esp.D7.InUse && !esp.D7.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D7', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D7</button>\r\n              <button type=\"button\" *ngIf=\"esp.D7.InUse && esp.D7.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D7', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D7</button>\r\n            </li>\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.D8.InUse\">\r\n              <button type=\"button\" *ngIf=\"esp.D8.InUse && !esp.D8.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D8', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D8</button>\r\n              <button type=\"button\" *ngIf=\"esp.D8.InUse && esp.D8.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D8', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D8</button>\r\n            </li>\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.D9.InUse\">\r\n              <button type=\"button\" *ngIf=\"esp.D9.InUse && !esp.D9.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D9', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D9</button>\r\n              <button type=\"button\" *ngIf=\"esp.D9.InUse && esp.D9.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D9', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D9</button>\r\n            </li>\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.D10.InUse\">\r\n              <button type=\"button\" *ngIf=\"esp.D10.InUse && !esp.D10.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D10', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D10</button>\r\n              <button type=\"button\" *ngIf=\"esp.D10.InUse && esp.D10.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D10', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D10</button>\r\n            </li>\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.A0.InUse\">             \r\n              <h5 class=\"aria-label\">A0 analog Pin At: {{esp.A0.value}}</h5>         \r\n              <mat-slider *ngIf=\"esp.A0.InUse\" [value]=\"esp.A0.value\" (change)=\"eventOnChange({key:'A0',value:$event, espItem: esp})\" id=\"sliderA0\" thumbLabel  [displayWith]=\"formatLabel\" tickInterval=\"auto \" min=\"1\" max=\"1000\" >></mat-slider>             \r\n            </li>\r\n          </ul>\r\n          <hr class=\"my-1\" *ngIf=\"esp.A0.InUse\">\r\n        </ul>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--</div>-->\r\n"
+module.exports = "\r\n<div class=\"row itemsBlock\" >\r\n\r\n  <div class=\"col-md-4 col-sm-6 col-12- col-centered \" dragula=\"espsLists\" *ngFor=\"let esp of EspList\"  >\r\n    <div class=\"card bg-light col-centered mb-3\" style=\"max-width: 20rem;\" \r\n      *ngIf=\" esp.pins.D0.InUse || \r\n              esp.pins.D1.InUse ||\r\n              esp.pins.D2.InUse ||\r\n              esp.pins.D3.InUse ||\r\n              esp.pins.D4.InUse ||\r\n              esp.pins.D5.InUse ||\r\n              esp.pins.D6.InUse ||\r\n              esp.pins.D7.InUse ||\r\n              esp.pins.D8.InUse ||\r\n              esp.pins.D10.InUse ||\r\n              esp.pins.A0.InUse \">\r\n               \r\n      <div class=\"card-header\">\r\n        \r\n          <h4 style=\"text-align:center;\" >{{esp.name}}</h4>\r\n          <span  style=\"float:right;\" *ngIf=\"this.isOnlineNow(esp.isOnline)\" class=\"badge  badge-pill badge-success\">online</span>\r\n          <span style=\"float:right;\" *ngIf=\"!this.isOnlineNow(esp.isOnline)\" class=\"badge  badge-pill badge-danger\">offline</span>\r\n       \r\n      </div>\r\n      <div class=\"card-body\">\r\n          <h4 class=\"card-title\">{{esp.Description}}</h4>\r\n        <ul class=\"list-group\">\r\n          <hr class=\"my-1\" >\r\n          <ul class=\"list-group list-group-flush\">\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.pins.D0.InUse\">\r\n              <button mat-button   mat-button type=\"button\" *ngIf=\"esp.pins.D0.InUse && !esp.pins.D0.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D0', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D0</button>\r\n              <button mat-button  mat-button type=\"button\" *ngIf=\"esp.pins.D0.InUse && esp.pins.D0.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D0', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D0</button>\r\n            </li>\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.pins.D1.InUse\">\r\n              <button mat-button  type=\"button\" *ngIf=\"esp.pins.D1.InUse && !esp.pins.D1.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D1', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D1</button>\r\n              <button mat-button  type=\"button\" *ngIf=\"esp.pins.D1.InUse && esp.pins.D1.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D1', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D1</button>\r\n            </li>\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.pins.D2.InUse\"> \r\n              <button mat-button  type=\"button\" *ngIf=\"esp.pins.D2.InUse && !esp.pins.D2.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D2', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D2</button>\r\n              <button mat-button  type=\"button\" *ngIf=\"esp.pins.D2.InUse && esp.pins.D2.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D2', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D2</button>\r\n            </li>\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.pins.D3.InUse\">\r\n              <button mat-button  type=\"button\" *ngIf=\"esp.pins.D3.InUse && !esp.pins.D3.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D3', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D3</button>\r\n              <button mat-button  type=\"button\" *ngIf=\"esp.pins.D3.InUse && esp.pins.D3.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D3', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D3</button>\r\n            </li>\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.pins.D4.InUse\">\r\n              <button mat-button  type=\"button\" *ngIf=\"esp.pins.D4.InUse && !esp.pins.D4.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D4', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D4</button>\r\n              <button mat-button  type=\"button\" *ngIf=\"esp.pins.D4.InUse && esp.pins.D4.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D4', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D4</button>\r\n            </li>\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.pins.D5.InUse\">\r\n              <button mat-button  type=\"button\" *ngIf=\"esp.pins.D5.InUse && !esp.pins.D5.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D5', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D5</button>\r\n              <button mat-button  type=\"button\" *ngIf=\"esp.pins.D5.InUse && esp.pins.D5.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D5', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D5</button>\r\n            </li>\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.pins.D6.InUse\">\r\n              <button mat-button  type=\"button\" *ngIf=\"esp.pins.D6.InUse && !esp.pins.D6.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D6', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D6</button>\r\n              <button mat-button  type=\"button\" *ngIf=\"esp.pins.D6.InUse && esp.pins.D6.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D6', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D6</button>\r\n            </li>\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.pins.D7.InUse\">\r\n              <button mat-button  type=\"button\" *ngIf=\"esp.pins.D7.InUse && !esp.pins.D7.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D7', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D7</button>\r\n              <button mat-button  type=\"button\" *ngIf=\"esp.pins.D7.InUse && esp.pins.D7.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D7', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D7</button>\r\n            </li>\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.pins.D8.InUse\">\r\n              <button mat-button  type=\"button\" *ngIf=\"esp.pins.D8.InUse && !esp.pins.D8.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D8', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D8</button>\r\n              <button mat-button  type=\"button\" *ngIf=\"esp.pins.D8.InUse && esp.pins.D8.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D8', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D8</button>\r\n            </li>\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.pins.D9.InUse\">\r\n              <button mat-button  type=\"button\" *ngIf=\"esp.pins.D9.InUse && !esp.pins.D9.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D9', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D9</button>\r\n              <button mat-button  type=\"button\" *ngIf=\"esp.pins.D9.InUse && esp.pins.D9.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D9', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D9</button>\r\n            </li>\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.pins.D10.InUse\">\r\n              <button mat-button  type=\"button\" *ngIf=\"esp.pins.D10.InUse && !esp.pins.D10.IsHight\" class=\"btn btn-success btn-lg\" (click)=\"eventOnClick({key:'D10', value:true, espItem: esp})\" >ΕΝΕΡΓΟΠΟΙΗΣΗ D10</button>\r\n              <button mat-button  type=\"button\" *ngIf=\"esp.pins.D10.InUse && esp.pins.D10.IsHight\" class=\"btn btn-danger btn-lg\"  (click)=\"eventOnClick({key:'D10', value:false, espItem: esp})\" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D10</button>\r\n            </li>\r\n            <li class=\"list-group-item bg-light\" *ngIf=\"esp.pins.A0.InUse\">             \r\n              <h5 class=\"aria-label\">A0 analog Pin At: {{esp.pins.A0.value}}</h5>         \r\n              <mat-slider *ngIf=\"esp.pins.A0.InUse\" [value]=\"esp.pins.A0.value\" (change)=\"eventOnChange({key:'A0',value:$event, espItem: esp})\" id=\"sliderA0\" thumbLabel  [displayWith]=\"formatLabel\" tickInterval=\"auto \" min=\"1\" max=\"1000\" >></mat-slider>             \r\n            </li>\r\n          </ul>\r\n          <hr class=\"my-1\" *ngIf=\"esp.pins.A0.InUse\">\r\n        </ul>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -723,20 +719,15 @@ __webpack_require__.r(__webpack_exports__);
 
 var IotAutomationComponent = /** @class */ (function () {
     //value = false;
+    //---
     function IotAutomationComponent(flashMessage, authService) {
         this.flashMessage = flashMessage;
         this.authService = authService;
     }
-    /*
-    changeView(){
-      this.value = !this.value;
-    }
-    
-    */
     IotAutomationComponent.prototype.ngOnInit = function () {
-        this.UpdateEsoList();
+        this.UpdateEspList();
     };
-    IotAutomationComponent.prototype.UpdateEsoList = function () {
+    IotAutomationComponent.prototype.UpdateEspList = function () {
         var _this = this;
         this.authService.getEspByUser().subscribe(function (esps) {
             _this.EspList = esps.esps.esp;
@@ -749,56 +740,56 @@ var IotAutomationComponent = /** @class */ (function () {
         var _this = this;
         this.EspList.forEach(function (esp) {
             if (esp._id == object.espItem._id) {
-                esp[object.key].value = object.value.value;
+                esp.pins[object.key].value = object.value.value;
                 _this.authService.updateEsp(esp).subscribe(function (data) {
                     if (data.success) {
-                        _this.UpdateEsoListValues();
+                        _this.UpdateEspListValues();
                     }
                     else {
-                        _this.UpdateEsoListValues();
+                        _this.UpdateEspListValues();
                     }
                 });
             }
-        });
-    };
-    IotAutomationComponent.prototype.UpdateEsoListValues = function () {
-        var _this = this;
-        this.authService.getEspByUser().subscribe(function (esps) {
-            //for each change values
-            _this.EspList.forEach(function (part, index, theArray) {
-                theArray[index].D0.IsHight = esps.esps.esp[index].D0.IsHight;
-                theArray[index].D1.IsHight = esps.esps.esp[index].D1.IsHight;
-                theArray[index].D2.IsHight = esps.esps.esp[index].D2.IsHight;
-                theArray[index].D3.IsHight = esps.esps.esp[index].D3.IsHight;
-                theArray[index].D4.IsHight = esps.esps.esp[index].D4.IsHight;
-                theArray[index].D5.IsHight = esps.esps.esp[index].D5.IsHight;
-                theArray[index].D6.IsHight = esps.esps.esp[index].D6.IsHight;
-                theArray[index].D7.IsHight = esps.esps.esp[index].D7.IsHight;
-                theArray[index].D8.IsHight = esps.esps.esp[index].D8.IsHight;
-                theArray[index].D9.IsHight = esps.esps.esp[index].D9.IsHight;
-                theArray[index].D10.IsHight = esps.esps.esp[index].D10.IsHight;
-                theArray[index].A0.value = esps.esps.esp[index].A0.value;
-            });
-            //this.EspList = esps.esps.esp ;      
-        }, function (err) {
-            console.log(err);
-            return false;
         });
     };
     IotAutomationComponent.prototype.eventOnClick = function (object) {
         var _this = this;
         this.EspList.forEach(function (esp) {
             if (esp._id == object.espItem._id) {
-                esp[object.key].IsHight = object.value;
+                esp.pins[object.key].IsHight = object.value;
                 _this.authService.updateEsp(esp).subscribe(function (data) {
                     if (data.success) {
-                        _this.UpdateEsoListValues();
+                        _this.UpdateEspListValues();
                     }
                     else {
-                        _this.UpdateEsoListValues();
+                        _this.UpdateEspListValues();
                     }
                 });
             }
+        });
+    };
+    IotAutomationComponent.prototype.UpdateEspListValues = function () {
+        var _this = this;
+        this.authService.getEspByUser().subscribe(function (esps) {
+            //for each change values
+            _this.EspList.forEach(function (part, index, theArray) {
+                theArray[index].pins.D0.IsHight = esps.esps.esp[index].pins.D0.IsHight;
+                theArray[index].pins.D1.IsHight = esps.esps.esp[index].pins.D1.IsHight;
+                theArray[index].pins.D2.IsHight = esps.esps.esp[index].pins.D2.IsHight;
+                theArray[index].pins.D3.IsHight = esps.esps.esp[index].pins.D3.IsHight;
+                theArray[index].pins.D4.IsHight = esps.esps.esp[index].pins.D4.IsHight;
+                theArray[index].pins.D5.IsHight = esps.esps.esp[index].pins.D5.IsHight;
+                theArray[index].pins.D6.IsHight = esps.esps.esp[index].pins.D6.IsHight;
+                theArray[index].pins.D7.IsHight = esps.esps.esp[index].pins.D7.IsHight;
+                theArray[index].pins.D8.IsHight = esps.esps.esp[index].pins.D8.IsHight;
+                theArray[index].pins.D9.IsHight = esps.esps.esp[index].pins.D9.IsHight;
+                theArray[index].pins.D10.IsHight = esps.esps.esp[index].pins.D10.IsHight;
+                theArray[index].pins.A0.value = esps.esps.esp[index].pins.A0.value;
+            });
+            //this.EspList = esps.esps.esp ;      
+        }, function (err) {
+            console.log(err);
+            return false;
         });
     };
     IotAutomationComponent.prototype.formatLabel = function (value) {
@@ -810,6 +801,16 @@ var IotAutomationComponent = /** @class */ (function () {
         }
         return value;
     };
+    IotAutomationComponent.prototype.isOnlineNow = function (oldTime) {
+        var d = new Date();
+        var t = d.getTime() / 1000;
+        console.log("Oldtime = " + oldTime);
+        console.log("new = " + t);
+        if (oldTime + 5 > t)
+            return true;
+        else
+            return false;
+    };
     IotAutomationComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-iot-automation',
@@ -820,105 +821,6 @@ var IotAutomationComponent = /** @class */ (function () {
             _services_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"]])
     ], IotAutomationComponent);
     return IotAutomationComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/components/Controlls/overview/overview.component.css":
-/*!**********************************************************************!*\
-  !*** ./src/app/components/Controlls/overview/overview.component.css ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".even { color: red; }\r\n    .odd { color: green; }\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9Db250cm9sbHMvb3ZlcnZpZXcvb3ZlcnZpZXcuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxRQUFRLFVBQVUsRUFBRTtJQUNoQixPQUFPLFlBQVksRUFBRSIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvQ29udHJvbGxzL292ZXJ2aWV3L292ZXJ2aWV3LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZXZlbiB7IGNvbG9yOiByZWQ7IH1cclxuICAgIC5vZGQgeyBjb2xvcjogZ3JlZW47IH0iXX0= */"
-
-/***/ }),
-
-/***/ "./src/app/components/Controlls/overview/overview.component.html":
-/*!***********************************************************************!*\
-  !*** ./src/app/components/Controlls/overview/overview.component.html ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<table class=\"table table-hover\">\r\n  <thead>\r\n    <tr>\r\n      <th scope=\"col\">name</th>\r\n      <th scope=\"col\">age</th>\r\n      <th scope=\"col\">species</th>\r\n      <th scope=\"col\">occupation</th>\r\n    </tr>\r\n  </thead>\r\n  <tbody>\r\n    <tr class=\"table-active\"  *ngFor=\"let item of dummy;let index=index; let odd=odd; let even=even;\"  [ngClass]=\"{ odd: table-active, even: table-success }\">\r\n      <td>{{item.name}}</td>\r\n      <td>{{item.age}}</td>\r\n      <td>{{item.species}}</td>\r\n      <td>{{item.occupation}}</td>\r\n    </tr>\r\n  </tbody>\r\n</table>\r\n\r\n\r\n"
-
-/***/ }),
-
-/***/ "./src/app/components/Controlls/overview/overview.component.ts":
-/*!*********************************************************************!*\
-  !*** ./src/app/components/Controlls/overview/overview.component.ts ***!
-  \*********************************************************************/
-/*! exports provided: OverviewComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OverviewComponent", function() { return OverviewComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-
-
-var OverviewComponent = /** @class */ (function () {
-    function OverviewComponent() {
-        this.dummy = [
-            {
-                name: 'Earl of Lemongrab',
-                age: 'Unknown',
-                species: 'Lemon Candy',
-                occupation: 'Earl, Heir to the Candy Kingdom Throne'
-            },
-            {
-                name: 'Bonnibel Bubblegum',
-                age: '19',
-                species: 'Gum Person',
-                occupation: 'Returned Ruler of the Candy Kingdom'
-            },
-            {
-                name: 'Phoebe',
-                age: '16',
-                species: 'Flame Person',
-                occupation: 'Ruler of the Fire Kingdom'
-            },
-            {
-                name: 'Lumpy Space Princess',
-                age: '18',
-                species: 'Lumpy Space Person',
-                occupation: 'Babysitter'
-            },
-        ];
-    }
-    OverviewComponent.prototype.ngOnInit = function () {
-        //Read data NOw add dummy
-    };
-    OverviewComponent.prototype.tableScope = function ($scope) {
-        $scope.details = {
-            '3': {
-                tripcode: 3,
-                routelines: "PASAY - CAGAYAN",
-                '2015 - 3 - 17': 1,
-                '2015 - 3 - 18': 0
-            },
-            '4': {
-                tripcode: 4,
-                routelines: "PASAY - CAVITE",
-                '2015 - 3 - 17': 0,
-                '2015 - 3 - 18': 4
-            },
-        };
-    };
-    OverviewComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-overview',
-            template: __webpack_require__(/*! ./overview.component.html */ "./src/app/components/Controlls/overview/overview.component.html"),
-            styles: [__webpack_require__(/*! ./overview.component.css */ "./src/app/components/Controlls/overview/overview.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], OverviewComponent);
-    return OverviewComponent;
 }());
 
 
@@ -1016,18 +918,18 @@ var ManageComponent = /** @class */ (function () {
         this.name = this.focusedESP.name;
         this.secret = this.focusedESP.secret;
         this.description = this.focusedESP.description;
-        this.D0 = this.focusedESP.D0.InUse;
-        this.D1 = this.focusedESP.D1.InUse;
-        this.D2 = this.focusedESP.D2.InUse;
-        this.D3 = this.focusedESP.D3.InUse;
-        this.D4 = this.focusedESP.D4.InUse;
-        this.D5 = this.focusedESP.D5.InUse;
-        this.D6 = this.focusedESP.D6.InUse;
-        this.D7 = this.focusedESP.D7.InUse;
-        this.D8 = this.focusedESP.D8.InUse;
-        this.D9 = this.focusedESP.D9.InUse;
-        this.D10 = this.focusedESP.D10.InUse;
-        this.A0 = this.focusedESP.A0.InUse;
+        this.D0 = this.focusedESP.pins.D0.InUse;
+        this.D1 = this.focusedESP.pins.D1.InUse;
+        this.D2 = this.focusedESP.pins.D2.InUse;
+        this.D3 = this.focusedESP.pins.D3.InUse;
+        this.D4 = this.focusedESP.pins.D4.InUse;
+        this.D5 = this.focusedESP.pins.D5.InUse;
+        this.D6 = this.focusedESP.pins.D6.InUse;
+        this.D7 = this.focusedESP.pins.D7.InUse;
+        this.D8 = this.focusedESP.pins.D8.InUse;
+        this.D9 = this.focusedESP.pins.D9.InUse;
+        this.D10 = this.focusedESP.pins.D10.InUse;
+        this.A0 = this.focusedESP.pins.A0.InUse;
     };
     //add esp
     ManageComponent.prototype.onESPSubmit = function () {
@@ -1038,19 +940,28 @@ var ManageComponent = /** @class */ (function () {
             name: this.name,
             description: this.description,
             secret: this.secret,
-            D0: this.D0,
-            D1: this.D1,
-            D2: this.D2,
-            D3: this.D3,
-            D4: this.D4,
-            D5: this.D5,
-            D6: this.D6,
-            D7: this.D7,
-            D8: this.D8,
-            D9: this.D9,
-            D10: this.D10,
-            A0: this.A0,
-            owner: this.user._id
+            pins: {
+                D0: this.D0,
+                D1: this.D1,
+                D2: this.D2,
+                D3: this.D3,
+                D4: this.D4,
+                D5: this.D5,
+                D6: this.D6,
+                D7: this.D7,
+                D8: this.D8,
+                D9: this.D9,
+                D10: this.D10,
+                A0: this.A0
+            },
+            owner: this.user._id,
+            isOnline: 0,
+            viewOrder: -1,
+            group: "",
+            eventSheduler: {},
+            timer: -1,
+            version: "",
+            softwareURL: ""
         };
         //If its not new add the id 
         if (!this.isNew)

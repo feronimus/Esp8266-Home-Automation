@@ -9,19 +9,27 @@ const EspSchema = Schema({
     secret: String,
     description: String,
     group: String,
-    D0: {InUse:Boolean , IsHight : Boolean},     
-    D1: {InUse:Boolean, IsHight : Boolean},    
-    D2: {InUse:Boolean, IsHight : Boolean},    
-    D3: {InUse:Boolean, IsHight : Boolean},    
-    D4: {InUse:Boolean, IsHight : Boolean},    
-    D5: {InUse:Boolean, IsHight : Boolean},    
-    D6: {InUse:Boolean, IsHight : Boolean},    
-    D7: {InUse:Boolean, IsHight : Boolean},    
-    D8: {InUse:Boolean, IsHight : Boolean},    
-    D9: {InUse:Boolean, IsHight : Boolean},    
-    D10: {InUse:Boolean, IsHight : Boolean},    
-    A0: {InUse:Boolean, value : Number},
-    owner: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+    pins : {
+        D0: {InUse:Boolean , IsHight : Boolean},     
+        D1: {InUse:Boolean, IsHight : Boolean},    
+        D2: {InUse:Boolean, IsHight : Boolean},    
+        D3: {InUse:Boolean, IsHight : Boolean},    
+        D4: {InUse:Boolean, IsHight : Boolean},    
+        D5: {InUse:Boolean, IsHight : Boolean},    
+        D6: {InUse:Boolean, IsHight : Boolean},    
+        D7: {InUse:Boolean, IsHight : Boolean},    
+        D8: {InUse:Boolean, IsHight : Boolean},    
+        D9: {InUse:Boolean, IsHight : Boolean},    
+        D10: {InUse:Boolean, IsHight : Boolean},    
+        A0: {InUse:Boolean, value : Number}
+    },
+    owner: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    isOnline: Number,
+    viewOrder: Number,
+    eventSheduler: { },//event object
+    timer: Number,
+    version: String,
+    softwareURL : String
   });
 
   mongoose.set('useFindAndModify', false);

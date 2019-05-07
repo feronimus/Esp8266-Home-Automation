@@ -16,17 +16,13 @@ import { HttpClientModule } from '@angular/common/http';
 import {AuthGuard} from './guards/auth.guard';
 import {LoggedGuard} from './guards/logged.guard';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { OverviewComponent } from './components/Controlls/overview/overview.component';
 import { IotAutomationComponent } from './components/Controlls/iot-automation/iot-automation.component';
 import { ManageComponent } from './components/ManageEsps/manage/manage.component';
-//import { MatButtonModule, MatFormFieldModule, MatInputModule, MatRippleModule , MatSliderModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DemoMaterialModule} from './material-module';
 import {MatNativeDateModule} from '@angular/material';
 import { UploadCodeComponent } from './components/ManageEsps/upload-code/upload-code.component';
 import { FileUploadModule} from 'ng2-file-upload';
-
-
 
 const appRoutes: Routes = [
   {path:'', component: HomeComponent , canActivate:[LoggedGuard]},
@@ -46,13 +42,12 @@ const appRoutes: Routes = [
     HomeComponent,
     DashboardComponent,
     ProfileComponent,
-    OverviewComponent,
     IotAutomationComponent,
     ManageComponent,
     UploadCodeComponent
   ],
   imports: [
-    NgbModule,
+    NgbModule.forRoot(),
     BrowserModule,
     FormsModule,
     FileUploadModule,
@@ -65,6 +60,6 @@ const appRoutes: Routes = [
     BrowserAnimationsModule  
   ],
   providers: [ValidateService, AuthService, AuthGuard,LoggedGuard],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent]  
 })
 export class AppModule { }
