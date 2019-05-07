@@ -723,9 +723,13 @@ var IotAutomationComponent = /** @class */ (function () {
     function IotAutomationComponent(flashMessage, authService) {
         this.flashMessage = flashMessage;
         this.authService = authService;
+        this.intervalId = setInterval(this.UpdateEspListValues(), 2500);
     }
     IotAutomationComponent.prototype.ngOnInit = function () {
         this.UpdateEspList();
+    };
+    IotAutomationComponent.prototype.ngOnDestroy = function () {
+        clearInterval(this.intervalId);
     };
     IotAutomationComponent.prototype.UpdateEspList = function () {
         var _this = this;
@@ -785,8 +789,10 @@ var IotAutomationComponent = /** @class */ (function () {
                 theArray[index].pins.D9.IsHight = esps.esps.esp[index].pins.D9.IsHight;
                 theArray[index].pins.D10.IsHight = esps.esps.esp[index].pins.D10.IsHight;
                 theArray[index].pins.A0.value = esps.esps.esp[index].pins.A0.value;
+                theArray[index].isOnline = esps.esps.esp[index].isOnline;
             });
-            //this.EspList = esps.esps.esp ;      
+            //this.EspList = esps.esps.esp ;
+            return true;
         }, function (err) {
             console.log(err);
             return false;
@@ -806,6 +812,7 @@ var IotAutomationComponent = /** @class */ (function () {
         var t = d.getTime() / 1000;
         console.log("Oldtime = " + oldTime);
         console.log("new = " + t);
+        console.log(t - oldTime + 5);
         if (oldTime + 5 > t)
             return true;
         else

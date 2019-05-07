@@ -40,7 +40,7 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
         version: 0.1,
         softwareURL: ""
     });
-    console.log(newEsp);
+    //console.log(newEsp);
     if(!req.body._id){
         //check Secret
         Esp.getEspBySecret(newEsp.secret, function(err, secret){ 
@@ -191,11 +191,10 @@ router.post('/authenticate', (req, res, next) => {
         //....
         //respond
         var d = new Date();
-        var t= d.getTime();
-        if(esp.isOnline + 3 > t / 1000){       // update esp only once every 3 seconds
-            esp.isOnline = t / 1000 ;// how many seconds have passed since 1970/01/01
-            Esp.updateEsp(esp, (err, esp) => {});
-        }
+        var t= d.getTime()/ 1000 ;
+        esp.isOnline = t ;// how many seconds have passed since 1970/01/01
+        Esp.updateEsp(esp, (err, esp) => {});
+        
         res.json({
             success: true,
             D0 : esp.pins.D0.IsHight,
