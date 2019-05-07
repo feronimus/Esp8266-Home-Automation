@@ -1300,14 +1300,14 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.registerUser = function (user) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
         headers.append('Content-Type', 'application/json');
-        //return this.http.post('users/register', user,{headers: headers}).pipe(map((response: any) => response));
-        return this.http.post('http://localhost:3000/users/register', user, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
+        return this.http.post('users/register', user, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
+        //return this.http.post('http://localhost:3000/users/register', user,{headers: headers}).pipe(map((response: any) => response));
     };
     AuthService.prototype.authenticateUser = function (user) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
         headers.append('Content-Type', 'application/json');
-        //return this.http.post('users/authenticate', user,{headers: headers}).pipe(map((response: any) => response));    
-        return this.http.post('http://localhost:3000/users/authenticate', user, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
+        return this.http.post('users/authenticate', user, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
+        //return this.http.post('http://localhost:3000/users/authenticate', user,{headers: headers}).pipe(map((response: any) => response));
     };
     AuthService.prototype.getProfile = function () {
         this.loadToken();
@@ -1315,14 +1315,14 @@ var AuthService = /** @class */ (function () {
             'Content-Type': 'application/json',
             'Authorization': this.authToken
         });
-        //return this.http.get('users/profile',{headers: headers}).pipe(map((response: any) => response));
-        return this.http.get('http://localhost:3000/users/profile', { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
+        return this.http.get('users/profile', { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
+        //return this.http.get('http://localhost:3000/users/profile',{headers: headers}).pipe(map((response: any) => response));
     };
     AuthService.prototype.userCheck = function (user) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
         headers.append('Content-Type', 'application/json');
-        //return this.http.post('users/usercheck', user,{headers: headers}).pipe(map((response: any) => response));
-        return this.http.post('http://localhost:3000/users/usercheck', user, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
+        return this.http.post('users/usercheck', user, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
+        //return this.http.post('http://localhost:3000/users/usercheck', user,{headers: headers}).pipe(map((response: any) => response));
     };
     AuthService.prototype.turnLedOnOFF = function (State) {
         this.loadToken();
@@ -1331,8 +1331,8 @@ var AuthService = /** @class */ (function () {
         });
         var body = { 'led1': State };
         console.log(body);
-        //return this.http.post('users/updateESPTESTAdmin',body,{headers: headers }).pipe(map((response: any) => response));
-        return this.http.post('http://localhost:3000/users/updateESPTESTAdmin', body, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
+        return this.http.post('users/updateESPTESTAdmin', body, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
+        //return this.http.post('http://localhost:3000/users/updateESPTESTAdmin',body,{headers: headers }).pipe(map((response: any) => response));
     };
     AuthService.prototype.getEspState = function () {
         console.log("getting esp state");
@@ -1341,8 +1341,8 @@ var AuthService = /** @class */ (function () {
             'Content-Type': 'application/json',
             'Authorization': this.authToken
         });
-        //return this.http.get('users/espState',{headers: headers}).pipe(map((response: any) => response));
-        return this.http.get('http://localhost:3000/users/espState', { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
+        return this.http.get('users/espState', { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
+        //return this.http.get('http://localhost:3000/users/espState',{headers: headers}).pipe(map((response: any) => response));
     };
     AuthService.prototype.registerEsp = function (esp) {
         this.loadToken();
@@ -1350,8 +1350,8 @@ var AuthService = /** @class */ (function () {
             'Content-Type': 'application/json',
             'Authorization': this.authToken
         });
-        //return this.http.post('esp/register', esp,{headers: headers}).pipe(map((response: any) => response));
-        return this.http.post('http://localhost:3000/esp/register', esp, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
+        return this.http.post('esp/register', esp, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
+        //return this.http.post('http://localhost:3000/esp/register', esp,{headers: headers}).pipe(map((response: any) => response));
     };
     AuthService.prototype.updateEsp = function (esp) {
         this.loadToken();
@@ -1359,8 +1359,8 @@ var AuthService = /** @class */ (function () {
             'Content-Type': 'application/json',
             'Authorization': this.authToken
         });
-        //return this.http.post('esp/update', esp,{headers: headers}).pipe(map((response: any) => response));
-        return this.http.post('http://localhost:3000/esp/update', esp, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
+        return this.http.post('esp/update', esp, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
+        //return this.http.post('http://localhost:3000/esp/update', esp,{headers: headers}).pipe(map((response: any) => response));
     };
     AuthService.prototype.getEspByUser = function () {
         this.loadToken();
@@ -1368,8 +1368,8 @@ var AuthService = /** @class */ (function () {
             'Content-Type': 'application/json',
             'Authorization': this.authToken
         });
-        //return this.http.get('esp/esps',{headers: headers}).pipe(map((response: any) => response));
-        return this.http.get('http://localhost:3000/esp/esps', { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
+        return this.http.get('esp/esps', { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response; }));
+        //return this.http.get('http://localhost:3000/esp/esps',{headers: headers}).pipe(map((response: any) => response));
     };
     AuthService.prototype.storeUserData = function (token, user) {
         localStorage.setItem('id_token', token);
