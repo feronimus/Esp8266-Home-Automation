@@ -18,7 +18,7 @@ export class IotAutomationComponent implements OnInit {
     private flashMessage:FlashMessagesService,
     private authService: AuthService,
     ){   
-      setInterval(()=> { this.UpdateEspListValues() }, 3000);  
+      setInterval(()=> { this.UpdateEspListValues() }, 1000);  
     }
 
     
@@ -132,8 +132,8 @@ export class IotAutomationComponent implements OnInit {
     var t= d.getTime()/1000;
 
     
-    //console.log(t-oldTime + 5);
-    if(oldTime + 5 > t ) return true;
+    //console.log(t-oldTime + 7);
+    if(oldTime + 7 > t ) return true;
     else return false;
   }
   

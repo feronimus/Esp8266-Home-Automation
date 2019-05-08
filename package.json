@@ -17,7 +17,8 @@
     "passport": "*",
     "passport-jwt": "*",
     "nodemon": "*",
-    "multer": "*"
+    "multer": "*",
+    "mqtt": "*"
   },
   "author": "Alex",
   "license": "ISC"

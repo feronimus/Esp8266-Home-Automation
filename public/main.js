@@ -724,7 +724,7 @@ var IotAutomationComponent = /** @class */ (function () {
         var _this = this;
         this.flashMessage = flashMessage;
         this.authService = authService;
-        setInterval(function () { _this.UpdateEspListValues(); }, 3000);
+        setInterval(function () { _this.UpdateEspListValues(); }, 1000);
     }
     IotAutomationComponent.prototype.ngOnInit = function () {
         this.UpdateEspList();
@@ -813,8 +813,8 @@ var IotAutomationComponent = /** @class */ (function () {
     IotAutomationComponent.prototype.isOnlineNow = function (oldTime) {
         var d = new Date();
         var t = d.getTime() / 1000;
-        //console.log(t-oldTime + 5);
-        if (oldTime + 5 > t)
+        //console.log(t-oldTime + 7);
+        if (oldTime + 7 > t)
             return true;
         else
             return false;

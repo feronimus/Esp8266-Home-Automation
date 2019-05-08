@@ -6,6 +6,7 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const config= require('./config/database');
 
+const app = express();
 //Connect to Database
 mongoose.connect(config.database,{ useNewUrlParser: true });
 
@@ -19,12 +20,16 @@ mongoose.connection.on('error', (err) => {
     console.log('Database error: ' + err);
 })
 
-const app = express();
 
 const users = require('./routes/users');
 const esp = require('./routes/esp');
 //Port Number
 const port = 3000;
+
+//Mqtt middleware
+const mqttHandler = require('./MqttServer/mqtt_handler');
+var mqttClient = new mqttHandler();
+mqttClient.connect();
 
 //CORS middleware
 app.use(cors());
@@ -34,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Body parser Middleware
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // Passport middleware
 app.use(passport.initialize());
@@ -54,6 +60,6 @@ app.get('*', (req,res) => {
 });
 
 // Start Server
-app.listen(port, () => {
-    console.log('Server started on port ' + port)
+var server = app.listen(port, () => {
+    console.log("app running on port.", server.address().port);
 })
