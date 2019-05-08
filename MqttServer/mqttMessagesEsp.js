@@ -9,7 +9,7 @@ module.exports.HandleMqttMessage = function(topic, Message, packet){
     if(Message == "START"){ 
         Esp.getEspBySecret(secret, (err,newEsp) =>{
             if(err) {res.json({success: false, msg:err});}
-            
+            if(!newEsp)return;
             //Create message
             let message = "{"
             message += "\"D0\":\""+ newEsp.pins.D0.IsHight +"\",";

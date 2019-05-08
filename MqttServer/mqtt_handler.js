@@ -46,12 +46,12 @@ class MqttHandler {
 
     // When a message arrives, console.log it
     mqttClient.on('message', function(topic, message, packet) {
-      messageAuth(topic);      
+      messageAuth(topic, message, packet);      
       console.log("From GOT: " +topic.substr(4) + "  - message : " + message );
 
     });
 
-    function messageAuth(topic){
+    function messageAuth(topic, message, packet){
         //topic esp/secret 
         let secret = topic.substr(4);
 
@@ -73,7 +73,7 @@ class MqttHandler {
     mqttClient.on('close', () => {
       console.log(`mqtt client disconnected`);  
       
-      mqtMessages.HandleMqttMessage("esp/asdfdsasadf", "START", "");
+      //mqtMessages.HandleMqttMessage("esp/asdfdsasadf", "START", "");
     });
   
   }
