@@ -6,9 +6,10 @@ const config = require('../config/database');
 const User =  require('../models/user');
 const Esp =  require('../models/esp');
 const multer = require('multer');
-
+const MqtHandler = require('../MqttServer/mqtt_handler');
 
 module.exports = router;
+var message = "";;
 // Register
 router.post('/register', passport.authenticate('jwt' , {session:false}), (req, res, next) => {   
     
@@ -51,6 +52,7 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
             }else{
                 //register esp                
                 console.log("registering esp");
+                MqtHandler.subscribe(newEsp.secret);
                 Esp.addEsp(newEsp, (err, esp) => {
                     if(err){
                         res.json({success: false, msg:err});
@@ -75,7 +77,8 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
                 res.json({success: false, msg:'This secret is already in use...'});
                 return ;
             }else{
-                //Update esp        
+                //Update esp    
+                MqtHandler.subscribe(newEsp.secret);    
                 Esp.updateEsp(newEsp, (err, esp) => {
                     if(err){
                         res.json({success: false, msg:err});
@@ -88,11 +91,12 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
     }
 });
 
-// Update
+// Updates and handles changes to be send to eps's
 router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res, next) => {   
     
     //res.send('REGISTER');
     let newEsp = new Esp({
+        _id :req.body._id,
         name: req.body.name,
         description: req.body.description,
         secret: req.body.secret,
@@ -119,51 +123,45 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
         version: req.body.version,
         softwareURL: req.body.softwareURL
     });
-    if(!req.body._id){
-        //check Secret
-        Esp.getEspBySecret(newEsp.secret, function(err, secret){ 
-            if(err) console.log(err);
-            if(secret){
-                res.json({success: false, msg:'This secret is already in use...'});
-                return ;
-            }else{
-                //register esp                
-                console.log("registering esp");
-                Esp.addEsp(newEsp, (err, esp) => {
-                    if(err){
-                        res.json({success: false, msg:err});
-                    }else {                    
-                        //this.UpdateUserWithEsp(User.getUserById(newEsp.owner[0]),esp._id);
-                        User.getUserById(newEsp.owner[0] , function(err , user){                            
-                            user.esp.push(esp._id);
-                            User.updateUser(user, function(err){
-                            res.json({success: true, msg:'The Esp device is now registered under your acount!!!'});
-                            });
-                        });
-                    }
-                }); 
+    //Find changes
+    Esp.getEspById(newEsp._id, (err,esp) =>{
+        if(err) res.json({success: false, msg:err});
+        //Create message
+        message = "{"
+        if(newEsp.pins.D0.IsHight != esp.pins.D0.IsHight) message += "\"D0\":\""+ newEsp.pins.D0.IsHight +"\",";
+        if(newEsp.pins.D1.IsHight != esp.pins.D1.IsHight) message += "\"D1\":\""+ newEsp.pins.D0.IsHight +"\",";
+        if(newEsp.pins.D2.IsHight != esp.pins.D2.IsHight) message += "\"D2\":\""+ newEsp.pins.D0.IsHight +"\",";
+        if(newEsp.pins.D3.IsHight != esp.pins.D3.IsHight) message += "\"D3\":\""+ newEsp.pins.D0.IsHight +"\",";
+        if(newEsp.pins.D4.IsHight != esp.pins.D4.IsHight) message += "\"D4\":\""+ newEsp.pins.D0.IsHight +"\",";
+        if(newEsp.pins.D5.IsHight != esp.pins.D5.IsHight) message += "\"D5\":\""+ newEsp.pins.D0.IsHight +"\",";
+        if(newEsp.pins.D6.IsHight != esp.pins.D6.IsHight) message += "\"D6\":\""+ newEsp.pins.D0.IsHight +"\",";
+        if(newEsp.pins.D7.IsHight != esp.pins.D7.IsHight) message += "\"D7\":\""+ newEsp.pins.D0.IsHight +"\",";
+        if(newEsp.pins.D8.IsHight != esp.pins.D8.IsHight) message += "\"D8\":\""+ newEsp.pins.D0.IsHight +"\",";
+        if(newEsp.pins.D9.IsHight != esp.pins.D9.IsHight) message += "\"D9\":\""+ newEsp.pins.D0.IsHight +"\",";
+        if(newEsp.pins.D10.IsHight != esp.pins.D10.IsHight) message += "\"D10\":\""+ newEsp.pins.D0.IsHight +"\",";
+        if(newEsp.pins.A0.IsHight != esp.pins.DA.IsHight) message += "\"A10\":\""+ newEsp.pins.D0.IsHight +"\",";        
+        message = message.slice(0, -1);
+        message += "}"
+        //send message
+        MqtHandler.sendMessage("esp/"+newEsp.secret,message);
+        //Update esp        
+        Esp.updateEsp(newEsp, (err, esp) => {
+            if(err){
+                res.json({success: false, msg:err});
+            }else {                    
+                res.json({success: true, msg:'The Esp device is now updated!!!'});
             }
-        });
-    }else{
-        newEsp._id = req.body._id;
-        //check Secret
-        Esp.getEspBySecret(newEsp.secret, function(err, secret){ 
-            if(err) console.log(err);
-            if(secret && String(secret._id) != String(newEsp._id)){
-                res.json({success: false, msg:'This secret is already in use...'});
-                return ;
-            }else{
-                //Update esp        
-                Esp.updateEsp(newEsp, (err, esp) => {
-                    if(err){
-                        res.json({success: false, msg:err});
-                    }else {                    
-                        res.json({success: true, msg:'The Esp device is now updated!!!'});
-                    }
-                }); 
-            }
-        });           
-    }
+        }); 
+        message = "";
+    });
+     
+        
+        
+        
+  
+        
+             
+    
 });
 
 //populate esps of user
@@ -220,6 +218,13 @@ router.get('/profile', passport.authenticate('jwt' , {session:false}), (req, res
 });
 
 
+//TO BE DONE NOT READY
+//unplemented
+router.post('/delete', passport.authenticate('jwt' , {session:false}), (req, res, next) => {
+    //res.send('PROFILE');
+    MqtHandler.unsubscribe(newEsp.secret);    
+    res.json({user: req.user});
+});
 //----------- Upload-downalod files .bin codes -----------\\
 
 var store = multer.diskStorage({
@@ -240,6 +245,7 @@ router.post('/espuploads',  (req, res, next) =>{
         res.json({originalname:req.file.originalname, uploadname:req.file.filename});
     });
 });
+
 
 
 

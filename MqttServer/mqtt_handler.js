@@ -52,7 +52,7 @@ class MqttHandler {
     // When a message arrives, console.log it
     mqttClient.on('message', function(topic, message, packet) {
         messageFunction(topic);
-        console.log("From : " +topic.substr(4) + "  - message : " + message );
+        console.log("From GOT: " +topic.substr(4) + "  - message : " + message );
       });
     function messageFunction(topic){
         //topic esp/secret 
@@ -73,41 +73,25 @@ class MqttHandler {
     };
 
     mqttClient.on('close', () => {
-      console.log(`mqtt client disconnected`);      
-        //subscribe to all existing esps
-        Esp.getAllEsp((err, esplist) =>{
-            if(err) throw err;
-            if(esplist){
-                esplist.forEach(function(esp) {                   
-                    console.log(esp.secret);
-                    mqttClient.subscribe("esp/"+esp.secret, {qos: qosVal});
-                });
-    }        
-})
-       
+      console.log(`mqtt client disconnected`);  
     });
   
   }
 
   // Sends a mqtt message to topic
   sendMessage(topic,message) {
+    console.log("To SEND : " +topic.substr(4) + "  - message : " + message );
     mqttClient.publish(topic, message);
   }
   
-}
+};
 
+function subscribe(subscription){
+  mqttClient.subscribe(subscription, {qos: qosVal});
+};
 
-// mqtt subscriptions
-router.post('/subscribe', passport.authenticate('jwt' , {session:false}), (req, res, next) => {    
-    mqttClient.subscribe(req.body.subscription, {qos: qosVal});
-
- });  
-// mqtt unsubscriptions
-router.post('/unsubscribe', passport.authenticate('jwt' , {session:false}), (req, res, next) => {
-
-    mqttClient.unsubscribe(req.body.unsubscription);
-
- });     
-
+function unsubscribe(subscription){
+  mqttClient.unsubscribe(subscription, {qos: qosVal});
+};
  
 module.exports = MqttHandler;

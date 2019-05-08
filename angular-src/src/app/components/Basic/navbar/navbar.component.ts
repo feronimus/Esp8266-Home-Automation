@@ -12,7 +12,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 export class NavbarComponent implements OnInit {
   navbarOpen = false;
   constructor(
-    private authService:AuthService, 
+    public authService:AuthService, 
     private flashMessage:FlashMessagesService,
     private router:Router,
     ) { }
