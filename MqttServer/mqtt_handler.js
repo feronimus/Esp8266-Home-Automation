@@ -37,7 +37,8 @@ class MqttHandler {
         Esp.getAllEsp((err, esplist) =>{
             if(err) throw err;
             if(esplist){
-                esplist.forEach(function(esp) {
+                esplist.forEach(function(esp) {                   
+                    console.log(esp.secret);
                     mqttClient.subscribe("esp/"+esp.secret, {qos: qosVal});
                 });
             }        
@@ -71,13 +72,13 @@ class MqttHandler {
     };
 
     mqttClient.on('close', () => {
-      console.log(`mqtt client disconnected`);
-      
+      console.log(`mqtt client disconnected`);      
         //subscribe to all existing esps
         Esp.getAllEsp((err, esplist) =>{
             if(err) throw err;
             if(esplist){
-                esplist.forEach(function(esp) {
+                esplist.forEach(function(esp) {                   
+                    console.log(esp.secret);
                     mqttClient.subscribe("esp/"+esp.secret, {qos: qosVal});
                 });
     }        
