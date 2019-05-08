@@ -73,7 +73,7 @@ class MqttHandler {
     };
 
     mqttClient.on('close', () => {
-      console.log(`mqtt client disconnected`);  
+      //console.log(`mqtt client disconnected`);  
     });
   
   }

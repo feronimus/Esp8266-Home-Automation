@@ -124,8 +124,10 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
         softwareURL: req.body.softwareURL
     });
     //Find changes
-    Esp.getEspById(newEsp._id, (err,esp) =>{
-        if(err) res.json({success: false, msg:err});
+    console.log(newEsp.secret);
+    Esp.getEspBySecret(newEsp.secret, (err,esp) =>{
+        if(err) {res.json({success: false, msg:err});}
+        console.log(newEsp);
         //Create message
         message = "{"
         if(newEsp.pins.D0.IsHight != esp.pins.D0.IsHight) message += "\"D0\":\""+ newEsp.pins.D0.IsHight +"\",";
@@ -139,7 +141,7 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
         if(newEsp.pins.D8.IsHight != esp.pins.D8.IsHight) message += "\"D8\":\""+ newEsp.pins.D0.IsHight +"\",";
         if(newEsp.pins.D9.IsHight != esp.pins.D9.IsHight) message += "\"D9\":\""+ newEsp.pins.D0.IsHight +"\",";
         if(newEsp.pins.D10.IsHight != esp.pins.D10.IsHight) message += "\"D10\":\""+ newEsp.pins.D0.IsHight +"\",";
-        if(newEsp.pins.A0.IsHight != esp.pins.DA.IsHight) message += "\"A10\":\""+ newEsp.pins.D0.IsHight +"\",";        
+        if(newEsp.pins.A0.value != esp.pins.DA.value) message += "\"A10\":\""+ newEsp.pins.D0.value +"\",";        
         message = message.slice(0, -1);
         message += "}"
         //send message
