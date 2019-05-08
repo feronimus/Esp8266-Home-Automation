@@ -56,7 +56,7 @@ class MqttHandler {
       });
     function messageFunction(topic){
         //topic esp/secret 
-        secret = topic.substr(4);
+        let secret = topic.substr(4);
 
         Esp.getEspBySecret(secret, (err, esp) =>{
             if(err) throw err;
@@ -66,7 +66,8 @@ class MqttHandler {
             var d = new Date();
             var t= d.getTime()/ 1000 ;
             esp.isOnline = t ;// how many seconds have passed since 1970/01/01
-            Esp.updateEsp(esp, (err, esp) => {});            
+            Esp.updateEsp(esp, (err, esp) => {});  
+           
         })
         //prob reset all var ?????
     };
