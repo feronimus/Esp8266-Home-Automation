@@ -8,7 +8,7 @@ const User =  require('../models/user');
 const Esp =  require('../models/esp');
 const multer = require('multer');
 
-
+const qosVal = 1; 
 
 class MqttHandler {
   constructor() {
@@ -32,6 +32,16 @@ class MqttHandler {
     // Connection callback
     this.mqttClient.on('connect', () => {
       console.log(`mqtt client connected`);
+
+        //subscribe to all existing esps
+        Esp.getAllEsp((err, esplist) =>{
+            if(err) throw err;
+            if(esplist){
+                esplist.forEach(function(esp) {
+                    this.mqttClient.subscribe("esp/"+esp.secret, {qos: this.qosVal});
+                });
+            }        
+        })
     }); 
 
     //subscribe to all existing esps
@@ -75,7 +85,7 @@ class MqttHandler {
 
 // mqtt subscriptions
 router.post('/subscribe', passport.authenticate('jwt' , {session:false}), (req, res, next) => {    
-    this.mqttClient.subscribe(req.body.subscription, {qos: 1});
+    this.mqttClient.subscribe(req.body.subscription, {qos: this.qosVal});
 
  });  
 // mqtt unsubscriptions
