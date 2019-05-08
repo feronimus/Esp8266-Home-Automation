@@ -73,25 +73,37 @@ class MqttHandler {
     };
 
     mqttClient.on('close', () => {
-      //console.log(`mqtt client disconnected`);  
+      console.log(`mqtt client disconnected`);  
+      //this.sendMessage("");
     });
   
   }
 
   // Sends a mqtt message to topic
+  
   sendMessage(topic,message) {
     console.log("To SEND : " +topic.substr(4) + "  - message : " + message );
     mqttClient.publish(topic, message);
   }
   
+
+  
 };
 
-function subscribe(subscription){
+
+module.exports = MqttHandler;
+
+module.exports.subscribe = function(subscription){
   mqttClient.subscribe(subscription, {qos: qosVal});
 };
 
-function unsubscribe(subscription){
+module.exports.unsubscribe = function(subscription){
   mqttClient.unsubscribe(subscription, {qos: qosVal});
 };
  
-module.exports = MqttHandler;
+
+
+module.exports.sendMessage = function(topic,message) {
+  console.log("To SEND : " +topic.substr(4) + "  - message : " + message );
+  mqttClient.publish(topic, message);
+}
