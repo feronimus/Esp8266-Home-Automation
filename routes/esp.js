@@ -8,6 +8,45 @@ const Esp =  require('../models/esp');
 const multer = require('multer');
 const MqtHandler = require('../MqttServer/mqtt_handler');
 
+
+//
+
+
+module.exports.HandleMqttMessage = function(topic, Message, packet){
+
+    let secret = topic.substr(4);
+    if(!Message) return;
+    //Send all info as esp startup
+    if(Message == "START"){ 
+        Esp.getEspBySecret(secret, (err,newEsp) =>{
+            if(err) {res.json({success: false, msg:err});}
+            if(!newEsp)return;
+            //Create message
+            let message = "{"
+            message += "\"D0\":\""+ newEsp.pins.D0.IsHight +"\",";
+            message += "\"D1\":\""+ newEsp.pins.D1.IsHight +"\",";
+            message += "\"D2\":\""+ newEsp.pins.D2.IsHight +"\",";
+            message += "\"D3\":\""+ newEsp.pins.D3.IsHight +"\",";
+            //message += "\"D4\":\""+ newEsp.pins.D4.IsHight +"\",";
+            message += "\"D5\":\""+ newEsp.pins.D5.IsHight +"\",";
+            message += "\"D6\":\""+ newEsp.pins.D6.IsHight +"\",";
+            message += "\"D7\":\""+ newEsp.pins.D7.IsHight +"\",";
+            message += "\"D8\":\""+ newEsp.pins.D8.IsHight +"\",";
+            message += "\"D9\":\""+ newEsp.pins.D9.IsHight +"\",";
+            //message += "\"D10\":\""+ newEsp.pins.D10.IsHight +"\",";    
+            message += "\"A10\":\""+ newEsp.pins.A0.value +"\",";    
+            message = message.slice(0, -1);
+            message += "}"
+            //send message
+            console.log("topic :"+ topic+ "mes : " + message);
+            MqtHandler.sendMessage(topic,message);   
+        });
+    }
+}
+
+
+
+
 module.exports = router;
 var message = "";;
 // Register
@@ -131,16 +170,16 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
         //Create message
         message = "{"
         if(newEsp.pins.D0.IsHight != esp.pins.D0.IsHight) message += "\"D0\":\""+ newEsp.pins.D0.IsHight +"\",";
-        if(newEsp.pins.D1.IsHight != esp.pins.D1.IsHight) message += "\"D1\":\""+ newEsp.pins.D0.IsHight +"\",";
-        if(newEsp.pins.D2.IsHight != esp.pins.D2.IsHight) message += "\"D2\":\""+ newEsp.pins.D0.IsHight +"\",";
-        if(newEsp.pins.D3.IsHight != esp.pins.D3.IsHight) message += "\"D3\":\""+ newEsp.pins.D0.IsHight +"\",";
-        if(newEsp.pins.D4.IsHight != esp.pins.D4.IsHight) message += "\"D4\":\""+ newEsp.pins.D0.IsHight +"\",";
-        if(newEsp.pins.D5.IsHight != esp.pins.D5.IsHight) message += "\"D5\":\""+ newEsp.pins.D0.IsHight +"\",";
-        if(newEsp.pins.D6.IsHight != esp.pins.D6.IsHight) message += "\"D6\":\""+ newEsp.pins.D0.IsHight +"\",";
-        if(newEsp.pins.D7.IsHight != esp.pins.D7.IsHight) message += "\"D7\":\""+ newEsp.pins.D0.IsHight +"\",";
-        if(newEsp.pins.D8.IsHight != esp.pins.D8.IsHight) message += "\"D8\":\""+ newEsp.pins.D0.IsHight +"\",";
-        if(newEsp.pins.D9.IsHight != esp.pins.D9.IsHight) message += "\"D9\":\""+ newEsp.pins.D0.IsHight +"\",";
-        if(newEsp.pins.D10.IsHight != esp.pins.D10.IsHight) message += "\"D10\":\""+ newEsp.pins.D0.IsHight +"\",";
+        if(newEsp.pins.D1.IsHight != esp.pins.D1.IsHight) message += "\"D1\":\""+ newEsp.pins.D1.IsHight +"\",";
+        if(newEsp.pins.D2.IsHight != esp.pins.D2.IsHight) message += "\"D2\":\""+ newEsp.pins.D2.IsHight +"\",";
+        if(newEsp.pins.D3.IsHight != esp.pins.D3.IsHight) message += "\"D3\":\""+ newEsp.pins.D3.IsHight +"\",";
+        if(newEsp.pins.D4.IsHight != esp.pins.D4.IsHight) message += "\"D4\":\""+ newEsp.pins.D4.IsHight +"\",";
+        if(newEsp.pins.D5.IsHight != esp.pins.D5.IsHight) message += "\"D5\":\""+ newEsp.pins.D5.IsHight +"\",";
+        if(newEsp.pins.D6.IsHight != esp.pins.D6.IsHight) message += "\"D6\":\""+ newEsp.pins.D6.IsHight +"\",";
+        if(newEsp.pins.D7.IsHight != esp.pins.D7.IsHight) message += "\"D7\":\""+ newEsp.pins.D7.IsHight +"\",";
+        if(newEsp.pins.D8.IsHight != esp.pins.D8.IsHight) message += "\"D8\":\""+ newEsp.pins.D8.IsHight +"\",";
+        if(newEsp.pins.D9.IsHight != esp.pins.D9.IsHight) message += "\"D9\":\""+ newEsp.pins.D9.IsHight +"\",";
+        if(newEsp.pins.D10.IsHight != esp.pins.D10.IsHight) message += "\"D10\":\""+ newEsp.pins.D10.IsHight +"\",";
         if(newEsp.pins.A0.value != esp.pins.A0.value) message += "\"A10\":\""+ newEsp.pins.A0.value +"\",";        
         message = message.slice(0, -1);
         message += "}"
@@ -221,6 +260,7 @@ router.post('/delete', passport.authenticate('jwt' , {session:false}), (req, res
 });
 //----------- Upload-downalod files .bin codes -----------\\
 
+
 var store = multer.diskStorage({
     destination:function(req,file,cb){
         cb(null, './../uploads');
@@ -239,7 +279,6 @@ router.post('/espuploads',  (req, res, next) =>{
         res.json({originalname:req.file.originalname, uploadname:req.file.filename});
     });
 });
-
 
 
 
