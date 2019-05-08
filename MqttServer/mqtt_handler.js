@@ -1,12 +1,7 @@
 const mqtt = require('mqtt');
 const express = require('express');
-const router =  express.Router();
-const passport = require('passport');
-const jwt = require('jsonwebtoken');
-const config = require('../config/database');
-const User =  require('../models/user');
 const Esp =  require('../models/esp');
-const multer = require('multer');
+const mqtMessages = require('./mqttMessagesEsp');
 
 const qosVal = 1; 
 var mqttClient;
@@ -51,10 +46,12 @@ class MqttHandler {
 
     // When a message arrives, console.log it
     mqttClient.on('message', function(topic, message, packet) {
-        messageFunction(topic);
-        console.log("From GOT: " +topic.substr(4) + "  - message : " + message );
-      });
-    function messageFunction(topic){
+      messageAuth(topic);      
+      console.log("From GOT: " +topic.substr(4) + "  - message : " + message );
+
+    });
+
+    function messageAuth(topic){
         //topic esp/secret 
         let secret = topic.substr(4);
 
@@ -66,7 +63,8 @@ class MqttHandler {
             var d = new Date();
             var t= d.getTime()/ 1000 ;
             esp.isOnline = t ;// how many seconds have passed since 1970/01/01
-            Esp.updateEsp(esp, (err, esp) => {});  
+            Esp.updateEsp(esp, (err, esp) => {}); 
+            mqtMessages.HandleMqttMessage(topic, message, packet);
            
         })
         //prob reset all var ?????
@@ -74,7 +72,8 @@ class MqttHandler {
 
     mqttClient.on('close', () => {
       console.log(`mqtt client disconnected`);  
-      //this.sendMessage("");
+      
+      mqtMessages.HandleMqttMessage("esp/asdfdsasadf", "START", "");
     });
   
   }

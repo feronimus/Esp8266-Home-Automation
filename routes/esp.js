@@ -145,8 +145,7 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
         message = message.slice(0, -1);
         message += "}"
         //send message
-        
-        MqtHandler.sendMessage("esp/"+newEsp.secret,message);
+        if(message != "}")MqtHandler.sendMessage("esp/"+newEsp.secret,message);
         //Update esp        
         Esp.updateEsp(newEsp, (err, esp) => {
             if(err){
@@ -157,14 +156,6 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
         }); 
         message = "";
     });
-     
-        
-        
-        
-  
-        
-             
-    
 });
 
 //populate esps of user
