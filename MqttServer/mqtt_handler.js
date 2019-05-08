@@ -9,10 +9,10 @@ const Esp =  require('../models/esp');
 const multer = require('multer');
 
 const qosVal = 1; 
-
+var mqttClient;
 class MqttHandler {
   constructor() {
-    this.mqttClient = null;
+    //mqttClient = null;
     this.host = 'mqtt://localhost';
     //this.username = 'YOUR_USER'; // mqtt credentials if these are needed to connect
     //this.password = 'YOUR_PASSWORD';
@@ -20,17 +20,17 @@ class MqttHandler {
   
   connect() {
     
-    this.mqttClient = mqtt.connect(this.host);
+    mqttClient = mqtt.connect(this.host);
 
 
     // Mqtt error calback
-    this.mqttClient.on('error', (err) => {
+    mqttClient.on('error', (err) => {
       console.log(err);
-      this.mqttClient.end();
+      mqttClient.end();
     });
 
     // Connection callback
-    this.mqttClient.on('connect', () => {
+    mqttClient.on('connect', () => {
       console.log(`mqtt client connected`);
 
         //subscribe to all existing esps
@@ -38,18 +38,18 @@ class MqttHandler {
             if(err) throw err;
             if(esplist){
                 esplist.forEach(function(esp) {
-                    this.mqttClient.subscribe("esp/"+esp.secret, {qos: this.qosVal});
+                    mqttClient.subscribe("esp/"+esp.secret, {qos: qosVal});
                 });
             }        
         })
     }); 
 
     //subscribe to all existing esps
-    console.log("i run bastard");
+    
 
 
     // When a message arrives, console.log it
-    this.mqttClient.on('message', function(topic, message, packet) {
+    mqttClient.on('message', function(topic, message, packet) {
         messageFunction(topic);
         console.log("From : " +topic.substr(4) + "  - message : " + message );
       });
@@ -70,14 +70,26 @@ class MqttHandler {
         //prob reset all var ?????
     };
 
-    this.mqttClient.on('close', () => {
+    mqttClient.on('close', () => {
       console.log(`mqtt client disconnected`);
+      
+        //subscribe to all existing esps
+        Esp.getAllEsp((err, esplist) =>{
+            if(err) throw err;
+            if(esplist){
+                esplist.forEach(function(esp) {
+                    mqttClient.subscribe("esp/"+esp.secret, {qos: qosVal});
+                });
+    }        
+})
+       
     });
+  
   }
 
   // Sends a mqtt message to topic
   sendMessage(topic,message) {
-    this.mqttClient.publish(topic, message);
+    mqttClient.publish(topic, message);
   }
   
 }
@@ -85,13 +97,13 @@ class MqttHandler {
 
 // mqtt subscriptions
 router.post('/subscribe', passport.authenticate('jwt' , {session:false}), (req, res, next) => {    
-    this.mqttClient.subscribe(req.body.subscription, {qos: this.qosVal});
+    mqttClient.subscribe(req.body.subscription, {qos: qosVal});
 
  });  
 // mqtt unsubscriptions
 router.post('/unsubscribe', passport.authenticate('jwt' , {session:false}), (req, res, next) => {
 
-    this.mqttClient.unsubscribe(req.body.unsubscription);
+    mqttClient.unsubscribe(req.body.unsubscription);
 
  });     
 
