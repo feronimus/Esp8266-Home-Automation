@@ -53,7 +53,7 @@ module.exports.getEspBySecret = function(secretValue, callback){
 }
 
 module.exports.getAllEsp = function(callback){
-    esp.find({},callback)
+    Esp.find({},callback)
 }
 
 
