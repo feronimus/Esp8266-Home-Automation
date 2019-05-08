@@ -52,6 +52,11 @@ module.exports.getEspBySecret = function(secretValue, callback){
     Esp.findOne(query, callback)
 }
 
+module.exports.getAllEsp = function(callback){
+    esp.find({},callback)
+}
+
+
 
 module.exports.addEsp =function(newEsp, callback){
     newEsp.save(callback);
