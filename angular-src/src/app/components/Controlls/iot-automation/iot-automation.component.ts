@@ -130,8 +130,8 @@ export class IotAutomationComponent implements OnInit {
   isOnlineNow(oldTime: number){
     var d = new Date();
     var t= d.getTime()/1000;
-
-    
+    console.log(oldTime ); 
+     console.log(oldTime + 7 > t); 
     //console.log(t-oldTime + 7);
     if(oldTime + 7 > t ) return true;
     else return false;
