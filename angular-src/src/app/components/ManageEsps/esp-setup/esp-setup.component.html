@@ -1,0 +1,32 @@
+
+
+  <mat-horizontal-stepper #stepper>
+    <mat-step  label="Choose ESP OR new" >      
+        <app-manage></app-manage>>
+      <button mat-button matStepperNext  class="btn btn-primary">Next</button>
+    </mat-step>
+    <mat-step label="Update Firmware" >       
+
+        <div>
+          <button mat-button matStepperPrevious  class="btn btn-secondary">Back</button >         
+            <button mat-button matStepperNext  class="btn btn-primary">Next</button>
+        </div>
+    
+    </mat-step>
+    <mat-step label="Change Button view" >       
+
+        
+        <div>
+          <button mat-button matStepperPrevious  class="btn btn-secondary">Back</button >         
+            <button mat-button matStepperNext  class="btn btn-primary">Next</button>
+        </div>
+    
+    </mat-step>
+    <mat-step label="Choose your view" > 
+      <ng-template matStepLabel>Done</ng-template>
+     
+        <button  class="btn btn-secondary" matStepperPrevious>Back</button>
+        <button class="btn btn-success" mat-button >Save</button>
+    
+    </mat-step>
+  </mat-horizontal-stepper>

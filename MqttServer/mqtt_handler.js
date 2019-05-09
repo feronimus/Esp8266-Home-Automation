@@ -63,14 +63,14 @@ class MqttHandler {
             var t= d.getTime()/ 1000 ;
             esp.isOnline = t ;// how many seconds have passed since 1970/01/01
             Esp.updateEsp(esp, (err, esp) => {}); 
-            EspRouts.HandleMqttMessage(topic, message, packet);
+            if(message != "online")  EspRouts.HandleMqttMessage(topic, message, packet);
            
         })
         //prob reset all var ?????
     };
 
     mqttClient.on('close', () => {
-      console.log(`mqtt client disconnected`);        
+      //console.log(`mqtt client disconnected`);        
      
     });
   

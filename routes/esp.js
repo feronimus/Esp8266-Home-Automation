@@ -261,18 +261,20 @@ router.post('/delete', passport.authenticate('jwt' , {session:false}), (req, res
 //----------- Upload-downalod files .bin codes -----------\\
 
 
-var store = multer.diskStorage({
-    destination:function(req,file,cb){
-        cb(null, './../uploads');
-    },
-    filename:function(req,file,cb){
-        cb(null, Date.now()+'.'+file.originalname);
-    }
-});
 
-var upload = multer({storage:store}).single('file');
 
 router.post('/espuploads',  (req, res, next) =>{
+    var store = multer.diskStorage({
+        destination:function(req,file,cb){
+            cb(null, './../uploads');
+        },
+        filename:function(req,file,cb){
+            cb(null, Date.now()+'.'+file.originalname);
+        }
+    });
+    
+    var upload = multer({storage:store}).single('file');
+    
     console.log('got inside esp uploads');
     upload(req,res,(err)=>{
         if(err) return res.status(501).json({error:err});

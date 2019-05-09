@@ -23,6 +23,7 @@ import {DemoMaterialModule} from './material-module';
 import {MatNativeDateModule} from '@angular/material';
 import { UploadCodeComponent } from './components/ManageEsps/upload-code/upload-code.component';
 import { FileUploadModule} from 'ng2-file-upload';
+import { EspSetupComponent } from './components/ManageEsps/esp-setup/esp-setup.component';
 
 const appRoutes: Routes = [
   {path:'', component: HomeComponent , canActivate:[LoggedGuard]},
@@ -30,7 +31,7 @@ const appRoutes: Routes = [
   {path:'login', component: LoginComponent},
   {path:'dashboard', component: DashboardComponent , canActivate:[AuthGuard]},
   {path:'profile', component: ProfileComponent , canActivate:[AuthGuard]}, 
-  {path:'manage', component: ManageComponent, canActivate:[AuthGuard]}
+  {path:'manage', component: EspSetupComponent, canActivate:[AuthGuard]}
 ]
 
 @NgModule({
@@ -44,12 +45,16 @@ const appRoutes: Routes = [
     ProfileComponent,
     IotAutomationComponent,
     ManageComponent,
-    UploadCodeComponent
+    UploadCodeComponent,
+    EspSetupComponent
   ],
   imports: [
     NgbModule.forRoot(),
     BrowserModule,
     FormsModule,
+    //FormGroup, 
+    //FormControl,
+    ReactiveFormsModule,
     FileUploadModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),

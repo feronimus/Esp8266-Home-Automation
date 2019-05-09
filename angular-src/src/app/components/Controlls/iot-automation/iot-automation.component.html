@@ -1,7 +1,7 @@
 
 <div class="row itemsBlock" >
 
-  <div class="col-md-4 col-sm-6 col-12- col-centered " dragula="espsLists" *ngFor="let esp of EspList"  >
+  <div class="col-md-4 col-sm-6 col-12- col-centered " *ngFor="let esp of EspList"  >
     <div class="card bg-light col-centered mb-3" style="max-width: 20rem;" 
       *ngIf=" esp.pins.D0.InUse || 
               esp.pins.D1.InUse ||
@@ -28,8 +28,8 @@
           <hr class="my-1" >
           <ul class="list-group list-group-flush">
             <li class="list-group-item bg-light" *ngIf="esp.pins.D0.InUse">
-              <button mat-button   mat-button type="button" *ngIf="esp.pins.D0.InUse && !esp.pins.D0.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D0', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D0</button>
-              <button mat-button  mat-button type="button" *ngIf="esp.pins.D0.InUse && esp.pins.D0.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D0', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D0</button>
+              <button mat-button  type="button" *ngIf="esp.pins.D0.InUse && !esp.pins.D0.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D0', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D0</button>
+              <button mat-button  type="button" *ngIf="esp.pins.D0.InUse && esp.pins.D0.IsHight" class="btn btn-danger btn-lg"  (click)="eventOnClick({key:'D0', value:false, espItem: esp})" >ΑΠΕΝΕΡΓΟΠΟΙΗΣΗ D0</button>
             </li>
             <li class="list-group-item bg-light" *ngIf="esp.pins.D1.InUse">
               <button mat-button  type="button" *ngIf="esp.pins.D1.InUse && !esp.pins.D1.IsHight" class="btn btn-success btn-lg" (click)="eventOnClick({key:'D1', value:true, espItem: esp})" >ΕΝΕΡΓΟΠΟΙΗΣΗ D1</button>
@@ -83,3 +83,4 @@
   </div>
 </div>
 
+ 
