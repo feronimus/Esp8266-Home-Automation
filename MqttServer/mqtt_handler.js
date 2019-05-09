@@ -62,15 +62,17 @@ class MqttHandler {
             var d = new Date();
             var t= d.getTime()/ 1000 ;
             esp.isOnline = t ;// how many seconds have passed since 1970/01/01
-            Esp.updateEsp(esp, (err, esp) => {}); 
-            if(message != "online")  EspRouts.HandleMqttMessage(topic, message, packet);
+            Esp.updateEsp(esp, (err, esp) => {});
+            var RealTopic = topic.substring(topic.indexOf("/") + 1);
+            var RealTopic = RealTopic.substring(0, RealTopic.indexOf('/'));
+            if(message != "online")  EspRouts.HandleMqttMessage(RealTopic, message, packet);
            
         })
         //prob reset all var ?????
     };
 
     mqttClient.on('close', () => {
-      //console.log(`mqtt client disconnected`);        
+      console.log(`mqtt client disconnected`);        
      
     });
   
