@@ -14,11 +14,10 @@ const MqtHandler = require('../MqttServer/mqtt_handler');
 
 module.exports.HandleMqttMessage = function(topic, Message, packet){
 
-    
     if(!Message) return;
     //Send all info as esp startup
     if(Message == "START"){ 
-        Esp.getEspBySecret(secret, (err,newEsp) =>{
+        Esp.getEspBySecret(topic, (err,newEsp) =>{
             if(err) {res.json({success: false, msg:err});}
             if(!newEsp)return;
             //Create message
