@@ -46,7 +46,7 @@ class MqttHandler {
     // When a message arrives, console.log it
     mqttClient.on('message', function(topic, message, packet) {
       messageAuth(topic, message, packet);      
-      console.log("From GOT: " +topic.substr(4) + "  - message : " + message );
+      console.log("From GOT: " +topic + "  - message : " + message );
 
     });
 
@@ -100,6 +100,6 @@ module.exports.unsubscribe = function(subscription){
 
 
 module.exports.sendMessage = function(topic,message) {
-  console.log("To SEND : " +topic.substr(4) + "  - message : " + message );
+  console.log("To SEND : " + "esp/" +topic + "/server"+ "  - message : " + message );
   mqttClient.publish("esp/" +topic + "/server", message);
 }

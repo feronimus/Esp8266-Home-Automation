@@ -13,7 +13,9 @@ const MqtHandler = require('../MqttServer/mqtt_handler');
 
 
 module.exports.HandleMqttMessage = function(topic, Message, packet){
-
+    console.log("topic/secret :"+topic)
+    
+    console.log("Message :"+Message)
     if(!Message) return;
     //Send all info as esp startup
     if(Message == "START"){ 
