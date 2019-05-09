@@ -36,7 +36,6 @@ module.exports.HandleMqttMessage = function(topic, Message, packet){
             message = message.slice(0, -1);
             message += "}"
             //send message
-            console.log("topic :"+ topic+ "mes : " + message);
             MqtHandler.sendMessage(topic,message);   
         });
     }
