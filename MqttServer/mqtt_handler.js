@@ -52,7 +52,9 @@ class MqttHandler {
 
     function messageAuth(topic, message, packet){
         //topic esp/secret 
-        let secret = topic.substr(4);
+       
+        var secret = topic.substring(topic.indexOf("/") + 1);
+         secret = RealTopic.substring(0, RealTopic.indexOf('/'));
 
         Esp.getEspBySecret(secret, (err, esp) =>{
             if(err) throw err;
@@ -63,9 +65,7 @@ class MqttHandler {
             var t= d.getTime()/ 1000 ;
             esp.isOnline = t ;// how many seconds have passed since 1970/01/01
             Esp.updateEsp(esp, (err, esp) => {});
-            var RealTopic = topic.substring(topic.indexOf("/") + 1);
-            var RealTopic = RealTopic.substring(0, RealTopic.indexOf('/'));
-            if(message != "online")  EspRouts.HandleMqttMessage(RealTopic, message, packet);
+            if(message != "online")  EspRouts.HandleMqttMessage(secret, message, packet);
            
         })
         //prob reset all var ?????
