@@ -54,7 +54,7 @@ class MqttHandler {
         //topic esp/secret 
        
         var secret = topic.substring(topic.indexOf("/") + 1);
-         secret = RealTopic.substring(0, RealTopic.indexOf('/'));
+         secret = secret.substring(0, secret.indexOf('/'));
 
         Esp.getEspBySecret(secret, (err, esp) =>{
             if(err) throw err;
