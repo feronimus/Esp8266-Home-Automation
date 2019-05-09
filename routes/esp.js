@@ -184,7 +184,7 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
         message = message.slice(0, -1);
         message += "}"
         //send message
-        if(message != "}")MqtHandler.sendMessage("esp/"+newEsp.secret,message);
+        if(message != "}")MqtHandler.sendMessage(newEsp.secret,message);
         //Update esp        
         Esp.updateEsp(newEsp, (err, esp) => {
             if(err){

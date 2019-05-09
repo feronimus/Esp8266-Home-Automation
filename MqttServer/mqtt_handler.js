@@ -33,7 +33,7 @@ class MqttHandler {
             if(err) throw err;
             if(esplist){
                 esplist.forEach(function(esp) {   
-                    mqttClient.subscribe("esp/"+esp.secret, {qos: qosVal});
+                    mqttClient.subscribe("esp/" + esp.secret + "/iot", {qos: qosVal});
                 });
             }        
         })
@@ -88,16 +88,16 @@ class MqttHandler {
 module.exports = MqttHandler;
 
 module.exports.subscribe = function(subscription){
-  mqttClient.subscribe(subscription, {qos: qosVal});
+  mqttClient.subscribe("esp/" + subscription +  "/iot", {qos: qosVal});
 };
 
 module.exports.unsubscribe = function(subscription){
-  mqttClient.unsubscribe(subscription, {qos: qosVal});
+  mqttClient.unsubscribe("esp/" + subscription +  "/iot", {qos: qosVal});
 };
  
 
 
 module.exports.sendMessage = function(topic,message) {
   console.log("To SEND : " +topic.substr(4) + "  - message : " + message );
-  mqttClient.publish(topic, message);
+  mqttClient.publish("esp/" +topic + "/server", message);
 }

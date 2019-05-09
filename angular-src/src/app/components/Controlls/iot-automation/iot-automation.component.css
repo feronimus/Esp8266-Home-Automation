@@ -30,3 +30,10 @@ button {
   width: 100%; 
   height: 100%;
 }
+
+#iotMain{
+  float: none;
+  margin: 0 auto;
+  padding-left: 5%;
+  padding-right: 5%;
+}
