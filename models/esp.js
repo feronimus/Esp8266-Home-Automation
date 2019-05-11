@@ -37,6 +37,11 @@ const EspSchema = Schema({
   mongoose.set('useFindAndModify', false);
 
 
+module.exports.getAllEsp = function(callback){
+    Esp.find({},callback)
+}
+
+
 const Esp = module.exports = mongoose.model('Esp' , EspSchema);
 
 
@@ -54,9 +59,6 @@ module.exports.getEspBySecret = function(secretValue, callback){
     Esp.findOne(query, callback)
 }
 
-module.exports.getAllEsp = function(callback){
-    Esp.find({},callback)
-}
 
 
 
