@@ -41,7 +41,7 @@
                       
                       </div>  
                   </form>
-                  <button  matStepperNext  class="btn btn-info">Next</button>
+                  <button  matStepperNext  class="btn btn-secondary">Next</button>
                   
                 
 <!--         Basic esp conf    END    -->
@@ -56,8 +56,8 @@
      
     <mat-form-field>
       <mat-label class="Label-show-inline">Category/Firmware</mat-label>
-      <mat-select>
-        <mat-optgroup *ngFor="let group of GroupList" [label]="group.group" >
+      <mat-select  [(ngModel)]="selectGroup"  >
+        <mat-optgroup  *ngFor="let group of GroupList" [label]="group.group" >
           <mat-option  (click)="SelectGroupName(names.group, names.name)" *ngFor="let names of group.names" [value]="group">               
             {{names.name}}
           </mat-option>
@@ -65,9 +65,9 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field *ngIf="ShowDevice">
+    <mat-form-field >
       <mat-label class="Label-show-inline">Device/Version</mat-label>
-      <mat-select >
+      <mat-select [(ngModel)]="selectDevice">
         <mat-optgroup *ngFor="let group of DeviceList" [label]="group.device" >
           <mat-option  (click)="SelectedFirmware(versions.firmware)" *ngFor="let versions of group.versions" [value]="group">
             {{versions.firmware.version.main}}.{{versions.firmware.version.secondary}}
@@ -76,7 +76,8 @@
       </mat-select>
     </mat-form-field>
 
-  
+    <button type="button" class="btn btn-primary" (click)="CreateNewFirmware()">Create New</button>
+    
 </div>
 
 <mat-divider></mat-divider>
@@ -102,6 +103,7 @@
       <input  type="number" min="0" name="ver1"  [(ngModel)]="firmVersionMain" class="version-number  input-manage " >
       <label class="Label-manage">.</label>      
       <input type="number" min="0" name="ver2"  [(ngModel)]="firmVersionSecondary"  class="version-number  input-manage " >
+
     </div>
   </div>
 
@@ -110,7 +112,8 @@
         <label class="Label-manage" >Firmware Version</label>
         <label class="Label-show">{{firmVersionMain}}</label>        
         <label class="Label-show-inline" >.</label>
-        <label class="Label-show-inline">{{firmVersionSecondary}}</label>
+        <label class="Label-show-inline" style="padding-right:20px">{{firmVersionSecondary}}</label>
+       
     </div>
   </div>
 
@@ -148,13 +151,8 @@
     </div>
 
   
-    <div *ngIf="IsNewFirmware">
-      
-
-
-     <app-upload-code></app-upload-code>
-          
-<mat-divider></mat-divider>
+    <div *ngIf="IsNewFirmware" style="padding-block-end: 20px">
+    
      <div class="col-sm-12">
         <h4>Upload Section</h4>
         <div id="fileSelector">
@@ -172,7 +170,7 @@
                 </div>
                 <div class="col-sm-4">
                         <button type="button" class="btn btn-dark" (click)="item.upload()">Upload</button>
-                        <button type="button" class="btn btn-danger" (click)="item.remove()">Cancel</button>
+                        <button type="button" class="btn btn-danger" (click)="uploader.queue[0].remove()">Cancel</button>
                 </div>
             </div>                        
         </div>
@@ -189,7 +187,8 @@
 
 </div>  
 </form>
-<button  matStepperNext  class="btn btn-info">Next</button>
+<button  class="btn btn-primary" matStepperPrevious>Back</button>
+<button  matStepperNext  class="btn btn-secondary">Next</button>
 
 
   
@@ -289,14 +288,22 @@
                         <button mat-button matStepperNext  class="btn btn-primary">Next</button>
                     </div>
                
+                <button  class="btn btn-primary" matStepperPrevious>Back</button>
+                <button  matStepperNext  class="btn btn-secondary">Next</button>
             
             </mat-step>
             <mat-step label="Choose your view" > 
               <ng-template matStepLabel>Done</ng-template>
-             
-                <button  class="btn btn-secondary" matStepperPrevious>Back</button>
-                <button class="btn btn-success" mat-button >Save</button>
-            
+              ToDo... 
+              1. An overview of your options
+              2. Rework page 3 visuals
+              3. Rework page 1 button visuals
+              4. Load current firmware on esp choosing (easy)
+              5. ...
+              <mat-checkbox class="Label-manage"  name="Udate"  [(ngModel)]="ForceUpdate">Force Update Firmware on ESP?</mat-checkbox>
+              <button  class="btn btn-primary" matStepperPrevious>Back</button>
+              
+              <button type="button" class="btn btn-warning" (click)="onESPSubmit()" >SAVE</button>          
             </mat-step>
           </mat-vertical-stepper>
         

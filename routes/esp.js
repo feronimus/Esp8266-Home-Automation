@@ -79,7 +79,7 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
         forceUpdate: false
     });
     //console.log(newEsp);
-    if(!req.body._id){
+    if(req.body._id == ""){
         //check Secret
         Esp.getEspBySecret(newEsp.secret, function(err, secret){ 
             if(err) console.log(err);
@@ -116,6 +116,7 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
             }else{
                 //Update esp    
                 MqtHandler.subscribe(newEsp.secret);    
+                console.log("updating esp");
                 Esp.updateEsp(newEsp, (err, esp) => {
                     if(err){
                         res.json({success: false, msg:err});
@@ -267,7 +268,7 @@ router.post('/espuploads',  (req, res, next) =>{
             cb(null, './../uploads');
         },
         filename:function(req,file,cb){
-            cb(null, Date.now()+'.'+file.originalname);
+            cb(null, Date.now()+'.bin');
         }
     });
     

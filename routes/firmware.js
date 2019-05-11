@@ -13,7 +13,8 @@ const MqtHandler = require('../MqttServer/mqtt_handler');
 module.exports = router;
 
 router.post('/register', passport.authenticate('jwt' , {session:false}), (req, res, next) => {   
-    
+                 
+    console.log("inside esp");
     //res.send('REGISTER');
     let newFirmware = new Firmware({
         name: req.body.name,
@@ -24,7 +25,7 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
         group: req.body.group,
         device:  req.body.device,
         esp: [req.body.esp._id],
-        owner: req.body.owner._id
+        owner: req.body.owner
     });
     //console.log(newEsp);  
         //check Uniqueness of name /version
@@ -34,7 +35,7 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
                 firmwares.forEach(firm => {
                     if(newFirmware.version.main == firm.version.main &&
                          newFirmware.version.secondary == firm.version.secondary){
-                        res.json({success: false, msg:'This secret is already in use...'});
+                        res.json({success: false, msg:'This firmware with this version already exists...'});
                         return ;
                     }
                 });
@@ -45,9 +46,11 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
                         res.json({success: false, msg:err});
                     }else {                    
                         //this.UpdateUserWithEsp(User.getUserById(newEsp.owner[0]),esp._id);
+                        if(!req.body.esp)return;
                         Esp.getEspBySecret(req.body.esp.secret, function(err, esp){ 
                             if(err) console.log(err);
-                            esp.firmware = newFirmware;
+                            esp.firmware = newFirmware._id;
+                            if(req.body.forceUpdate)esp.forceUpdate=true;
                             Esp.updateEsp(esp , function(err , user){ 
                                 if(err) console.log(err);
                                 res.json({success: true, msg:'The firm is now registered!!!'});
@@ -77,13 +80,25 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
             firmware.version.main = req.body.version.main;
             firmware.version.secondary = req.body.version.secondary;
             firmware.esp.push(req.body.esp._id);//push
-
+            firmware.owner = req.body.owner;
+            console.log("updating eFirmwaresp");
             Firmware.updateFirmware(firmware, (err, esp) => {
                 if(err){
                     res.json({success: false, msg:err});
                 }else {                    
                     res.json({success: true, msg:'The firmware is now updated!!!'});
                 }
+                Esp.getEspBySecret(req.body.esp.secret, function(err, esp){ 
+                    if(err) console.log(err);
+                    esp.firmware = firmware._id;
+                    if(req.body.forceUpdate)esp.forceUpdate=true;
+                    Esp.updateEsp(esp , function(err , user){ 
+                        if(err) console.log(err);
+                        res.json({success: true, msg:'The firm is now registered!!!'});
+                        
+                    });                      
+                });
+                //update esp that i sent tha it has me
             }); 
         
     });          

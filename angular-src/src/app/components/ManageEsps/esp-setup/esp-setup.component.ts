@@ -38,6 +38,10 @@ export class EspSetupComponent implements OnInit {
   EspList;
 
   //firmware
+  selectGroup;
+  selectDevice;
+
+  focusedFirmware;
   firmName;
   firmDescription;
   firmVersionMain;
@@ -49,12 +53,17 @@ export class EspSetupComponent implements OnInit {
   IsOwner =true; //To be checked on start 
   IsNewFirmware = true; 
 
+  ForceUpdate = false;
+
   GroupList;
-  ShowDevice = false;
   DeviceList;
 
-  uploader:FileUploader = new FileUploader({url:uri,
-    allowedMimeType: ['application/octet-stream'] });
+
+  uploader:FileUploader = new FileUploader({
+    url:uri,
+    allowedMimeType: ['application/octet-stream'] ,  
+    queueLimit: 2
+  });
   attachmentList:any = [];
 
   constructor(
@@ -63,13 +72,20 @@ export class EspSetupComponent implements OnInit {
     private router: Router,
     private validateService: ValidateService) { 
       
-      this.uploader.onAfterAddingFile = (file) => {  file.withCredentials = false; }; 
-        this.uploader.onCompleteItem = (item:any, response:any , status:any, headers:any) => {
-            this.attachmentList.push(JSON.parse(response));
-        }
+      this.uploader.onAfterAddingFile = (file) => {  file.withCredentials = false; this.onAfterAddingFile(file);};
+
+      this.uploader.onCompleteItem = (item:any, response:any , status:any, headers:any) => {
+          this.attachmentList.push(JSON.parse(response));
+          this.firmLink = "https://mqtt.antallaktika-smart.gr/uploads/" + response.uploadname;
+      }
     }
     user;
 
+    onAfterAddingFile(fileItem: any) {
+      let latestFile = this.uploader.queue[this.uploader.queue.length-1]
+      this.uploader.queue = []; 
+      this.uploader.queue.push(latestFile);
+   } 
   ngOnInit() {
     //load esps 
     this.LoadLists();
@@ -85,7 +101,6 @@ export class EspSetupComponent implements OnInit {
 
     
   }
-  
   LoadLists(){
     this.authService.getEspByUser().subscribe(esps => {
       this.EspList = esps.esps.esp ;
@@ -99,13 +114,13 @@ export class EspSetupComponent implements OnInit {
     //load groups
     this.authService.getFirmwareGroups().subscribe(groups => { 
       this.GroupList = [{}]; 
-      
       let tempGroups   = groups.groups;  
       tempGroups.forEach(groupItem => { 
       let groupObject; 
        groupObject = {'group' :groupItem};
         this.authService.getFirmwareGroupNames({group:groupItem}).subscribe(nameItems => {         
          
+        
           groupObject['names'] = [{}];
           nameItems.names.forEach(nameitem =>{
             groupObject['names'].push({'name' : nameitem, 'group' :groupItem }) ;
@@ -145,9 +160,9 @@ export class EspSetupComponent implements OnInit {
 
   onESPSubmit(){
     //check if secret already exists
-    let  esp;    
-
-    esp = {
+    console.log("inside sumbit");
+    let  esp = {
+      _id:"",
       name: this.name,
       description: this.description,
       secret: this.secret,
@@ -171,7 +186,7 @@ export class EspSetupComponent implements OnInit {
       group: "",
       eventSheduler: { },//event object
       timer: -1,
-      version: "",
+      version: "", //to be removed
       forceUpdate : false 
     }
    
@@ -189,6 +204,57 @@ export class EspSetupComponent implements OnInit {
           if(data.success){
             this.flashMessage.subj_notification.next(data.msg);
             //this.router.navigate(['/dashboard']);
+
+            //Saveor update Firmware 
+            
+            this.authService.getEspByUser().subscribe(esps => {
+              esps.esps.esp.forEach(userEsp => {
+                //console.log(userEsp);
+                if(userEsp.secret == esp.secret) {
+
+                let  firmware = {
+                  _id: "",
+                  name: this.firmName,
+                  description: this.firmDescription,
+                  version: { main: this.firmVersionMain,  secondary: this.firmVersionSecondary},
+                  isPublic: this.firmisPublic  ,      
+                  owner: this.user._id,
+                  link: this.firmLink,
+                  group: this.firmGroup,
+                  device: this.firmDevice,
+                  esp: userEsp
+                }  
+                if(this.IsNewFirmware){
+                  //register
+                  this.authService.registerFirmware(firmware).subscribe(data => {
+                    if(data.success){
+                      this.flashMessage.subj_notification.next(data.msg); }else{
+                        this.flashMessage.subj_notification.next(data.msg);
+                        //this.router.navigate(['/dashboard']);
+                        this.LoadLists();
+                      }
+                    });
+    
+                }else{
+                  //update
+                  firmware._id = this.focusedFirmware._id;
+                  this.authService.updateFirmware(firmware).subscribe(data => {
+                    if(data.success){
+                      this.flashMessage.subj_notification.next(data.msg); }else{
+                        this.flashMessage.subj_notification.next(data.msg);
+                        //this.router.navigate(['/dashboard']);
+                        this.LoadLists();
+                      }
+                    });
+    
+                }
+                this.LoadLists();
+                this.CreateNewEsp();
+                this.CreateNewFirmware()
+              }
+              });
+            
+            });
             this.LoadLists();
           }else{
             this.flashMessage.subj_notification.next(data.msg);
@@ -222,9 +288,9 @@ export class EspSetupComponent implements OnInit {
 
   SelectGroupName(groupItem : any, nameItem: any){
     //load devices
+    this.IsNewFirmware=false;
     this.authService.getFirmwareGroupNameDevices({group : groupItem, name : nameItem}).subscribe(devices => { 
       this.DeviceList = [{}]; 
-      console.log(devices);
       let tempGroups   = devices.devices; 
       tempGroups.forEach(deviceItem => { 
       let groupObject; 
@@ -242,14 +308,13 @@ export class EspSetupComponent implements OnInit {
       this.DeviceList.shift(); 
 
     });
-
-
-    this.ShowDevice = true;
   }
 
   SelectedFirmware(firmwre :any){
     this.IsNewFirmware=false;
-    
+    console.log(firmwre.owner);
+    if(firmwre.owner == this.user._id)this.IsOwner =true;
+    else this.IsOwner =false;
     this.firmName = firmwre.name;
     this.firmDescription= firmwre.description;
     this.firmVersionMain= firmwre.version.main;
@@ -258,6 +323,21 @@ export class EspSetupComponent implements OnInit {
     this.firmLink = firmwre.link;
     this.firmGroup = firmwre.group;
     this.firmDevice = firmwre.device;
+    this.focusedFirmware =firmwre;
     
+  }
+  CreateNewFirmware(){
+    this.IsOwner=true;
+    this.IsNewFirmware=true;
+    this.firmName = undefined;  
+    this.firmDescription = undefined;   
+    this.firmVersionMain = undefined;   
+    this.firmVersionSecondary = undefined;
+    this.firmisPublic = false;
+    this.firmLink = undefined;
+    this.firmGroup = undefined;
+    this.firmDevice = undefined;
+    this.selectGroup = undefined;
+    this.selectDevice = undefined;
   }
 }

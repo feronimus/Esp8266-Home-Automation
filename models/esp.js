@@ -29,7 +29,7 @@ const EspSchema = Schema({
     viewOrder: Number,
     eventSheduler: { },//event object
     timer: Number,
-    version: String,
+    version: String, //to be removed
     forceUpdate : Boolean
   });
 
