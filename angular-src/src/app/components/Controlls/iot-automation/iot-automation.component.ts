@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
-import {FlashMessagesService} from 'angular2-flash-messages';
+import {UtilityService} from '../../../services/utility.service';
 
 @Component({
   selector: 'app-iot-automation',
@@ -15,7 +15,7 @@ export class IotAutomationComponent implements OnInit {
 
 
   constructor(
-    private flashMessage:FlashMessagesService,
+    private flashMessage:UtilityService,
     private authService: AuthService,
     ){   
       setInterval(()=> { this.UpdateEspListValues() }, 1000);  

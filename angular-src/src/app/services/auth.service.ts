@@ -100,6 +100,47 @@ export class AuthService {
   }
 
 
+  
+  getFirmwareGroups(){
+    this.loadToken();    
+    const headers = new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': this.authToken
+    });
+    return this.http.get('firmware/groups',{headers: headers}).pipe(map((response: any) => response));
+    //return this.http.get('http://localhost:3000/firmware/groups',{headers: headers}).pipe(map((response: any) => response));
+  }
+
+  getFirmwareGroupNames(data){
+    this.loadToken();    
+    const headers = new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': this.authToken
+    });
+    return this.http.post('firmware/groupNames',data,{headers: headers}).pipe(map((response: any) => response));
+    //return this.http.post('http://localhost:3000/firmware/groupNames',data,{headers: headers}).pipe(map((response: any) => response));
+  }
+
+  getFirmwareGroupNameDevices(data){
+    this.loadToken();    
+    const headers = new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': this.authToken
+    });
+    return this.http.post('firmware/groupNameDevices',data,{headers: headers}).pipe(map((response: any) => response));
+    //return this.http.post('http://localhost:3000/firmware/groupNameDevices',data,{headers: headers}).pipe(map((response: any) => response));
+  }
+
+  getFirmwareGroupNameDeviceVersions(data){
+    this.loadToken();    
+    const headers = new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': this.authToken
+    });
+    return this.http.post('firmware/groupNameDeviceVersions',data,{headers: headers}).pipe(map((response: any) => response));
+    //return this.http.post('http://localhost:3000/firmware/groupNameDeviceVersions',data,{headers: headers}).pipe(map((response: any) => response));
+  }
+
 
   storeUserData(token, user){
     localStorage.setItem('id_token', token);

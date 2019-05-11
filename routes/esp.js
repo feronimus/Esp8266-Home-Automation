@@ -6,6 +6,7 @@ const config = require('../config/database');
 const User =  require('../models/user');
 const Esp =  require('../models/esp');
 const multer = require('multer');
+const Firmware =  require('../models/firmware');
 const MqtHandler = require('../MqttServer/mqtt_handler');
 
 
@@ -75,7 +76,7 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
         eventSheduler: { },//event object
         timer: -1,
         version: 0.1,
-        softwareURL: ""
+        forceUpdate: false
     });
     //console.log(newEsp);
     if(!req.body._id){
@@ -157,7 +158,7 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
         eventSheduler: { },//event object
         timer: req.body.timer,
         version: req.body.version,
-        softwareURL: req.body.softwareURL
+        forceUpdate: req.body.forceUpdate
     });
     //Find changes
     

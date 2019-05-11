@@ -23,6 +23,7 @@ mongoose.connection.on('error', (err) => {
 
 const users = require('./routes/users');
 const esp = require('./routes/esp');
+const firmware = require('./routes/firmware');
 //Port Number
 const port = 3000;
 
@@ -49,6 +50,7 @@ require('./config/passport')(passport);
 
 app.use('/users', users);
 app.use('/esp', esp);
+app.use('/firmware', firmware);
 
 //Index Route
 app.get('/', (req, res) => {

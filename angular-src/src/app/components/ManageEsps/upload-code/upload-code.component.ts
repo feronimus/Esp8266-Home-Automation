@@ -4,7 +4,7 @@ import {AuthService} from './../../../services/auth.service';
 
 
 var uri = 'esp/espuploads';
-//uri = 'http://localhost:3000/esp/espuploads'; 
+//var uri = 'http://localhost:3000/esp/espuploads'; 
 @Component({
   selector: 'app-upload-code',
   templateUrl: './upload-code.component.html',
@@ -18,7 +18,8 @@ export class UploadCodeComponent implements OnInit {
     //uri = this.authService.uri;
   }
 
-  uploader:FileUploader = new FileUploader({url:uri});
+  uploader:FileUploader = new FileUploader({url:uri,
+    allowedMimeType: ['application/octet-stream'] });
 
   attachmentList:any = [];
 

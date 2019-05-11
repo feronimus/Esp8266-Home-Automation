@@ -24,12 +24,13 @@ const EspSchema = Schema({
         A0: {InUse:Boolean, value : Number}
     },
     owner: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    firmware: { type: Schema.Types.ObjectId, ref: 'Firmware' },
     isOnline: Number,
     viewOrder: Number,
     eventSheduler: { },//event object
     timer: Number,
     version: String,
-    softwareURL : String
+    forceUpdate : Boolean
   });
 
   mongoose.set('useFindAndModify', false);

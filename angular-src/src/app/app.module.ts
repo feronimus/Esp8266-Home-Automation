@@ -11,6 +11,7 @@ import { ProfileComponent } from './components/Basic/profile/profile.component';
 import { RouterModule, Routes} from '@angular/router';
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
+import {UtilityService} from './services/utility.service';
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import { HttpClientModule } from '@angular/common/http'; 
 import {AuthGuard} from './guards/auth.guard';
@@ -51,7 +52,7 @@ const appRoutes: Routes = [
   imports: [
     NgbModule.forRoot(),
     BrowserModule,
-    FormsModule,
+    FormsModule, 
     //FormGroup, 
     //FormControl,
     ReactiveFormsModule,
@@ -64,7 +65,7 @@ const appRoutes: Routes = [
     //MatButtonModule,MatFormFieldModule,MatInputModule, MatRippleModule,MatSliderModule,
     BrowserAnimationsModule  
   ],
-  providers: [ValidateService, AuthService, AuthGuard,LoggedGuard],
+  providers: [ValidateService, UtilityService,AuthService, AuthGuard,LoggedGuard],
   bootstrap: [AppComponent]  
 })
 export class AppModule { }
