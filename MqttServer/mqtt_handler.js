@@ -27,7 +27,6 @@ class MqttHandler {
     // Connection callback
     mqttClient.on('connect', () => {
       console.log(`mqtt client connected`);
-
         //subscribe to all existing esps
         Esp.getAllEsp((err, esplist) =>{
             if(err) throw err;
