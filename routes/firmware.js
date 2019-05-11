@@ -51,7 +51,7 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
                             if(err) console.log(err);
                             esp.firmware = newFirmware._id;
                             //if(req.body.forceUpdate)esp.forceUpdate=true;
-                            if(esp.forceUpdate)  MqtHandler.sendMessage(esp.secret,"{\"ForceUpdate\":\"true\",\"link\":\""+newFirmware.link+"\"}")
+                            if(req.body.forceUpdate)  MqtHandler.sendMessage(esp.secret,"{\"ForceUpdate\":\"true\",\"link\":\""+newFirmware.link+"\"}")
                             Esp.updateEsp(esp , function(err , user){ 
                                 if(err) console.log(err);
                                 res.json({success: true, msg:'The firm is now registered!!!'});
@@ -95,7 +95,7 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
                     if(err) console.log(err);
                     esp.firmware = firmware._id;
                     //if(req.body.forceUpdate)esp.forceUpdate=true;
-                    if(esp.forceUpdate)  MqtHandler.sendMessage(esp.secret,"{\"ForceUpdate\":\"true\",\"link\":\""+firmware.link+"\"}")
+                    if(req.body.forceUpdate)  MqtHandler.sendMessage(esp.secret,"{\"ForceUpdate\":\"true\",\"link\":\""+firmware.link+"\"}")
                     Esp.updateEsp(esp , function(err , user){ 
                         if(err) console.log(err);
                         res.json({success: true, msg:'The firm is now registered!!!'});
