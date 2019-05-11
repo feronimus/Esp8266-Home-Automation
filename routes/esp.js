@@ -277,7 +277,7 @@ router.post('/espuploads',  (req, res, next) =>{
     console.log('got inside esp uploads');
     upload(req,res,(err)=>{
         if(err) return res.status(501).json({error:err});
-        res.json({originalname:req.file.originalname, uploadname:req.file.filename});
+        res.json(req.file.filename);
     });
 });
 

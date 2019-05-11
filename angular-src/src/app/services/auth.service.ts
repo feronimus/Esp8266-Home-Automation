@@ -162,6 +162,15 @@ export class AuthService {
     //return this.http.post('http://localhost:3000/firmware/update', data,{headers: headers}).pipe(map((response: any) => response));
   }
 
+  getFirmwareById(data){   
+    this.loadToken();    
+    const headers = new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': this.authToken
+    });
+    return this.http.post('firmware/id', data,{headers: headers}).pipe(map((response: any) => response));
+    //return this.http.post('http://localhost:3000/firmware/id', data,{headers: headers}).pipe(map((response: any) => response));
+  }
 
 
 

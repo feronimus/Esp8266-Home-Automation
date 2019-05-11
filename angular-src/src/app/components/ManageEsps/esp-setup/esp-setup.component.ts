@@ -8,6 +8,7 @@ import { FileSelectDirective, FileUploader} from 'ng2-file-upload';
 
 
 var uri = 'esp/espuploads';
+//var uri = 'http://localhost:3000/esp/espuploads';
 @Component({
   selector: 'app-esp-setup',
   templateUrl: './esp-setup.component.html',
@@ -76,7 +77,8 @@ export class EspSetupComponent implements OnInit {
 
       this.uploader.onCompleteItem = (item:any, response:any , status:any, headers:any) => {
           this.attachmentList.push(JSON.parse(response));
-          this.firmLink = "https://mqtt.antallaktika-smart.gr/uploads/" + response.uploadname;
+          console.log(response);
+          this.firmLink = "https://mqtt.antallaktika-smart.gr/uploads/" + response.substring(1, response.length-1);
       }
     }
     user;
@@ -153,6 +155,11 @@ export class EspSetupComponent implements OnInit {
    this.D9 = this.focusedESP.pins.D9.InUse;
    this.D10 = this.focusedESP.pins.D10.InUse;
    this.A0 = this.focusedESP.pins.A0.InUse;
+   this.ForceUpdate = this.focusedESP.forceUpdate;
+   this.authService.getFirmwareById({_id:this.focusedESP.firmware}).subscribe(firmware => { 
+    this.SelectedFirmware(firmware.firmware);
+   });
+  
    
  }
 
@@ -222,7 +229,8 @@ export class EspSetupComponent implements OnInit {
                   link: this.firmLink,
                   group: this.firmGroup,
                   device: this.firmDevice,
-                  esp: userEsp
+                  esp: userEsp,
+                  forceUpdate: this.ForceUpdate
                 }  
                 if(this.IsNewFirmware){
                   //register
@@ -311,8 +319,9 @@ export class EspSetupComponent implements OnInit {
   }
 
   SelectedFirmware(firmwre :any){
+
     this.IsNewFirmware=false;
-    console.log(firmwre.owner);
+    console.log(firmwre.name);
     if(firmwre.owner == this.user._id)this.IsOwner =true;
     else this.IsOwner =false;
     this.firmName = firmwre.name;

@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const config = require('../config/database');
 const User =  require('../models/user');
-
+const MqtHandler = require('../MqttServer/mqtt_handler');
+const Firmware = require('./firmware');
 const Schema = mongoose.Schema;
 const EspSchema = Schema({
     name: String,
@@ -64,6 +65,13 @@ module.exports.addEsp =function(newEsp, callback){
     
 }
 module.exports.updateEsp = function(esp, callback){  
+    if(esp.forceUpdate){
+        Firmware.getFirmwareById(esp.firmware,(firmItem) =>{
+            MqtHandler.sendMessage(esp.secret,"{\"ForceUpdate\":\"true\",\"link\":\""+firmItem.link+"\"}")
+        });
+       
+    }
+
     var query = {'_id':esp._id};
     Esp.findOneAndUpdate(query,esp, {upsert:true}, callback);
 }

@@ -43,9 +43,10 @@ module.exports.addFirmware =function(newFirmware, callback){
     newFirmware.save(callback);      
 }
 
-module.exports.updateFirmware = function(Firmware, callback){  
-    var query = {'_id':Firmware._id};
-    Firmware.findOneAndUpdate(query, Firmware, {upsert:true}, callback);
+module.exports.updateFirmware = function(firmware, callback){  
+    var query = {'_id':firmware._id};
+    console.log(Firmware);
+    Firmware.findOneAndUpdate(query, firmware, {upsert:true}, callback);
 }
 
 

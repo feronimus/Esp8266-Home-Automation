@@ -79,15 +79,17 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
             firmware.link = req.body.link;
             firmware.version.main = req.body.version.main;
             firmware.version.secondary = req.body.version.secondary;
-            firmware.esp.push(req.body.esp._id);//push
-            firmware.owner = req.body.owner;
-            console.log("updating eFirmwaresp");
+            let espexists=false;
+            firmware.esp.forEach(id =>{
+                if(req.body.esp._id == id) espexists=true;
+            });
+            if(!espexists) firmware.esp.push(req.body.esp._id);
+            //firmware.owner = req.body.owner;
+            console.log("updating firmware");
             Firmware.updateFirmware(firmware, (err, esp) => {
                 if(err){
                     res.json({success: false, msg:err});
-                }else {                    
-                    res.json({success: true, msg:'The firmware is now updated!!!'});
-                }
+                }else {        
                 Esp.getEspBySecret(req.body.esp.secret, function(err, esp){ 
                     if(err) console.log(err);
                     esp.firmware = firmware._id;
@@ -98,7 +100,7 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
                         
                     });                      
                 });
-                //update esp that i sent tha it has me
+                 }//update esp that i sent tha it has me
             }); 
         
     });          
@@ -150,6 +152,16 @@ router.post('/groupNameDeviceVersions', passport.authenticate('jwt' , {session:f
         if(err) console.log(err);        
         if(firmware){            
             res.json({verions: firmware});
+        }
+    });
+});
+
+
+router.post('/id', passport.authenticate('jwt' , {session:false}), (req, res, next) => {
+    Firmware.getFirmwareById(req.body._id, function(err, firmware){ 
+        if(err) console.log(err);        
+        if(firmware){            
+            res.json({firmware: firmware});
         }
     });
 });
