@@ -78,7 +78,7 @@ export class EspSetupComponent implements OnInit {
       this.uploader.onCompleteItem = (item:any, response:any , status:any, headers:any) => {
           this.attachmentList.push(JSON.parse(response));
           console.log(response);
-          this.firmLink = "https://mqtt.antallaktika-smart.gr/uploads/" + response.substring(1, response.length-1);
+          this.firmLink = "http://mqtt.antallaktika-smart.gr/uploads/" + response.substring(1, response.length-1);
       }
     }
     user;
