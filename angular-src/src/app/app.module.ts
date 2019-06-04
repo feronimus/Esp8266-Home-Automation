@@ -26,6 +26,7 @@ import { UploadCodeComponent } from './components/ManageEsps/upload-code/upload-
 import { FileUploadModule} from 'ng2-file-upload';
 import { EspSetupComponent } from './components/ManageEsps/esp-setup/esp-setup.component';
 
+
 const appRoutes: Routes = [
   {path:'', component: HomeComponent , canActivate:[LoggedGuard]},
   {path:'register', component: RegisterComponent},

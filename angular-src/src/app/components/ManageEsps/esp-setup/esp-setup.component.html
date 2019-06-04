@@ -121,17 +121,46 @@
   <div class="d-inline-block">
 
         <div class="d-inline-block">
+          
+            <mat-form-field >
+                <input type="text" placeholder="Category Of Firmware" aria-label="Number" matInput [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let group of GroupList "  [value]="group.group">
+                    {{group.group}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+
+
+<!-- 
           <label class="Label-manage" >Category Of Firmware</label>
           <input *ngIf="IsOwner" type="text" [(ngModel)]="firmGroup" name="group" class="  input-manage form-control" placeholder="ex: 'Led Blink'">
           <label *ngIf="!IsOwner" class="Label-show">{{firmGroup}}</label>
+          -->
         </div>
       
 
       
           <div class="d-inline-block" style=" padding-left:  20px">
+
+              <mat-form-field >
+                  <input type="text" placeholder="Targeted Device" matInput [matAutocomplete]="autoDevice">
+                  <mat-autocomplete #autoDevice="matAutocomplete">
+                    <mat-option *ngFor="let device of DeviceList " [value]="device.device">
+                      {{device.device}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+
+
+            <!-- 
             <label class="Label-manage" >Targeted Device</label>
             <input *ngIf="IsOwner" type="text" [(ngModel)]="firmDevice" name="device" class="  input-manage form-control" placeholder="ex: 'NodeMCU','Esp8266'...">
             <label *ngIf="!IsOwner" class="Label-show">{{firmDevice}}</label>
+             -->
+
+
+             
           </div>
         </div>
   

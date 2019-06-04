@@ -30,7 +30,9 @@ const EspSchema = Schema({
     eventSheduler: { },//event object
     timer: Number,
     version: String, //to be removed
-    forceUpdate : Boolean
+    forceUpdate : Boolean,
+    buttons: [{Name: String, message: String }],
+    Sliders: [{Name: String, message: Number }]
   });
 
   mongoose.set('useFindAndModify', false);

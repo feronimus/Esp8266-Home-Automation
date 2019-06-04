@@ -47,7 +47,7 @@ export class IotAutomationComponent implements OnInit {
       
     this.EspList.forEach(esp => { 
     if(esp._id == object.espItem._id) {
-     
+    
       esp.pins[object.key].value = object.value.value; 
      
       this.authService.updateEsp(esp).subscribe(data => {

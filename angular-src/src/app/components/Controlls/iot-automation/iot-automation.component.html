@@ -25,7 +25,7 @@
       <div class="card-body">
           <h4 class="card-title">{{esp.Description}}</h4>
         <ul class="list-group">
-            <hr class="my-1" >
+            
             <ul class="list-group list-group-flush">
               <li class="list-group-item bg-light" *ngIf="esp.pins.D0.InUse">
                 <button   type="button" *ngIf="esp.pins.D0.InUse && !esp.pins.D0.IsHight" class="btn btn-success" (click)="eventOnClick({key:'D0', value:true, espItem: esp})" >OPEN D0</button>
@@ -72,15 +72,13 @@
                 <button   type="button" *ngIf="esp.pins.D10.InUse && esp.pins.D10.IsHight" class="btn btn-danger"  (click)="eventOnClick({key:'D10', value:false, espItem: esp})" >CLOSE D10</button>
               </li>
               <li class="list-group-item bg-light" *ngIf="esp.pins.A0.InUse">             
-                <h5 class="aria-label">A0 analog Pin At: {{esp.pins.A0.value}}</h5>         
-                <mat-slider *ngIf="esp.pins.A0.InUse" [value]="esp.pins.A0.value" (change)="eventOnChange({key:'A0',value:$event, espItem: esp})" id="sliderA0" thumbLabel  [displayWith]="formatLabel" tickInterval="auto " min="1" max="1000" >></mat-slider>             
+                
+                <mat-slider *ngIf="esp.pins.A0.InUse" [value]="esp.pins.A0.value" (change)="eventOnChange({key:'A0',value:$event, espItem: esp})" id="sliderA0" thumbLabel  [displayWith]="formatLabel" tickInterval="auto " min="0" max="1023" >></mat-slider>             
               </li>
           </ul>
-          <hr class="my-1" *ngIf="esp.pins.A0.InUse">
+         
         </ul>
       </div>
     </div>
   </div>
 </div>
-
- 

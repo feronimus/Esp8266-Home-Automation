@@ -13,8 +13,9 @@ const FirmSchema = Schema({
     esp: [{ type: Schema.Types.ObjectId, ref: 'Esp' }],
     group: String,
     device: String,    
-    owner: { type: Schema.Types.ObjectId, ref: 'User' }
-
+    owner: { type: Schema.Types.ObjectId, ref: 'User' },
+    buttons: [{Name: String, message: String }],
+    Sliders: [{Name: String, message: Number }]
   });
 
   
@@ -45,28 +46,29 @@ module.exports.addFirmware =function(newFirmware, callback){
 
 module.exports.updateFirmware = function(firmware, callback){  
     var query = {'_id':firmware._id};
-    console.log(Firmware);
+    
     Firmware.findOneAndUpdate(query, firmware, {upsert:true}, callback);
 }
 
 
 
-module.exports.getAllFirmwaresDistinctByGroup = function( callback){
-    Firmware.find({}).distinct('group',callback)
+module.exports.getAllFirmwaresDistinctByGroup = function(id, callback){
+   
+    Firmware.find({ $or: [{owner: id}, {isPublic: true}]}).distinct('group',callback)
 }
 
-module.exports.getFirmOfGroupDistinctByName = function(group, callback){
-    const query = {group: group}
+module.exports.getFirmOfGroupDistinctByName = function(id,group, callback){
+    const query ={ $and: [{ $or: [{owner: id}, {isPublic: true}]} ,{group: group} ]}
     Firmware.find(query).distinct('name',callback)
 }
 
-module.exports.getFirmOfGroupAndNameDistinctByDevice = function(group , name , callback){
-    const query = {group: group , name : name}
+module.exports.getFirmOfGroupAndNameDistinctByDevice = function(id,group , name , callback){
+    const query ={ $and: [{ $or: [{owner: id}, {isPublic: true}]} , {group: group , name : name}]}
     Firmware.find(query).distinct('device',callback)
 }
 
-module.exports.getFirmOfGroupAndNameAndDevice = function(group , name , device , callback){
-    const query = {group: group , name : name ,device : device}
+module.exports.getFirmOfGroupAndNameAndDevice = function(id,group , name , device , callback){
+    const query ={ $and: [{ $or: [{owner: id}, {isPublic: true}]} , {group: group , name : name ,device : device} ]}
     Firmware.find(query,callback)
 }
 

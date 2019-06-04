@@ -90,9 +90,9 @@ export class EspSetupComponent implements OnInit {
    } 
   ngOnInit() {
     //load esps 
-    this.LoadLists();
     this.authService.getProfile().subscribe(profile => {
-      this.user = profile.user;
+      this.user = profile.user;      
+      this.LoadLists();
     },
     err => {
       console.log(err);
@@ -114,13 +114,13 @@ export class EspSetupComponent implements OnInit {
     });
 
     //load groups
-    this.authService.getFirmwareGroups().subscribe(groups => { 
+    this.authService.getFirmwareGroups({_id: this.user._id}).subscribe(groups => { 
       this.GroupList = [{}]; 
       let tempGroups   = groups.groups;  
       tempGroups.forEach(groupItem => { 
       let groupObject; 
        groupObject = {'group' :groupItem};
-        this.authService.getFirmwareGroupNames({group:groupItem}).subscribe(nameItems => {         
+        this.authService.getFirmwareGroupNames({_id: this.user._id, group:groupItem}).subscribe(nameItems => {         
          
         
           groupObject['names'] = [{}];
@@ -297,13 +297,13 @@ export class EspSetupComponent implements OnInit {
   SelectGroupName(groupItem : any, nameItem: any){
     //load devices
     this.IsNewFirmware=false;
-    this.authService.getFirmwareGroupNameDevices({group : groupItem, name : nameItem}).subscribe(devices => { 
+    this.authService.getFirmwareGroupNameDevices({_id: this.user._id,group : groupItem, name : nameItem}).subscribe(devices => { 
       this.DeviceList = [{}]; 
       let tempGroups   = devices.devices; 
       tempGroups.forEach(deviceItem => { 
       let groupObject; 
        groupObject = {'device' :deviceItem};
-        this.authService.getFirmwareGroupNameDeviceVersions({group : groupItem , name : nameItem , device : deviceItem}).subscribe(versionItems => {         
+        this.authService.getFirmwareGroupNameDeviceVersions({_id: this.user._id,group : groupItem , name : nameItem , device : deviceItem}).subscribe(versionItems => {         
          
           groupObject['versions'] = [{}];
           versionItems.verions.forEach(versiontem =>{

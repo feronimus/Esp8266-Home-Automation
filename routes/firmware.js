@@ -121,9 +121,9 @@ router.post('/profileById', passport.authenticate('jwt' , {session:false}), (req
 
 
 // Get data about this Firmware
-router.get('/groups', passport.authenticate('jwt' , {session:false}), (req, res, next) => {
+router.post('/groups', passport.authenticate('jwt' , {session:false}), (req, res, next) => {
     console.log("got inside /firmware/groups");
-    Firmware.getAllFirmwaresDistinctByGroup( function(err, firmware){ 
+    Firmware.getAllFirmwaresDistinctByGroup( req.body._id ,function(err, firmware){ 
         if(err) console.log(err);        
         if(firmware){            
             res.json({groups: firmware});
@@ -132,7 +132,7 @@ router.get('/groups', passport.authenticate('jwt' , {session:false}), (req, res,
 });
 
 router.post('/groupNames', passport.authenticate('jwt' , {session:false}), (req, res, next) => {
-    Firmware.getFirmOfGroupDistinctByName(req.body.group , function(err, firmware){ 
+    Firmware.getFirmOfGroupDistinctByName( req.body._id ,req.body.group , function(err, firmware){ 
         if(err) console.log(err);        
         if(firmware){            
             res.json({names: firmware});
@@ -141,7 +141,7 @@ router.post('/groupNames', passport.authenticate('jwt' , {session:false}), (req,
 });
 
 router.post('/groupNameDevices', passport.authenticate('jwt' , {session:false}), (req, res, next) => {
-    Firmware.getFirmOfGroupAndNameDistinctByDevice(req.body.group , req.body.name , function(err, firmware){ 
+    Firmware.getFirmOfGroupAndNameDistinctByDevice( req.body._id ,req.body.group , req.body.name , function(err, firmware){ 
         if(err) console.log(err);        
         if(firmware){            
             res.json({devices: firmware});
@@ -150,7 +150,7 @@ router.post('/groupNameDevices', passport.authenticate('jwt' , {session:false}),
 });
 
 router.post('/groupNameDeviceVersions', passport.authenticate('jwt' , {session:false}), (req, res, next) => {
-    Firmware.getFirmOfGroupAndNameAndDevice(req.body.group , req.body.name ,req.body.device, function(err, firmware){ 
+    Firmware.getFirmOfGroupAndNameAndDevice( req.body._id ,req.body.group , req.body.name ,req.body.device, function(err, firmware){ 
         if(err) console.log(err);        
         if(firmware){            
             res.json({verions: firmware});
