@@ -31,7 +31,8 @@ export class StatusCardComponent {
   //@Input() ShowLess= false;
   data = {
     id: "",
-    message :  ""
+    message :  "",
+    status : "",
   };
 
   constructor(
@@ -40,12 +41,13 @@ export class StatusCardComponent {
     ) { }
 
   cardClick(){
-    console.log(this.device);
+    this.on = !this.on;
     this.data.id = this.device;
     if(this.on)  this.data.message = this.messageOn;
     else this.data.message = this.messageOff;
-    this.service.signalEsp(this.data).subscribe(() => {});    
-    this.on = !this.on;
+    this.data.status = String(this.on);
+    this.service.signalEsp(this.data).subscribe(() => {});   
+    
   }
 
   /*

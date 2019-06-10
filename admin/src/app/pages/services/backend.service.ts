@@ -37,7 +37,7 @@ export class BackendService {
 
 
   registerFirmware(data){  
-    console.log(data.buttons);
+    console.log(data.buttons.length);
     return this.http.post(this.serverURL +'firmware/register', data,{headers: this.getHeaderWithToken()}).pipe(map((response: any) => response));
   }
 

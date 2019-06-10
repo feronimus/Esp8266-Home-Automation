@@ -14,8 +14,8 @@ module.exports = router;
 
 router.post('/register', passport.authenticate('jwt' , {session:false}), (req, res, next) => {   
                  
-    let tep =req.body;
-    console.log(tep.buttons);
+    console.log(req.body.buttons.length);
+    //console.log(req.body.buttons.length);
     //res.send('REGISTER');
     let newFirmware = new Firmware({
         name: req.body.name,
@@ -45,11 +45,9 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
                 //register firmware    
                 if(flag){
                     //Find and inster owner name
-                    console.log(req.body.owner);
                     User.getUserById(req.body.owner, (err, user) => {
                         if(err) { console.log(err); throw err;}
                         if(user){
-                            console.log(user);
                             newFirmware.ownerName = user.name; 
                             Firmware.addFirmware(newFirmware, (err, esp) => {
                                 if(err){

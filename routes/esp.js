@@ -167,8 +167,18 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
 // Updates and handles messages to be send to devices's
 router.post('/signal', passport.authenticate('jwt' , {session:false}), (req, res, next) => {   
     console.log(req.body);
-    console.log(req.body.id);
-    console.log(req.body.message);
+    Esp.getEspById(req.body.id, (err, esp) => {
+        if(err){
+            res.json({success: false, msg:err});
+        }else {    
+            MqtHandler.sendMessage(esp.secret,req.body.message);      
+            let msg = "Turned ";
+            msg +=    req.body.status;   
+            res.json({success: true, msg:msg});
+        }
+    }); 
+
+   /*
     return;
     //res.send('REGISTER');
     let newEsp = new Esp({
@@ -232,6 +242,7 @@ router.post('/signal', passport.authenticate('jwt' , {session:false}), (req, res
         }); 
         message = "";
     });
+    */
 });
 
 //populate esps of user

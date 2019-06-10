@@ -10,6 +10,8 @@ interface CardSettings {
   iconClass: string;
   type: string;
   device :string;
+  messageOn :string;
+  messageOff :string;
 }
 
 @Component({
@@ -26,18 +28,27 @@ export class DashboardComponent implements  OnInit {
     private authService: NbAuthService
     ) { }
 
- 
+    
+
 
   ngOnInit() {    
     this.service.getEspByUser().subscribe(esps => {
       esps.esps.esp.forEach(device => {
-        let temp: CardSettings = {
-          title: device.name,
-          iconClass: 'nb-lightbulb',
-          type: 'primary',
-          device: device._id
-        };
-        this.statusCards.push(temp);
+        this.service.getFirmwareById({ _id : device.firmware}).subscribe(firmware => {         
+          firmware.firmware.buttons.forEach(button =>{
+            let temp: CardSettings = {
+              title: device.name,
+              iconClass: button.icon,
+              type: button.buttonType,
+              device: device._id,
+              messageOn : button.messageOn,
+              messageOff : button.messageOff,      
+            };            
+            this.statusCards.push(temp);  
+      
+          });
+
+        });
       });
      });
   }

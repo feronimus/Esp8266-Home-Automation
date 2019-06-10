@@ -9,6 +9,24 @@ import { group } from '@angular/animations';
 import '../../editors/ckeditor/ckeditor.loader';
 import 'ckeditor';
 
+
+
+export  interface  Firm  {
+  name: String;
+  description: String;
+  version: { main:Number , secondary: Number};
+  isPublic: Boolean;
+  link: String;
+  group: String;
+  device: String;
+  code: String;
+  ownerName: String;
+  owner: String;
+  buttons: [{ messageOn: String,  messageOff: String , icon: String, buttonType: String}];
+  Sliders: [{ Name: String, message: String , value : Number }];
+};
+
+
 @Component({
   selector: 'ngx-firmware-insert',
   templateUrl: './firmware-insert.component.html',
@@ -16,8 +34,10 @@ import 'ckeditor';
 })
 export class FirmwareInsertComponent implements OnInit {
 
- 
+
+  
    //Fields Firmware
+   newFirmware= <Firm>{ };
    name= "";
    description= "";
    version= { main:0 , secondary: 0};
@@ -28,7 +48,8 @@ export class FirmwareInsertComponent implements OnInit {
    code= "";
    owner: any;
    buttons= [{Name: "", message: "" }];
-   Sliders= [{Name: "", message: 0 }];
+   Sliders= [{ Name: String, message: String , value : Number }];;
+   
 
    //Messages
    errors: string[] = [];
@@ -106,48 +127,39 @@ export class FirmwareInsertComponent implements OnInit {
       this.HtmlMessages.ButtonSubmit = "Update Firmware";
     }   
   }
+   
 
- 
-  
+  CreateNewFirmware(){
+  this.newFirmware.name =  this.name;
+  this.newFirmware.description = this.description;
+  this.newFirmware.version = { main: this.version.main , secondary: this.version.secondary};
+  this.newFirmware.isPublic = this.isPublic;
+  this.newFirmware.link =this.link;
+  this.newFirmware.group =this.group;
+  this.newFirmware.device =this.device;
+  this.newFirmware.code = this.code;
+  this.newFirmware.owner = this.GetUserID();
 
-  CreateNewFirmware() : any{
-    
-    let  firmware; 
-    firmware = {
-      name: this.name,
-      description: this.description,
-      version: { main: this.version.main , secondary: this.version.secondary},
-      isPublic: this.isPublic,
-      link: this.link,
-      group: this.group,
-      device: this.device,
-      code: this.code,
-      owner: this.GetUserID(),
-
-      buttons: [{ messageOn: "",  messageOff: "" , icon: "", buttonType: ""}],
-    
-    Sliders: [{Name: "", message: "" , value : 22 }]
-      
-     
+  this.newFirmware.buttons = [{
+    messageOn: "test",
+    messageOff: "test",
+    icon: "test",
+    buttonType: "test",
+  }];
+  this.newFirmware.buttons.shift();
+  this.source.getAll().then(dat =>{      
+    if(dat) {
+      dat.forEach(element => {
+          let temp = {
+            messageOn: element.messageOn, 
+            messageOff: element.messageOff , 
+            icon: element.icon, 
+            buttonType: element.type
+        };
+        this.newFirmware.buttons.push(temp);
+      });
     }
-    
-    firmware.buttons.shift();
-    this.source.getAll().then(dat =>{      
-      if(dat) {
-        dat.forEach(element => {
-            let temp = {
-              messageOn: element.messageOn, 
-              messageOff: element.messageOff , 
-              icon: element.icon, 
-              buttonType: element.type
-          };
-          firmware.buttons.push(temp);
-        });
-      }
-    });
-    
-    //console.log(firmware); 
-    return firmware;
+  });    
   }
 
   ClearMessages(){
@@ -172,35 +184,6 @@ export class FirmwareInsertComponent implements OnInit {
       });
     });
   }
-
-  //Create a single big entity with the tree of all to visualize ina tree
-  /*
-  SelectGroupName(groupItem : any, nameItem: any){
-    //load devices
-    //this.IsNewFirmware=false;
-    this.service.getFirmwareGroupNameDevices({_id: this.GetUserID(),group : groupItem, name : nameItem}).subscribe(devices => { 
-      this.DeviceList = [{}]; 
-      this.DeviceArray = [{}];       
-      let tempGroups   = devices.devices; 
-      tempGroups.forEach(deviceItem => { 
-        this.DeviceArray.push(deviceItem);
-        let groupObject; 
-       groupObject = {'device' :deviceItem};
-        this.service.getFirmwareGroupNameDeviceVersions({_id: this.GetUserID(),group : groupItem , name : nameItem , device : deviceItem}).subscribe(versionItems => {         
-         
-          groupObject['versions'] = [{}];
-          versionItems.verions.forEach(versiontem =>{
-            groupObject['versions'].push({'firmware' : versiontem, 'device' :deviceItem }) ;
-          });
-          groupObject['versions'].shift();         
-      });
-      this.DeviceList.push(groupObject);
-      });
-      this.DeviceList.shift(); 
-
-    });
-  }
-*/
   
   searchCategory = (text$: Observable<string>) =>
     text$.pipe(
@@ -220,14 +203,17 @@ export class FirmwareInsertComponent implements OnInit {
     )
 
     onSubmit() {
-      this.ClearMessages()
-      let firmware = this.CreateNewFirmware();
-      if(!this.validationService.validateRegisterFirmware(firmware)) {
-        this.errors = this.validationService.pickErrorsRegisterFirmware(firmware);
+     this.handleSumbit();
+    }
+    async  handleSumbit(){  
+      await this.CreateNewFirmware();    
+      console.log(this.newFirmware);
+      if(!this.validationService.validateRegisterFirmware(this.newFirmware)) {
+        this.errors = this.validationService.pickErrorsRegisterFirmware(this.newFirmware);
         return; 
       }    
-      console.log(firmware);
-      this.service.registerFirmware(firmware).subscribe( (msg) => {
+      console.log(this.newFirmware);
+      this.service.registerFirmware(this.newFirmware).subscribe( (msg) => {
         if(msg.success) this.messages.push(msg.msg);
         else this.errors.push(msg.msg);
       },
@@ -237,6 +223,9 @@ export class FirmwareInsertComponent implements OnInit {
         return false;
       });
     }
+
+
+
     onDeleteConfirm(event): void {
       if (window.confirm('Are you sure you want to delete?')) {
         event.confirm.resolve();
