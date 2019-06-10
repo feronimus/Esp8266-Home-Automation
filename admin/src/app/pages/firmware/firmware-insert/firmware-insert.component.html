@@ -1,0 +1,137 @@
+<nb-card>
+    <nb-card-header>{{HtmlMessages.CardDeviceHeader}}</nb-card-header>
+    <nb-card-body>
+        <nb-alert *ngIf="errors?.length " outline="danger" role="alert">
+            <p class="alert-title"><b>Attention!</b></p>
+            <ul class="alert-message-list">
+              <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
+            </ul>
+          </nb-alert>
+          
+          <nb-alert *ngIf="messages?.length " outline="success" role="alert">
+            <p class="alert-title"><b>Hooray!</b></p>
+            <ul class="alert-message-list">
+              <li *ngFor="let message of messages" class="alert-message">{{ message }}</li>
+            </ul>
+          </nb-alert>
+
+          
+      <form >
+        <div class="form-group row">
+          <label for="inputName" class="col-sm-3 col-form-label">Name</label>
+          <div class="col-sm-9">
+              <div class="input-group">
+                  <input type="name" [(ngModel)]="name" class="form-control" id="inputName"  name="name"placeholder="Enter Name"/>
+              </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="inputDescription" class="col-sm-3 col-form-label">Description</label>
+            <div class="col-sm-9">
+              <ckeditor [config]="{ extraPlugins: 'divarea', height: '100' }" id="inputDescription" name="description" [(ngModel)]="description" fullWidth ></ckeditor> 
+            </div>
+          </div>
+
+      
+
+        <!-- Insert upload component-->
+       
+          <div class="form-group row">
+            <label for="inputLink" class="col-sm-3 col-form-label">Link</label>
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <span class="input-group-addon success">@</span>
+                    <input type="name" [(ngModel)]="link" class="form-control" id="inputLink"  name="name"placeholder="Enter uploaded Link"/>
+                </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+              <label for="group" class="col-sm-3 col-form-label">Category</label>
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <input id="group" type="text" class="form-control" name="group" [(ngModel)]="group" [ngbTypeahead]="searchCategory" placeholder="In what Category your code will be showing?"/>
+                  </div>
+                </div>
+          </div>
+
+
+          <div class="form-group row">
+            <label for="device" class="col-sm-3 col-form-label">Device</label>
+              <div class="col-sm-9">
+                <div class="input-group">
+                  <input id="device" type="text" class="form-control" name="device" [(ngModel)]="device" [ngbTypeahead]="searchDevice" placeholder="Device that this code wil work"/>
+                </div>
+              </div>
+          </div>
+          
+        
+          <div class="form-group row">
+              <label for="inputVersion" class="col-sm-3 col-form-label">Version</label>
+              <div class="col-sm-9">
+                <div class="input-group">
+                  <span class="input-group-append">
+                    <input type="number" min="0" [(ngModel)]="version.main" class="form-control"  name="versionMain" placeholder="Main">
+                    <input type="number"  min="0"[(ngModel)]="version.secondary" class="form-control"  name="versionSecondary" placeholder="Secondary">          
+                  </span>
+                </div>
+              </div>
+            </div>
+
+        <div class="form-group row">
+          <label class="col-sm-3">Options</label>
+          <div class="col-sm-9">
+            <div class="form-check">
+                <nb-checkbox [(ngModel)]="isPublic" name="checkbox" status="warning">
+                  Make it Public.
+                </nb-checkbox>
+            </div>
+            <div class="form-group row">
+            
+            </div>
+          </div>
+        </div> 
+
+        <br>
+        <br>
+
+        <div class="form-group row">
+            <label class="col-sm-3">Buttons</label>
+            <div class="col-sm-9">
+                <ng2-smart-table [settings]="settings" [source]="source" (custom)="ManageDevice($event)" (deleteConfirm)="onDeleteConfirm($event)">
+                  </ng2-smart-table>    
+              <div class="form-group row">              
+              </div>
+            </div>
+          </div> 
+
+        
+        <br>
+        <br>
+        <br>
+        <br>
+        
+        <div class="form-group row">
+            <label for="code" class="col-sm-3 col-form-label">Code</label>
+            <div class="col-sm-9">  
+              <ckeditor [config]="{ extraPlugins: 'divarea', height: '320' }" id="code" name="code" [(ngModel)]="code" fullWidth ></ckeditor> 
+           
+            </div>
+          </div>
+          <div class="form-group row">
+              <div class="offset-sm-3 col-sm-9">
+                  <button type="submit" class="btn btn-primary" (click)="onSubmit()" >{{HtmlMessages.ButtonSubmit}}</button>
+                </div>              
+            </div>
+      </form>
+    </nb-card-body>
+  </nb-card>
+
+ 
+
+
+  <div class="offset-sm-3 col-sm-9">
+      <button type="submit" class="btn btn-primary" (click)="test()" >test</button>
+    </div>
+  

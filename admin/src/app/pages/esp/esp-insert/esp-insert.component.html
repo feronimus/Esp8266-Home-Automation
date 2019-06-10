@@ -1,0 +1,165 @@
+<nb-card>
+  <nb-card-header>{{HtmlMessages.CardDeviceHeader}}</nb-card-header>
+  <nb-card-body>
+
+   
+      <nb-alert *ngIf="errors?.length " outline="danger" role="alert">
+          <p class="alert-title"><b>Attention!</b></p>
+          <ul class="alert-message-list">
+            <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
+          </ul>
+        </nb-alert>
+        
+        <nb-alert  *ngIf="messages?.length " outline="success" role="alert">
+          <p class="alert-title"><b>Hooray!</b></p>
+          <ul class="alert-message-list">
+            <li *ngFor="let message of messages" class="alert-message">{{ message }}</li>
+          </ul>
+        </nb-alert>
+    
+    <form >
+      <div class="form-group row">
+        <label for="inputEmail1" class="col-sm-3 col-form-label">Name</label>
+        <div class="col-sm-9">
+            <div class="input-group">
+                <span class="input-group-addon success">@</span>
+                <input type="name" [(ngModel)]="name" class="form-control" id="inputName"  name="name"placeholder="Enter Name"/>
+            </div>
+         <!-- <input type="name" class="form-control" id="inputName" placeholder="Enter Name">--> 
+        </div>
+      </div>
+      <div class="form-group row">
+          <label for="inputDescription" class="col-sm-3 col-form-label">Description</label>
+          <div class="col-sm-9">
+            <ckeditor [config]="{ extraPlugins: 'divarea', height: '100' }" id="inputDescription" name="description" [(ngModel)]="description" fullWidth ></ckeditor>   
+          </div>
+        </div>
+      <div class="form-group row">
+        <label for="inputSecret" class="col-sm-3 col-form-label">Secret</label>
+        <div class="col-sm-9">
+          <div class="input-group">
+            <span class="input-group-append">
+                <button class="btn btn-primary input-group-text" (click)="RandomizeSecret()">
+                  Create Random
+                </button>
+              </span>
+            <input type="secret" [(ngModel)]="secret" class="form-control" id="inputSecret"  name="secret" placeholder="Secret">
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3">Options</label>
+        <div class="col-sm-9">
+          <div class="form-check">
+            <label class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" name="gridRadios" checked>
+              <span class="custom-control-indicator"></span>
+              <span class="custom-control-description">Keep Device Updated.&mdash; Install all major updates of the original maker.</span>
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" name="gridRadios">
+              <span class="custom-control-indicator"></span>
+              <span class="custom-control-description">I want to manage updates myself.</span>
+            </label>
+          </div>
+          <!-- 
+          <div class="form-check disabled">
+            <label class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" name="gridRadios" disabled>
+              <span class="custom-control-indicator"></span>
+              <span class="custom-control-description">Use it to mine Monero. (Not implemented yet)</span>
+            </label>
+          </div>
+          -->
+        </div>
+      </div> 
+    </form>
+  </nb-card-body>
+</nb-card>
+
+<nb-card>
+    <nb-card-header>Choose a Firmware for this device.</nb-card-header>
+    <nb-card-body>
+       
+      <form >
+         
+
+        <div class="form-group row">
+          <label for="inputName" class="col-sm-3 col-form-label">Choose a general purpose for your device!</label>
+          <div class=" col-sm-9">
+              <div class="input-group">
+                <nb-select name="selectGroup" [(ngModel)]="selectGroup" style="width:30%" placeholder="Select Category" shape="rectangle"> 
+                  <nb-option-group *ngFor="let group of GroupList" [title]="group.group">      
+                    <nb-option (click)="SelectGroupName(names.group, names.name)" *ngFor="let names of group.names"  [value]="group">
+                      {{names.name}}
+                    </nb-option>
+                  </nb-option-group>
+                </nb-select>
+              </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="inputName" class="col-sm-3 col-form-label">Choose a general purpose for your device!</label>
+          <div class=" col-sm-9">
+              <div class="input-group">
+                <nb-select name="selectDevice" [(ngModel)]="selectDevice" style="width:30%" placeholder="Select Category" shape="rectangle"> 
+                  <nb-option-group *ngFor="let group of DeviceList" [title]="group.device">      
+                    <nb-option (click)="SelectedFirmware(versions.firmware)" *ngFor="let versions of group.versions" [value]="group">
+                        {{versions.firmware.version.main}}.{{versions.firmware.version.secondary}}
+                    </nb-option>
+                  </nb-option-group>
+                </nb-select>
+              </div>
+          </div>
+        </div>
+
+
+
+     
+      
+
+
+
+
+
+
+        <div class="form-group row" *ngIf="FocusedFirmware" >
+            <!--<label class="col-sm-3 col-form-label"></label> -->
+            <div class=" col-sm-3 col-form-label">
+                <nb-card>
+                    <nb-card-header>
+                      <p>{{FocusedFirmware.name}}  For <i>{{FocusedFirmware.device}}</i></p>
+                      <p>{{FocusedFirmware.version.main}}.{{FocusedFirmware.version.secondary}}</p>
+                    </nb-card-header>
+                    <nb-card-body>
+                        <p>You sellected a firmware made by: <b>{{FocusedFirmware.ownerName}} </b></p>
+                        <br>
+                        <p>This Firmware is for : <b> {{FocusedFirmware.group}}</b> applications.</p>
+                        <br>
+                        <p>Description : </p>
+                        <p><i><div [innerHTML]="FocusedFirmware.description"></div></i></p>
+                        <br>
+                    </nb-card-body>
+                </nb-card>
+             
+            </div>
+            <div class=" col-sm-9" >
+                <span>
+                    <p>Code :  <i><div [innerHTML]="FocusedFirmware.code"></div></i></p>
+                </span>
+              </div>
+        </div>
+
+
+        <div class="form-group row">
+          <div class="offset-sm-3 col-sm-9">
+            <button type="submit" class="btn btn-primary" (click)="onSubmit()" >{{HtmlMessages.ButtonSubmit}}</button>
+          </div>
+        </div>
+      </form>
+    </nb-card-body>
+  </nb-card>
+  
