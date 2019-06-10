@@ -9,6 +9,7 @@ const EspSchema = Schema({
     secret: String,
     description: String,
     group: String,
+    /*
     pins : {
         D0: {InUse:Boolean , IsHight : Boolean},     
         D1: {InUse:Boolean, IsHight : Boolean},    
@@ -23,6 +24,7 @@ const EspSchema = Schema({
         D10: {InUse:Boolean, IsHight : Boolean},    
         A0: {InUse:Boolean, value : Number}
     },
+    */
     owner: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     firmware: { type: Schema.Types.ObjectId, ref: 'Firmware' },
     isOnline: Number,
@@ -31,8 +33,8 @@ const EspSchema = Schema({
     timer: Number,
     version: String, //to be removed
     forceUpdate : Boolean,
-    buttons: [{Name: String, message: String }],
-    Sliders: [{Name: String, message: Number }]
+    buttons: [{ message: String}],
+    Sliders: [{Name: String, message: String , value : Number }]   
   });
 
   mongoose.set('useFindAndModify', false);

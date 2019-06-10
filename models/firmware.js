@@ -12,10 +12,12 @@ const FirmSchema = Schema({
     link: String,
     esp: [{ type: Schema.Types.ObjectId, ref: 'Esp' }],
     group: String,
-    device: String,    
+    device: String,
+    code: String,
+    ownerName: String,
     owner: { type: Schema.Types.ObjectId, ref: 'User' },
-    buttons: [{Name: String, message: String }],
-    Sliders: [{Name: String, message: Number }]
+    buttons: [{ messageOn: String,  messageOff: String , icon: String, buttonType: String}],
+    Sliders: [{ Name: String, message: String , value : Number }]
   });
 
   
@@ -54,22 +56,42 @@ module.exports.updateFirmware = function(firmware, callback){
 
 module.exports.getAllFirmwaresDistinctByGroup = function(id, callback){
    
-    Firmware.find({ $or: [{owner: id}, {isPublic: true}]}).distinct('group',callback)
+    Firmware.find({
+        // $or: [{owner: id}
+        //, {isPublic: true}]
+    }).distinct('group',callback)
 }
 
 module.exports.getFirmOfGroupDistinctByName = function(id,group, callback){
-    const query ={ $and: [{ $or: [{owner: id}, {isPublic: true}]} ,{group: group} ]}
+    const query ={ 
+       // $and: [{ $or: [{owner: id}, {isPublic: true}]} ,{
+            group: group
+        //}]
+    }
     Firmware.find(query).distinct('name',callback)
 }
 
 module.exports.getFirmOfGroupAndNameDistinctByDevice = function(id,group , name , callback){
-    const query ={ $and: [{ $or: [{owner: id}, {isPublic: true}]} , {group: group , name : name}]}
+    const query ={ 
+       // $and: [{ $or: [{owner: id}, {isPublic: true}]} ,{
+           group: group , name : name
+        //}]
+        }
     Firmware.find(query).distinct('device',callback)
 }
 
 module.exports.getFirmOfGroupAndNameAndDevice = function(id,group , name , device , callback){
     const query ={ $and: [{ $or: [{owner: id}, {isPublic: true}]} , {group: group , name : name ,device : device} ]}
     Firmware.find(query,callback)
+}
+
+module.exports.getDevices = function(callback){
+    const query ={ 
+       // $and: [{ $or: [{owner: id}, {isPublic: true}]} ,{
+          // group: group , name : name
+        //}]
+        }
+    Firmware.find(query).distinct('device',callback)
 }
 
 //group [{name;string , [{device:string, [{  version}]}]       }]

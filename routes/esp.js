@@ -12,7 +12,7 @@ const MqtHandler = require('../MqttServer/mqtt_handler');
 
 //
 
-
+//Update to make message from firmware
 module.exports.HandleMqttMessage = function(topic, Message, packet){
     if(!Message) return;
     //Send all info as esp startup
@@ -48,90 +48,128 @@ module.exports.HandleMqttMessage = function(topic, Message, packet){
 module.exports = router;
 var message = "";;
 // Register
-router.post('/register', passport.authenticate('jwt' , {session:false}), (req, res, next) => {   
-    
-    //res.send('REGISTER');
-    let newEsp = new Esp({
+router.post('/register', passport.authenticate('jwt' , {session:false}), (req, res, next) => {      
+    let newEsp = new Esp({       
         name: req.body.name,
         description: req.body.description,
         secret: req.body.secret,
         group: req.body.group,
-        pins : {
-            D0: { InUse :req.body.pins.D0, IsHight: false},
-            D1: { InUse :req.body.pins.D1, IsHight: false},
-            D2: { InUse :req.body.pins.D2, IsHight: false},
-            D3: { InUse :req.body.pins.D3, IsHight: false},
-            D4: { InUse :req.body.pins.D4, IsHight: false},
-            D5: { InUse :req.body.pins.D5, IsHight: false},
-            D6: { InUse :req.body.pins.D6, IsHight: false},
-            D7: { InUse :req.body.pins.D7, IsHight: false},
-            D8: { InUse :req.body.pins.D8, IsHight: false},
-            D9: { InUse :req.body.pins.D9, IsHight: false},
-            D10: { InUse :req.body.pins.D10, IsHight: false},
-            A0: { InUse :req.body.pins.A0, value : 0}
-        },
         owner: req.body.owner,
         isOnline: 0,
         viewOrder: -1,
         eventSheduler: { },//event object
         timer: -1,
         version: 0.1,
-        forceUpdate: false
-    });
-    //console.log(newEsp);
-    if(req.body._id == ""){
-        //check Secret
-        Esp.getEspBySecret(newEsp.secret, function(err, secret){ 
-            if(err) console.log(err);
-            if(secret){
-                res.json({success: false, msg:'This secret is already in use...'});
-                return ;
-            }else{
-                //register esp                
-                console.log("registering esp");
-                MqtHandler.subscribe(newEsp.secret);
-                Esp.addEsp(newEsp, (err, esp) => {
-                    if(err){
-                        res.json({success: false, msg:err});
-                    }else {                    
-                        //this.UpdateUserWithEsp(User.getUserById(newEsp.owner[0]),esp._id);
-                        User.getUserById(newEsp.owner[0] , function(err , user){                            
-                            user.esp.push(esp._id);
-                            User.updateUser(user, function(err){
-                            res.json({success: true, msg:'The Esp device is now registered under your acount!!!'});
-                            });
+        forceUpdate: false ,  
+        firmware:    req.body.firmware,     
+    });    
+    //check Secret
+    Esp.getEspBySecret(newEsp.secret, function(err, secret){ 
+        if(err) console.log(err);
+        if(secret){
+            res.json({success: false, msg:'This secret is already in use...'});
+            return ;
+        }else{
+            //register esp              
+            MqtHandler.subscribe(newEsp.secret);
+            Esp.addEsp(newEsp, (err, esp) => {
+                if(err){
+                    res.json({success: false, msg:err});
+                }else {                    
+                    //Update user
+                    User.getUserById(newEsp.owner[0] , function(err , user){                            
+                        user.esp.push(esp._id);
+                        User.updateUser(user, function(err){
+                            //Update Firmware
+                            Firmware.getFirmwareById(newEsp.firmware , function(err , firm){
+                                firm.esp.push(esp._id);
+                                Firmware.updateFirmware(firm, function(err){ 
+                                    res.json({success: true, msg:'The Esp device is now registered under your acount!!!'});                              
+                                });
+                            });                                
                         });
-                    }
-                }); 
-            }
-        });
-    }else{
-        newEsp._id = req.body._id;
-        //check Secret
-        Esp.getEspBySecret(newEsp.secret, function(err, secret){ 
-            if(err) console.log(err);
-            if(secret && String(secret._id) != String(newEsp._id)){
-                res.json({success: false, msg:'This secret is already in use...'});
-                return ;
-            }else{
-                //Update esp    
-                MqtHandler.subscribe(newEsp.secret);    
-                console.log("updating esp");
-                Esp.updateEsp(newEsp, (err, esp) => {
-                    if(err){
-                        res.json({success: false, msg:err});
-                    }else {                    
-                        res.json({success: true, msg:'The Esp device is now updated!!!'});
-                    }
-                }); 
-            }
-        });           
-    }
+                    });                        
+                }                   
+            }); 
+        }
+    });    
 });
 
-// Updates and handles changes to be send to eps's
-router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res, next) => {   
-    
+router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res, next) => {      
+    let newEsp = new Esp({       
+        name: req.body.name,
+        description: req.body.description,
+        secret: req.body.secret,
+        group: req.body.group,
+        owner: req.body.owner,
+        isOnline: 0,
+        viewOrder: -1,
+        eventSheduler: { },//event object
+        timer: -1,
+        version: 0.1,
+        forceUpdate: false,
+        firmware: req.body.firmware, 
+        _id : req.body._id,  
+    });
+    //check Secret
+    Esp.getEspBySecret(newEsp.secret, function(err, secret){ 
+        if(err) console.log(err);
+        if(secret && String(secret._id) != String(newEsp._id)){
+            res.json({success: false, msg:'This secret is already in use...'});
+            return ;
+        }else{
+            //Check if this is your device to update.
+            Esp.getEspById(newEsp._id, function(err, oldesp){
+                if(err) console.log(err);
+                if(!oldesp) {
+                    res.json({success: false, msg:'Something went wrong...'});
+                    return;
+                }   
+                if(String(oldesp.owner[0]) != String(newEsp.owner[0])){
+                    res.json({success: false, msg:'Did you just tried to update someone elses device?  Shame...'});
+                    return;
+                }
+                 //Update Old Firmware
+                 Firmware.getFirmwareById(oldesp.firmware , function(err , oldfirm){
+                     console.log(oldfirm.esp);
+                    for( var i = 0; i < oldfirm.esp.length; i++){ 
+                        if ( String(oldfirm.esp[i]) === String(oldesp._id)) {
+                            oldfirm.esp.splice(i, 1); 
+                            i--;
+                        }
+                     }        
+                     
+                     console.log(oldfirm.esp);                 
+                    Firmware.updateFirmware(oldfirm, function(err){
+                        //Update new Firmware 
+                        Firmware.getFirmwareById(newEsp.firmware , function(err , firm){
+                            firm.esp.push(newEsp._id);
+                            Firmware.updateFirmware(firm, function(err){ 
+                                //Update esp    
+                                MqtHandler.subscribe(newEsp.secret);  
+                                Esp.updateEsp(newEsp, (err, esp) => {
+                                    if(err){
+                                        res.json({success: false, msg:err});
+                                    }else {                    
+                                        res.json({success: true, msg:'The Esp device is now updated!!!'});
+                                    }
+                                }); 
+                            });
+                        });                             
+                    });
+                });
+            });             
+        }
+    });          
+});
+
+
+// Updates and handles messages to be send to devices's
+router.post('/signal', passport.authenticate('jwt' , {session:false}), (req, res, next) => {   
+    console.log(req.body);
+    console.log(req.body.id);
+    console.log(req.body.message);
+    return;
     //res.send('REGISTER');
     let newEsp = new Esp({
         _id :req.body._id,

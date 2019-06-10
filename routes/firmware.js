@@ -14,7 +14,8 @@ module.exports = router;
 
 router.post('/register', passport.authenticate('jwt' , {session:false}), (req, res, next) => {   
                  
-    console.log("inside esp");
+    let tep =req.body;
+    console.log(tep.buttons);
     //res.send('REGISTER');
     let newFirmware = new Firmware({
         name: req.body.name,
@@ -24,50 +25,69 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
         link: req.body.link,
         group: req.body.group,
         device:  req.body.device,
-        esp: [req.body.esp._id],
-        owner: req.body.owner
-    });
-    //console.log(newEsp);  
+        esp: [],
+        code: req.body.code,
+        owner: req.body.owner,
+        buttons: req.body.buttons,
+        Sliders: req.body.Sliders,
+    });    
         //check Uniqueness of name /version
         Firmware.getFirmwaresByName(newFirmware.name, function(err, firmwares){ 
             if(err) console.log(err);
             if(firmwares){
+                let flag =true;
                 firmwares.forEach(firm => {
                     if(newFirmware.version.main == firm.version.main &&
-                         newFirmware.version.secondary == firm.version.secondary){
-                        res.json({success: false, msg:'This firmware with this version already exists...'});
-                        return ;
+                        newFirmware.version.secondary == firm.version.secondary){
+                            flag=false;                        
                     }
                 });
-                //register firmware      
-                console.log("registering firmware");
-                Firmware.addFirmware(newFirmware, (err, esp) => {
-                    if(err){
-                        res.json({success: false, msg:err});
-                    }else {                    
-                        //this.UpdateUserWithEsp(User.getUserById(newEsp.owner[0]),esp._id);
-                        if(!req.body.esp)return;
-                        Esp.getEspBySecret(req.body.esp.secret, function(err, esp){ 
-                            if(err) console.log(err);
-                            esp.firmware = newFirmware._id;
-                            //if(req.body.forceUpdate)esp.forceUpdate=true;
-                            if(req.body.forceUpdate)  MqtHandler.sendMessage(esp.secret,"{\"ForceUpdate\":\"true\",\"link\":\""+newFirmware.link+"\"}")
-                            Esp.updateEsp(esp , function(err , user){ 
-                                if(err) console.log(err);
-                                res.json({success: true, msg:'The firm is now registered!!!'});
+                //register firmware    
+                if(flag){
+                    //Find and inster owner name
+                    console.log(req.body.owner);
+                    User.getUserById(req.body.owner, (err, user) => {
+                        if(err) { console.log(err); throw err;}
+                        if(user){
+                            console.log(user);
+                            newFirmware.ownerName = user.name; 
+                            Firmware.addFirmware(newFirmware, (err, esp) => {
+                                if(err){
+                                    console.log(err); 
+                                    res.json({success: false, msg:err});
+                                }else {           
                                 
-                            });                      
-                        });
-                       
-                    }
-                });    
+                                    res.json({success: true, msg:'The Firmware is now registered!!!'});
+                                }
+                            });   
+                        }
+                    });
+
+                   
+                }else {
+                    res.json({success: false, msg:'This firmware with this version already exists...'});
+                }
+              
             }              
             
         });
     
 });
-
-
+  /*     
+                            if(!req.body.esp)return;
+                            Esp.getEspBySecret(req.body.esp.secret, function(err, esp){ 
+                                if(err) console.log(err);
+                                esp.firmware = newFirmware._id;
+                                //if(req.body.forceUpdate)esp.forceUpdate=true;
+                                if(req.body.forceUpdate)  MqtHandler.sendMessage(esp.secret,"{\"ForceUpdate\":\"true\",\"link\":\""+newFirmware.link+"\"}")
+                                Esp.updateEsp(esp , function(err , user){ 
+                                    if(err) console.log(err);
+                                    res.json({success: true, msg:'The firm is now registered!!!'});
+                                    
+                                });                      
+                            });
+                            */
+//Check if user is owner
 router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res, next) => {   
        
     //check Secret
@@ -121,8 +141,7 @@ router.post('/profileById', passport.authenticate('jwt' , {session:false}), (req
 
 
 // Get data about this Firmware
-router.post('/groups', passport.authenticate('jwt' , {session:false}), (req, res, next) => {
-    console.log("got inside /firmware/groups");
+router.post('/groups', passport.authenticate('jwt' , {session:false}), (req, res, next) => {    
     Firmware.getAllFirmwaresDistinctByGroup( req.body._id ,function(err, firmware){ 
         if(err) console.log(err);        
         if(firmware){            
@@ -158,6 +177,14 @@ router.post('/groupNameDeviceVersions', passport.authenticate('jwt' , {session:f
     });
 });
 
+router.get('/DistinctDevices', passport.authenticate('jwt' , {session:false}), (req, res, next) => {
+    Firmware.getDevices( function(err, firmware){ 
+        if(err) console.log(err);        
+        if(firmware){            
+            res.json({devices: firmware});
+        }
+    });
+});
 
 router.post('/id', passport.authenticate('jwt' , {session:false}), (req, res, next) => {
     Firmware.getFirmwareById(req.body._id, function(err, firmware){ 
