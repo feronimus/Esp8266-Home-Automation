@@ -39,7 +39,7 @@ import { AuthGuardService } from './auth-guard.service';
             key: 'token',
           },
           //baseEndpoint: 'http://localhost:3000/users/',
-          baseEndpoint: '',
+          baseEndpoint: '/users/',
           
         }),
       ],

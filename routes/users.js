@@ -120,6 +120,7 @@ return;
 
 });
 router.post('/login',(req, res, next) => {  
+    console.log("login trying");
     const email = req.body.email;
     const password = req.body.password;
 

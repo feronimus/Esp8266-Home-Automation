@@ -5417,7 +5417,7 @@ var AppModule = /** @class */ (function () {
                                 key: 'token',
                             },
                             //baseEndpoint: 'http://localhost:3000/users/',
-                            baseEndpoint: '',
+                            baseEndpoint: '/users/',
                         }),
                     ],
                     forms: {
