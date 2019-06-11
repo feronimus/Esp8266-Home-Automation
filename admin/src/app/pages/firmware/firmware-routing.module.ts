@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import {FirmwareComponent} from './firmware.component';
 import { FirmwareInsertComponent } from './firmware-insert/firmware-insert.component';
+import { FirmwareManageComponent } from './firmware-manage/firmware-manage.component';
 
 
 
@@ -13,6 +14,10 @@ const routes: Routes = [{
     {
       path: 'input',
       component: FirmwareInsertComponent,
+    },
+    {
+      path: 'manage',
+      component: FirmwareManageComponent,
     },
   ],
 }];
@@ -32,4 +37,5 @@ const routes: Routes = [{
   export const routedComponents = [
     FirmwareComponent,
     FirmwareInsertComponent,
+    FirmwareManageComponent,
   ];

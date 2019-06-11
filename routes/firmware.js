@@ -21,6 +21,7 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
         name: req.body.name,
         description: req.body.description,
         version: { main:req.body.version.main,  secondary: req.body.version.secondary},
+        versionReadable : req.body.version.main +'.'+req.body.version.secondary,
         isPublic: req.body.isPublic,       
         link: req.body.link,
         group: req.body.group,
@@ -88,44 +89,38 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
 //Check if user is owner
 router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res, next) => {   
        
+   
     //check Secret
     Firmware.getFirmwareById(req.body._id, function(err, firmware){ 
         if(err) console.log(err);        
             //Update firmware    
             firmware.name = req.body.name;
             firmware.description = req.body.description;
-            firmware.isPublic = req.body.isPublic;
             firmware.link = req.body.link;
+            firmware.group = req.body.group;
+            firmware.device = req.body.device;
             firmware.version.main = req.body.version.main;
             firmware.version.secondary = req.body.version.secondary;
-            let espexists=false;
-            firmware.esp.forEach(id =>{
-                if(req.body.esp._id == id) espexists=true;
-            });
-            if(!espexists) firmware.esp.push(req.body.esp._id);
-            //firmware.owner = req.body.owner;
-            console.log("updating firmware");
-            Firmware.updateFirmware(firmware, (err, esp) => {
+            firmware.isPublic = req.body.isPublic;
+            firmware.code = req.body.code;
+            firmware.buttons = req.body.buttons;          
+            if(String(firmware.owner) != String(req.body.owner)){
+                res.json({success: false, msg:'Did you just tried to update someone elses Firmware?  Shame...'});
+                return;
+            }
+            Firmware.updateFirmware(firmware, (err, firm) => {
                 if(err){
                     res.json({success: false, msg:err});
-                }else {        
-                Esp.getEspBySecret(req.body.esp.secret, function(err, esp){ 
-                    if(err) console.log(err);
-                    esp.firmware = firmware._id;
-                    //if(req.body.forceUpdate)esp.forceUpdate=true;
-                    if(req.body.forceUpdate)  MqtHandler.sendMessage(esp.secret,"{\"ForceUpdate\":\"true\",\"link\":\""+firmware.link+"\"}")
-                    Esp.updateEsp(esp , function(err , user){ 
-                        if(err) console.log(err);
-                        res.json({success: true, msg:'The firm is now registered!!!'});
-                        
-                    });                      
-                });
+                }else { 
+                    res.json({success: true, msg:'The firm is now updated!!!'});
                  }//update esp that i sent tha it has me
             }); 
         
-    });          
+    });  
+           
 });
-
+//MqtHandler.sendMessage(esp.secret,"{\"ForceUpdate\":\"true\",\"link\":\""+firmware.link+"\"}")
+                   
 
 // Get data about this Firmware
 router.post('/profileById', passport.authenticate('jwt' , {session:false}), (req, res, next) => {
@@ -192,3 +187,13 @@ router.post('/id', passport.authenticate('jwt' , {session:false}), (req, res, ne
         }
     });
 });
+
+router.get('/user', passport.authenticate('jwt' , {session:false}), (req, res, next) => {   
+    Firmware.getFirmwareByUser(req.user._id, function(err, firmware){ 
+        if(err) console.log(err);        
+        if(firmware){                  
+            res.json({firmware: firmware});
+        }
+    });
+});
+

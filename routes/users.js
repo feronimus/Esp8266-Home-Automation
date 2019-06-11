@@ -160,3 +160,49 @@ router.post('/login',(req, res, next) => {
     })
 });
 
+router.delete('/logout',(req, res, next) => {  
+    res.json({
+        success: true, 
+        data :{messages : 'Logged Out.'},                  
+    })
+    return;
+    const email = req.body.email;
+    const password = req.body.password;
+
+    User.getUserByMail(email, (err, user) =>{
+        if(err) throw err;
+        if(!user){
+            return res.status(400).json({data: {errors : 'Email or Password is not correct, please try again.'}});
+        }
+        
+        User.comparePassword(password, user.password , (err, isMatch) => {
+            if(err) throw err;
+            if(isMatch){
+                data = {
+                    user: {
+                        id: user._id,
+                        name: user.name,
+                        //username: user.username,
+                        email: user.email
+                    }
+                };
+                //enable this after jwt refresh is fixed
+                //expireTime = 600; // 10 minutes 
+                expireTime = 604800 // 1 week
+                if(req.body.rememberMe) expireTime = 604800 // 1 week
+                const token = jwt.sign(data, config.secret, {
+                    expiresIn: expireTime 
+                });
+
+                res.json({
+                    success: true,
+                    token: token,  
+                    data :{messages : 'Logged In.'},                  
+                })
+            }else {
+                return res.status(400).json({data: {errors : 'Email or Password is not correct, please try again.'}});
+            }
+        });
+    })
+});
+

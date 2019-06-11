@@ -6,9 +6,10 @@ import { ThemeModule } from '../../@theme/theme.module';
 import { FirmwareComponent } from './firmware.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { FirmwareInsertComponent } from './firmware-insert/firmware-insert.component';
+import { FirmwareManageComponent } from './firmware-manage/firmware-manage.component';
 
 @NgModule({
-  declarations: [FirmwareComponent, FirmwareInsertComponent],
+  declarations: [FirmwareComponent, FirmwareInsertComponent, FirmwareManageComponent],
   imports: [
     FirmwareRoutingModule,
     Ng2SmartTableModule,

@@ -42,7 +42,7 @@
             <div class="col-sm-9">
                 <div class="input-group">
                     <span class="input-group-addon success">@</span>
-                    <input type="name" [(ngModel)]="link" class="form-control" id="inputLink"  name="name"placeholder="Enter uploaded Link"/>
+                    <input type="link" [(ngModel)]="link" class="form-control" id="inputLink"  name="link" placeholder="Enter uploaded Link"/>
                 </div>
             </div>
           </div>
@@ -51,7 +51,7 @@
               <label for="group" class="col-sm-3 col-form-label">Category</label>
                 <div class="col-sm-9">
                   <div class="input-group">
-                    <input id="group" type="text" class="form-control" name="group" [(ngModel)]="group" [ngbTypeahead]="searchCategory" placeholder="In what Category your code will be showing?"/>
+                    <input id="group" type="group" class="form-control" name="group" [(ngModel)]="group" [ngbTypeahead]="searchCategory" placeholder="In what Category your code will be showing?"/>
                   </div>
                 </div>
           </div>
@@ -129,9 +129,3 @@
   </nb-card>
 
  
-
-
-  <div class="offset-sm-3 col-sm-9">
-      <button type="submit" class="btn btn-primary" (click)="test()" >test</button>
-    </div>
-  

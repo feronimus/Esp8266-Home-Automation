@@ -38,12 +38,17 @@ import { AuthGuardService } from './auth-guard.service';
             class: NbAuthJWTToken,
             key: 'token',
           },
-          baseEndpoint: 'http://localhost:3000/users/',
-          //baseEndpoint: '',
+          //baseEndpoint: 'http://localhost:3000/users/',
+          baseEndpoint: '',
           
         }),
       ],
-      forms: { },
+      forms: {
+        logout: {
+          redirectDelay: 0,
+          strategy: 'email',
+        }
+      },
     }), 
     //Auth Strategy
 

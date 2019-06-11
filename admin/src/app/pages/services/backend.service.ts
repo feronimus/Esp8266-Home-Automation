@@ -15,8 +15,8 @@ export class BackendService {
     private http: HttpClient,
     private authService: NbAuthService) { }
   
-  //serverURL = '';
-  serverURL = 'http://localhost:3000/';
+  serverURL = '';
+  //serverURL = 'http://localhost:3000/';
 
 
   registerEsp(data){  
@@ -65,6 +65,9 @@ export class BackendService {
 
   getFirmwareById(data){  
     return this.http.post(this.serverURL +'firmware/id',data,{headers: this.getHeaderWithToken()}).pipe(map((response: any) => response));
+  }
+  getFirmwareByUser(){  
+    return this.http.get(this.serverURL +'firmware/user',{headers: this.getHeaderWithToken()}).pipe(map((response: any) => response));
   }
 
 

@@ -38,6 +38,7 @@ export class FirmwareInsertComponent implements OnInit {
   
    //Fields Firmware
    newFirmware= <Firm>{ };
+   UpdatedFirmware : any;
    name= "";
    description= "";
    version= { main:0 , secondary: 0};
@@ -104,16 +105,28 @@ export class FirmwareInsertComponent implements OnInit {
     
   }
   handleChange(){
-    this.service.getEspByUser().subscribe(esps => {        
-      esps.esps.esp.forEach(element => {
+    this.service.getFirmwareByUser().subscribe(firm => {        
+      firm.firmware.forEach(element => {
         this.firms.push(element);
-        if(this.FocusedID == element._id) this.FocusedFirmwares = element;
+        if(this.FocusedID == element._id) this.FocusedFirmwares = element;        
       });
 
       this.name = this.FocusedFirmwares.name;
       this.description = this.FocusedFirmwares.description;
-
-
+      this.link = this.FocusedFirmwares.link;
+      this.group = this.FocusedFirmwares.group;
+      this.device = this.FocusedFirmwares.device;
+      this.version = this.FocusedFirmwares.version;
+      this.isPublic = this.FocusedFirmwares.isPublic;
+      this.code = this.FocusedFirmwares.code;
+      this.source.load(this.FocusedFirmwares.buttons);
+      /*
+      this.FocusedFirmwares.buttons.forEach(element => {   
+        console.log(element)  ;  
+        this.source.add(element);
+      });
+      */
+      console.log(this.source)  ; 
       this.handleHtmlChange();
     });
   }
@@ -162,6 +175,40 @@ export class FirmwareInsertComponent implements OnInit {
   });    
   }
 
+  UpdateFirmware(){
+    this.UpdatedFirmware =  this.FocusedFirmwares;
+    this.UpdatedFirmware.name =  this.name;
+    this.UpdatedFirmware.description = this.description;
+    this.UpdatedFirmware.version = { main: this.version.main , secondary: this.version.secondary};
+    this.UpdatedFirmware.isPublic = this.isPublic;
+    this.UpdatedFirmware.link =this.link;
+    this.UpdatedFirmware.group =this.group;
+    this.UpdatedFirmware.device =this.device;
+    this.UpdatedFirmware.code = this.code;
+    this.UpdatedFirmware.owner = this.GetUserID();
+  
+    this.UpdatedFirmware.buttons = [{
+      messageOn: "test",
+      messageOff: "test",
+      icon: "test",
+      buttonType: "test",
+    }];
+    this.UpdatedFirmware.buttons.shift();
+    this.source.getAll().then(dat =>{      
+      if(dat) {
+        dat.forEach(element => {
+            let temp = {
+              messageOn: element.messageOn, 
+              messageOff: element.messageOff , 
+              icon: element.icon, 
+              buttonType: element.type
+          };
+          this.UpdatedFirmware.buttons.push(temp);
+        });
+      }
+    });    
+    }
+
   ClearMessages(){
     this.errors = [];
     this.messages = [];
@@ -203,17 +250,41 @@ export class FirmwareInsertComponent implements OnInit {
     )
 
     onSubmit() {
-     this.handleSumbit();
+      this.messages = [];
+      this.errors = [];
+      if(this.isNew) {
+        this.handleSumbitNew();
+      }
+      else {
+        this.handleSumbitOld();
+      }
     }
-    async  handleSumbit(){  
-      await this.CreateNewFirmware();    
-      console.log(this.newFirmware);
+
+
+    async  handleSumbitNew(){  
+      await this.CreateNewFirmware();       
       if(!this.validationService.validateRegisterFirmware(this.newFirmware)) {
         this.errors = this.validationService.pickErrorsRegisterFirmware(this.newFirmware);
         return; 
-      }    
-      console.log(this.newFirmware);
+      }        
       this.service.registerFirmware(this.newFirmware).subscribe( (msg) => {
+        if(msg.success) this.messages.push(msg.msg);
+        else this.errors.push(msg.msg);
+      },
+      err => {
+        this.errors.push(err);
+        //console.log(err);
+        return false;
+      });
+    }
+
+    async  handleSumbitOld(){  
+      await this.UpdateFirmware();         
+      if(!this.validationService.validateRegisterFirmware(this.UpdatedFirmware)) {
+        this.errors = this.validationService.pickErrorsRegisterFirmware(this.UpdatedFirmware);
+        return; 
+      }         
+      this.service.updateFirmware(this.UpdatedFirmware).subscribe( (msg) => {
         if(msg.success) this.messages.push(msg.msg);
         else this.errors.push(msg.msg);
       },
@@ -232,11 +303,6 @@ export class FirmwareInsertComponent implements OnInit {
       } else {
         event.confirm.reject();
       }
-    }
-    test(){
-      this.source.getAll().then(res =>{
-        console.log(res); 
-      });
     }
     
 

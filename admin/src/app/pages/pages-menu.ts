@@ -37,9 +37,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Firmware Options',
         link: '/pages/firmware/input',
       },
+      {
+        title: 'Manage Firmware',
+        link: '/pages/firmware/manage',
+      },
       
     ]
   },
+  /*
   {
     title: 'Tables',
     icon: 'nb-tables',
@@ -50,7 +55,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
-  /*
+  
   {
     title: 'FEATURES',
     group: true,
@@ -267,7 +272,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
-  */
+ 
   {
     title: 'Auth',
     icon: 'nb-locked',
@@ -290,4 +295,5 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
+   */
 ];

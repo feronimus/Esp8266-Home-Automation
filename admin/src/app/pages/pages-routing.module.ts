@@ -29,11 +29,12 @@ const routes: Routes = [{
     path: 'firmware',
     loadChildren: './firmware/firmware.module#FirmwareModule',
   },
+   /*
   {
     path: 'tables',
     loadChildren: './tables/tables.module#TablesModule',
   }, 
-  /*
+ 
   {
     path: 'ui-features',
     loadChildren: './ui-features/ui-features.module#UiFeaturesModule',

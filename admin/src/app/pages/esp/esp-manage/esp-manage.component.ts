@@ -24,7 +24,7 @@ export class EspManageComponent  {
     this.service.getEspByUser().subscribe(esps => {
     this.source.load(esps.esps.esp);
     esps.esps.esp.forEach(element => {
-      if(!this.Locations.includes(element)) this.Locations.push(element);
+      if(!this.Locations.includes(element.group)) this.Locations.push(element.group);
     });
     },
     err => {

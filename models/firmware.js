@@ -8,6 +8,7 @@ const FirmSchema = Schema({
     name: String,
     description: String,
     version: { main:Number , secondary: Number},
+    versionReadable: String,
     isPublic: Boolean,
     link: String,
     esp: [{ type: Schema.Types.ObjectId, ref: 'Esp' }],
@@ -94,4 +95,8 @@ module.exports.getDevices = function(callback){
     Firmware.find(query).distinct('device',callback)
 }
 
+module.exports.getFirmwareByUser = function(id, callback){
+    const query ={owner: id}
+    Firmware.find(query, callback)
+}
 //group [{name;string , [{device:string, [{  version}]}]       }]
