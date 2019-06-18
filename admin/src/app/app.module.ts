@@ -24,7 +24,6 @@ import { AuthGuardService } from './auth-guard.service';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
@@ -38,8 +37,8 @@ import { AuthGuardService } from './auth-guard.service';
             class: NbAuthJWTToken,
             key: 'token',
           },
-          baseEndpoint: 'http://localhost:3000/users/',
-          //baseEndpoint: '/users/',
+          //baseEndpoint: 'http://localhost:3000/users/',
+          baseEndpoint: '/users/',
           
         }),
       ],

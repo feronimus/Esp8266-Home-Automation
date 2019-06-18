@@ -7,6 +7,7 @@ import { FirmwareComponent } from './firmware.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { FirmwareInsertComponent } from './firmware-insert/firmware-insert.component';
 import { FirmwareManageComponent } from './firmware-manage/firmware-manage.component';
+import { FileUploadModule  } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [FirmwareComponent, FirmwareInsertComponent, FirmwareManageComponent],
@@ -14,6 +15,7 @@ import { FirmwareManageComponent } from './firmware-manage/firmware-manage.compo
     FirmwareRoutingModule,
     Ng2SmartTableModule,
     ThemeModule,
+    FileUploadModule,
     CKEditorModule,
   ],
   providers: [BackendService],

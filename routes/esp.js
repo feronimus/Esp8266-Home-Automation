@@ -178,7 +178,7 @@ router.post('/signal', passport.authenticate('jwt' , {session:false}), (req, res
         if(err){
             res.json({success: false, msg:err});
         }else {  
-            //check if this device belongs to you
+            //check  this device belifongs to you
             if(String(esp.owner[0]) != String(req.user._id)){
                 res.json({success: false, msg:'This device does not belong to you.'});
                 return;

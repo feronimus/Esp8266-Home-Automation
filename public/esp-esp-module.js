@@ -16704,7 +16704,7 @@ var EspChangeComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nb-card>\n  <nb-card-header>{{HtmlMessages.CardDeviceHeader}}</nb-card-header>\n  <nb-card-body>\n\n   \n      <nb-alert *ngIf=\"errors?.length \" outline=\"danger\" role=\"alert\">\n          <p class=\"alert-title\"><b>Attention!</b></p>\n          <ul class=\"alert-message-list\">\n            <li *ngFor=\"let error of errors\" class=\"alert-message\">{{ error }}</li>\n          </ul>\n        </nb-alert>\n        \n        <nb-alert  *ngIf=\"messages?.length \" outline=\"success\" role=\"alert\">\n          <p class=\"alert-title\"><b>Hooray!</b></p>\n          <ul class=\"alert-message-list\">\n            <li *ngFor=\"let message of messages\" class=\"alert-message\">{{ message }}</li>\n          </ul>\n        </nb-alert>\n    \n    <form >\n      <div class=\"form-group row\">\n        <label for=\"inputEmail1\" class=\"col-sm-3 col-form-label\">Name</label>\n        <div class=\"col-sm-9\">\n            <div class=\"input-group\">\n                <span class=\"input-group-addon success\">@</span>\n                <input type=\"name\" [(ngModel)]=\"name\" class=\"form-control\" id=\"inputName\"  name=\"name\"placeholder=\"Enter Name\"/>\n            </div>\n         <!-- <input type=\"name\" class=\"form-control\" id=\"inputName\" placeholder=\"Enter Name\">--> \n        </div>\n      </div>\n      <div class=\"form-group row\">\n          <label for=\"inputDescription\" class=\"col-sm-3 col-form-label\">Description</label>\n          <div class=\"col-sm-9\">\n            <ckeditor [config]=\"{ extraPlugins: 'divarea', height: '100' }\" id=\"inputDescription\" name=\"description\" [(ngModel)]=\"description\" fullWidth ></ckeditor>   \n          </div>\n        </div>\n      <div class=\"form-group row\">\n        <label for=\"inputSecret\" class=\"col-sm-3 col-form-label\">Secret</label>\n        <div class=\"col-sm-9\">\n          <div class=\"input-group\">\n            <span class=\"input-group-append\">\n                <button class=\"btn btn-primary input-group-text\" (click)=\"RandomizeSecret()\">\n                  Create Random\n                </button>\n              </span>\n            <input type=\"secret\" [(ngModel)]=\"secret\" class=\"form-control\" id=\"inputSecret\"  name=\"secret\" placeholder=\"Secret\">\n          </div>\n        </div>\n      </div>\n      <div class=\"form-group row\">\n        <label class=\"col-sm-3\">Options</label>\n        <div class=\"col-sm-9\">\n          <div class=\"form-check\">\n            <label class=\"custom-control custom-radio\">\n              <input type=\"radio\" class=\"custom-control-input\" name=\"gridRadios\" checked>\n              <span class=\"custom-control-indicator\"></span>\n              <span class=\"custom-control-description\">Keep Device Updated.&mdash; Install all major updates of the original maker.</span>\n            </label>\n          </div>\n          <div class=\"form-check\">\n            <label class=\"custom-control custom-radio\">\n              <input type=\"radio\" class=\"custom-control-input\" name=\"gridRadios\">\n              <span class=\"custom-control-indicator\"></span>\n              <span class=\"custom-control-description\">I want to manage updates myself.</span>\n            </label>\n          </div>\n          <!-- \n          <div class=\"form-check disabled\">\n            <label class=\"custom-control custom-radio\">\n              <input type=\"radio\" class=\"custom-control-input\" name=\"gridRadios\" disabled>\n              <span class=\"custom-control-indicator\"></span>\n              <span class=\"custom-control-description\">Use it to mine Monero. (Not implemented yet)</span>\n            </label>\n          </div>\n          -->\n        </div>\n      </div> \n    </form>\n  </nb-card-body>\n</nb-card>\n\n<nb-card>\n    <nb-card-header>Choose a Firmware for this device.</nb-card-header>\n    <nb-card-body>\n       \n      <form >\n         \n\n        <div class=\"form-group row\">\n          <label for=\"inputName\" class=\"col-sm-3 col-form-label\">Choose a general purpose for your device!</label>\n          <div class=\" col-sm-9\">\n              <div class=\"input-group\">\n                <nb-select name=\"selectGroup\" [(ngModel)]=\"selectGroup\" style=\"width:30%\" placeholder=\"Select Category\" shape=\"rectangle\"> \n                  <nb-option-group *ngFor=\"let group of GroupList\" [title]=\"group.group\">      \n                    <nb-option (click)=\"SelectGroupName(names.group, names.name)\" *ngFor=\"let names of group.names\"  [value]=\"group\">\n                      {{names.name}}\n                    </nb-option>\n                  </nb-option-group>\n                </nb-select>\n              </div>\n          </div>\n        </div>\n\n        <div class=\"form-group row\">\n          <label for=\"inputName\" class=\"col-sm-3 col-form-label\">Choose a general purpose for your device!</label>\n          <div class=\" col-sm-9\">\n              <div class=\"input-group\">\n                <nb-select name=\"selectDevice\" [(ngModel)]=\"selectDevice\" style=\"width:30%\" placeholder=\"Select Category\" shape=\"rectangle\"> \n                  <nb-option-group *ngFor=\"let group of DeviceList\" [title]=\"group.device\">      \n                    <nb-option (click)=\"SelectedFirmware(versions.firmware)\" *ngFor=\"let versions of group.versions\" [value]=\"group\">\n                        {{versions.firmware.version.main}}.{{versions.firmware.version.secondary}}\n                    </nb-option>\n                  </nb-option-group>\n                </nb-select>\n              </div>\n          </div>\n        </div>\n\n\n\n     \n      \n\n\n\n\n\n\n        <div class=\"form-group row\" *ngIf=\"FocusedFirmware\" >\n            <!--<label class=\"col-sm-3 col-form-label\"></label> -->\n            <div class=\" col-sm-3 col-form-label\">\n                <nb-card>\n                    <nb-card-header>\n                      <p>{{FocusedFirmware.name}}  For <i>{{FocusedFirmware.device}}</i></p>\n                      <p>{{FocusedFirmware.version.main}}.{{FocusedFirmware.version.secondary}}</p>\n                    </nb-card-header>\n                    <nb-card-body>\n                        <p>You sellected a firmware made by: <b>{{FocusedFirmware.ownerName}} </b></p>\n                        <br>\n                        <p>This Firmware is for : <b> {{FocusedFirmware.group}}</b> applications.</p>\n                        <br>\n                        <p>Description : </p>\n                        <p><i><div [innerHTML]=\"FocusedFirmware.description\"></div></i></p>\n                        <br>\n                    </nb-card-body>\n                </nb-card>\n             \n            </div>\n            <div class=\" col-sm-9\" >\n                <span>\n                    <p>Code :  <i><div [innerHTML]=\"FocusedFirmware.code\"></div></i></p>\n                </span>\n              </div>\n        </div>\n\n\n        <div class=\"form-group row\">\n          <div class=\"offset-sm-3 col-sm-9\">\n            <button type=\"submit\" class=\"btn btn-primary\" (click)=\"onSubmit()\" >{{HtmlMessages.ButtonSubmit}}</button>\n          </div>\n        </div>\n      </form>\n    </nb-card-body>\n  </nb-card>\n  "
+module.exports = "<nb-card>\n  <nb-card-header>{{HtmlMessages.CardDeviceHeader}}</nb-card-header>\n  <nb-card-body>\n\n   \n      <nb-alert *ngIf=\"errors?.length \" outline=\"danger\" role=\"alert\">\n          <p class=\"alert-title\"><b>Attention!</b></p>\n          <ul class=\"alert-message-list\">\n            <li *ngFor=\"let error of errors\" class=\"alert-message\">{{ error }}</li>\n          </ul>\n        </nb-alert>\n        \n        <nb-alert  *ngIf=\"messages?.length \" outline=\"success\" role=\"alert\">\n          <p class=\"alert-title\"><b>Hooray!</b></p>\n          <ul class=\"alert-message-list\">\n            <li *ngFor=\"let message of messages\" class=\"alert-message\">{{ message }}</li>\n          </ul>\n        </nb-alert>\n    \n    <form >\n      <div class=\"form-group row\">\n        <label for=\"inputEmail1\" class=\"col-sm-3 col-form-label\">Name</label>\n        <div class=\"col-sm-9\">\n            <div class=\"input-group\">\n                <span class=\"input-group-addon success\">@</span>\n                <input type=\"name\" [(ngModel)]=\"name\" class=\"form-control\" id=\"inputName\"  name=\"name\"placeholder=\"Enter Name\"/>\n            </div>\n         <!-- <input type=\"name\" class=\"form-control\" id=\"inputName\" placeholder=\"Enter Name\">--> \n        </div>\n      </div>\n      <div class=\"form-group row\">\n          <label for=\"inputDescription\" class=\"col-sm-3 col-form-label\">Description</label>\n          <div class=\"col-sm-9\">\n            <ckeditor [config]=\"{ extraPlugins: 'divarea', height: '100' }\" id=\"inputDescription\" name=\"description\" [(ngModel)]=\"description\" fullWidth ></ckeditor>   \n          </div>\n        </div>\n      <div class=\"form-group row\">\n        <label for=\"inputSecret\" class=\"col-sm-3 col-form-label\">Secret</label>\n        <div class=\"col-sm-9\">\n          <div class=\"input-group\">\n            <span class=\"input-group-append\">\n                <button class=\"btn btn-primary input-group-text\" (click)=\"RandomizeSecret()\">\n                  Create Random\n                </button>\n              </span>\n            <input type=\"secret\" [(ngModel)]=\"secret\" class=\"form-control\" id=\"inputSecret\"  name=\"secret\" placeholder=\"Secret\">\n          </div>\n        </div>\n      </div>\n      <div class=\"form-group row\">\n        <label class=\"col-sm-3\">Options</label>\n        <div class=\"col-sm-9\">\n          <div class=\"form-check\">\n            <label class=\"custom-control custom-radio\">\n              <input type=\"radio\" class=\"custom-control-input\" name=\"gridRadios\" checked>\n              <span class=\"custom-control-indicator\"></span>\n              <span class=\"custom-control-description\">Keep Device Updated.&mdash; Install all major updates of the original maker.</span>\n            </label>\n          </div>\n          <div class=\"form-check\">\n            <label class=\"custom-control custom-radio\">\n              <input type=\"radio\" class=\"custom-control-input\" name=\"gridRadios\">\n              <span class=\"custom-control-indicator\"></span>\n              <span class=\"custom-control-description\">I want to manage updates myself.</span>\n            </label>\n          </div>\n          <!-- \n          <div class=\"form-check disabled\">\n            <label class=\"custom-control custom-radio\">\n              <input type=\"radio\" class=\"custom-control-input\" name=\"gridRadios\" disabled>\n              <span class=\"custom-control-indicator\"></span>\n              <span class=\"custom-control-description\">Use it to mine Monero. (Not implemented yet)</span>\n            </label>\n          </div>\n          -->\n        </div>\n      </div> \n          \n  <br>\n  <br>\n      <div class=\"form-group row\">\n          <div class=\"offset-sm-3 col-sm-9\">\n            <button type=\"submit\" class=\"btn btn-primary\" (click)=\"onSubmit()\" >{{HtmlMessages.ButtonSubmit}}</button>\n          </div>\n        </div>\n     \n  <br>\n  <br>\n    </form>\n  </nb-card-body>\n</nb-card>\n\n<nb-card>\n    <nb-card-header>Choose a Firmware for this device.</nb-card-header>\n    <nb-card-body>\n       \n      <form >\n\n         \n\n\n        <div class=\"form-group row\">\n          <label for=\"inputName\" class=\"col-sm-3 col-form-label\">Choose a general purpose for your device!</label>\n          <div class=\" col-sm-9\">\n              <div class=\"input-group\">\n                <nb-select name=\"selectGroup\" [(ngModel)]=\"selectGroup\" style=\"width:30%\" placeholder=\"Select Category\" shape=\"rectangle\"> \n                  <nb-option-group *ngFor=\"let group of GroupList\" [title]=\"group.group\">      \n                    <nb-option (click)=\"SelectGroupName(names.group, names.name)\" *ngFor=\"let names of group.names\"  [value]=\"group\">\n                      {{names.name}}\n                    </nb-option>\n                  </nb-option-group>\n                </nb-select>\n              </div>\n          </div>\n        </div>\n\n        <div class=\"form-group row\">\n          <label for=\"inputName\" class=\"col-sm-3 col-form-label\">Choose device and firmware release</label>\n          <div class=\" col-sm-9\">\n              <div class=\"input-group\">\n                <nb-select name=\"selectDevice\" [(ngModel)]=\"selectDevice\" style=\"width:30%\" placeholder=\"Select Category\" shape=\"rectangle\"> \n                  <nb-option-group *ngFor=\"let group of DeviceList\" [title]=\"group.device\">      \n                    <nb-option (click)=\"SelectedFirmware(versions.firmware)\" *ngFor=\"let versions of group.versions\" [value]=\"group\">\n                        {{versions.firmware.version.main}}.{{versions.firmware.version.secondary}}\n                    </nb-option>\n                  </nb-option-group>\n                </nb-select>\n              </div>\n          </div>\n        </div>\n\n\n\n     \n      <br>\n      <br>\n\n\n\n\n\n\n        <div class=\"form-group row\" *ngIf=\"FocusedFirmware\" >\n            <!--<label class=\"col-sm-3 col-form-label\"></label> -->\n            <div class=\" col-sm-3 col-form-label\">\n                <nb-card>\n                    <nb-card-header>\n                      <p>{{FocusedFirmware.name}}  For <i>{{FocusedFirmware.device}}</i></p>\n                      <p>{{FocusedFirmware.version.main}}.{{FocusedFirmware.version.secondary}}</p>\n                    </nb-card-header>\n                    <nb-card-body>\n                        <p>You sellected a firmware made by: <b>{{FocusedFirmware.ownerName}} </b></p>\n                        <br>\n                        <p>This Firmware is for : <b> {{FocusedFirmware.group}}</b> applications.</p>\n                        <br>\n                        <p>Description : </p>\n                        <p><i><div [innerHTML]=\"FocusedFirmware.description\"></div></i></p>\n                        <br>\n                    </nb-card-body>\n                </nb-card>\n                <nb-card>\n                    <nb-card-header>\n                      Button Names:\n                    </nb-card-header>\n                    <nb-card-body>\n                        <div *ngFor=\"let button of FirmButtons; let i = index\" >\n                            <label>Button nubmer: {{i}}.</label>\n                            <input type=\"buttons\" [(ngModel)]=\"FirmButtons[i].title\" class=\"form-control\" name=\"buttons\" placeholder=\"Enter Button name\"/>\n                          </div>\n                    </nb-card-body>\n                </nb-card>\n               \n             \n            </div>\n            <div class=\" col-sm-9\">\n                <span>\n                    <p>Code :  <i><div [innerHTML]=\"FocusedFirmware.code\"></div></i></p>\n                </span>\n            </div>\n            \n        </div>\n\n\n      \n      </form>\n    </nb-card-body>\n  </nb-card>\n  "
 
 /***/ }),
 
@@ -16774,6 +16774,9 @@ var EspInsertComponent = /** @class */ (function () {
         //Load Cashed data from the server
         this.LoadLists();
     };
+    EspInsertComponent.prototype.ngOnDestroy = function () {
+        this.service.FocusedDeviceID == "";
+    };
     EspInsertComponent.prototype.handleChange = function () {
         var _this = this;
         this.service.getEspByUser().subscribe(function (esps) {
@@ -16840,6 +16843,7 @@ var EspInsertComponent = /** @class */ (function () {
     };
     EspInsertComponent.prototype.CreateNewEsp = function () {
         //FocusedFirmware
+        var _this = this;
         var esp;
         esp = {
             name: this.name,
@@ -16847,12 +16851,23 @@ var EspInsertComponent = /** @class */ (function () {
             secret: this.secret,
             owner: this.GetUserID(),
             group: "",
-            firmware: "none"
+            firmware: "none",
+            buttons: [{ id: "", message: "", title: "" }]
         };
-        if (this.FocusedFirmware)
+        if (this.FocusedFirmware) {
             esp.firmware = this.FocusedFirmware._id;
+            //buttons
+            esp.buttons.splice(0, esp.buttons.length);
+            this.FocusedFirmware.buttons.forEach(function (button) {
+                _this.FirmButtons.forEach(function (firmbutton) {
+                    if (firmbutton.id == button._id)
+                        esp.buttons.push({ id: button._id, message: "", title: firmbutton.title });
+                });
+            });
+        }
         if (!this.isNew)
             esp._id = this.FocusedDevice._id;
+        console.log(esp);
         return esp;
     };
     EspInsertComponent.prototype.ClearMessages = function () {
@@ -16912,9 +16927,45 @@ var EspInsertComponent = /** @class */ (function () {
         });
     };
     EspInsertComponent.prototype.SelectedFirmware = function (firmware) {
+        var _this = this;
+        console.log(this.FocusedDevice);
         this.FocusedFirmware = firmware;
         this.selectGroup = firmware.name;
         this.selectDevice = firmware.device;
+        this.FirmButtons = [{ id: "String", message: "String", title: "String" }];
+        this.FirmButtons.splice(0, this.FirmButtons.length);
+        firmware.buttons.forEach(function (button) {
+            if (_this.isNew) {
+                var temp = {
+                    id: button._id,
+                    message: "",
+                    title: ""
+                };
+                _this.FirmButtons.push(temp);
+            }
+            else {
+                var flag_1 = true;
+                var temp_1;
+                _this.FocusedDevice.buttons.forEach(function (DevButton) {
+                    if (DevButton.id == button._id) {
+                        temp_1 = {
+                            id: button._id,
+                            message: "",
+                            title: DevButton.title
+                        };
+                        flag_1 = false;
+                    }
+                });
+                if (flag_1) {
+                    temp_1 = {
+                        id: button._id,
+                        message: "",
+                        title: ""
+                    };
+                }
+                _this.FirmButtons.push(temp_1);
+            }
+        });
     };
     EspInsertComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({

@@ -3080,7 +3080,6 @@ var HeaderComponent = /** @class */ (function () {
             .subscribe(function (title) {
             //console.log(title);
             if (title == "Log out") {
-                console.log("what");
                 _this.router.navigate(['/auth/logout']);
             }
             ;

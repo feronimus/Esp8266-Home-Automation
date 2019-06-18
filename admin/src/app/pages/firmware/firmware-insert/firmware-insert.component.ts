@@ -8,8 +8,11 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { group } from '@angular/animations';
 import '../../editors/ckeditor/ckeditor.loader';
 import 'ckeditor';
+import { FileSelectDirective, FileUploader} from 'ng2-file-upload';
 
 
+
+var uri = 'esp/espuploads';
 
 export  interface  Firm  {
   name: String;
@@ -84,12 +87,33 @@ export class FirmwareInsertComponent implements OnInit, OnDestroy {
   
   ];
 
+
+
+  uploader:FileUploader = new FileUploader({
+    url:uri,
+    allowedMimeType: ['application/octet-stream'] ,  
+    queueLimit: 2
+  });
+  attachmentList:any = [];
+
   constructor(
     private service:BackendService,
     private validationService:ValidationService,
     private authService: NbAuthService
-    ) {}
+    ) {
+      this.uploader.onAfterAddingFile = (file) => {  file.withCredentials = false; this.onAfterAddingFile(file);};
 
+      this.uploader.onCompleteItem = (item:any, response:any , status:any, headers:any) => {
+          this.attachmentList.push(JSON.parse(response));
+          console.log(response);
+          this.link = "http://mqtt.antallaktika-smart.gr/uploads/" + response.substring(1, response.length-1);
+      }
+    }
+    onAfterAddingFile(fileItem: any) {
+      let latestFile = this.uploader.queue[this.uploader.queue.length-1]
+      this.uploader.queue = []; 
+      this.uploader.queue.push(latestFile);
+   } 
 
   ngOnInit() {    
 
