@@ -60,11 +60,7 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
             return ;
         }else{
            
-            //Update Firmware
-            Firmware.getFirmwareById(newEsp.firmware , function(err , firm){
-                firm.esp.push(esp._id);
-                Firmware.updateFirmware(firm, function(err){ 
-                   });
+         
 
                 //register esp              
                 MqtHandler.subscribe(newEsp.secret);
@@ -78,7 +74,12 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
                 Esp.addEsp(newEsp, (err, esp) => {
                     if(err){
                         res.json({success: false, msg:err});
-                    }else {                    
+                    }else {   
+                        //Update Firmware
+                        Firmware.getFirmwareById(newEsp.firmware , function(err , firm){
+                            firm.esp.push(esp._id);
+                            Firmware.updateFirmware(firm, function(err){ 
+                            });                 
                         //Update user
                         User.getUserById(newEsp.owner[0] , function(err , user){                            
                             user.esp.push(esp._id);
@@ -86,10 +87,9 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
                             res.json({success: true, msg:'The Esp device is now registered under your acount!!!'});                              
                 
                             });  
-                        });                                
-                    }
-                });                        
-                                
+                        });  
+                    });                               
+                }         
             }); 
         }
     });    
