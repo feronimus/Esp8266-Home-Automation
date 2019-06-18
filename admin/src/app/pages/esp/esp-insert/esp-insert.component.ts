@@ -224,16 +224,35 @@ export class EspInsertComponent implements OnInit, OnDestroy  {
 
     this.FirmButtons.splice(0,this.FirmButtons.length)
     firmware.buttons.forEach(button => { 
-      this.FocusedDevice.buttons.forEach(DevButton => {
-        if(DevButton.id == button._id ){
-          let temp = {
+      if(this.isNew){
+        let temp = {
+          id : button._id,
+          message:"" , 
+          title: "" 
+        };     
+        this.FirmButtons.push(temp);
+      }else{
+        let flag = true;
+        let temp;
+        this.FocusedDevice.buttons.forEach(DevButton => { 
+          if(DevButton.id == button._id ){
+            temp = {
+              id : button._id,
+              message:"" , 
+              title: DevButton.title 
+            }
+            flag = false;              
+          }        
+        });
+        if(flag){
+          temp = {
             id : button._id,
             message:"" , 
-            title: DevButton.title 
+            title: "" 
           };     
-         this.FirmButtons.push(temp);
-        }        
-      });
+        }
+        this.FirmButtons.push(temp);      
+      }
     });
   }
 }

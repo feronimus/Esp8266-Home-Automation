@@ -37,19 +37,21 @@ export class DashboardComponent implements  OnInit {
       esps.esps.esp.forEach(device => {
         this.service.getFirmwareById({ _id : device.firmware}).subscribe(firmware => {         
           firmware.firmware.buttons.forEach(button =>{
-            let temp: CardSettings = {
-              title: device.name,
-              iconClass: button.icon,
-              type: button.buttonType,
-              device: device._id,
-              messageOn : button.messageOn,
-              messageOff : button.messageOff, 
-              button_ID  : button._id,
-            };            
-            this.statusCards.push(temp);  
-      
+            device.buttons.forEach(devButton => {
+              if(devButton.id == button._id){
+                let temp: CardSettings = {
+                  title: devButton.title,
+                  iconClass: button.icon,
+                  type: button.buttonType,
+                  device: device._id,
+                  messageOn : button.messageOn,
+                  messageOff : button.messageOff, 
+                  button_ID  : button._id,
+                };            
+                this.statusCards.push(temp); 
+              }
+            });
           });
-
         });
       });
      });

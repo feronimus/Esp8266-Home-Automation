@@ -17,27 +17,15 @@ module.exports.HandleMqttMessage = function(topic, Message, packet){
     if(!Message) return;
     //Send all info as esp startup
     if(Message == "START"){ 
-        Esp.getEspBySecret(topic, (err,newEsp) =>{
-            if(err) {res.json({success: false, msg:err});}
-            if(!newEsp)return;
-            //Create message
-            let message = "{"
-            message += "\"D0\":\""+ newEsp.pins.D0.IsHight +"\",";
-            message += "\"D1\":\""+ newEsp.pins.D1.IsHight +"\",";
-            message += "\"D2\":\""+ newEsp.pins.D2.IsHight +"\",";
-            message += "\"D3\":\""+ newEsp.pins.D3.IsHight +"\",";
-            //message += "\"D4\":\""+ newEsp.pins.D4.IsHight +"\",";
-            message += "\"D5\":\""+ newEsp.pins.D5.IsHight +"\",";
-            message += "\"D6\":\""+ newEsp.pins.D6.IsHight +"\",";
-            message += "\"D7\":\""+ newEsp.pins.D7.IsHight +"\",";
-            message += "\"D8\":\""+ newEsp.pins.D8.IsHight +"\",";
-            message += "\"D9\":\""+ newEsp.pins.D9.IsHight +"\",";
-            //message += "\"D10\":\""+ newEsp.pins.D10.IsHight +"\",";    
-            message += "\"A10\":\""+ newEsp.pins.A0.value +"\",";    
-            message = message.slice(0, -1);
-            message += "}"
-            //send message
-            MqtHandler.sendMessage(topic,message);   
+        Esp.getEspBySecret(topic, (err,newEsp) =>{            
+            if(err) {res.json({success: false, msg:err}); return;}
+            if(!newEsp)return; 
+            newEsp.buttons.forEach(button => {                 
+                setTimeout(function(){
+                    MqtHandler.sendMessage(topic,button.message); 
+                }, 300);
+            });  
+              
         });
     }
 }

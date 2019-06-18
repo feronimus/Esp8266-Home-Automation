@@ -45,7 +45,7 @@ class MqttHandler {
     // When a message arrives, console.log it
     mqttClient.on('message', function(topic, message, packet) {
       messageAuth(topic, message, packet);      
-      console.log("From GOT: " +topic + "  - message : " + message );
+      
 
     });
 
@@ -62,6 +62,10 @@ class MqttHandler {
             }  
             var d = new Date();
             var t= d.getTime()/ 1000 ;
+            var day = d.getDay();
+            var month = d.getHours();
+            var year = d.getMinutes();
+            console.log( day +"/"+  month +"/"+ year + " - GOT From : " +topic + "  - message : " + message );
             esp.isOnline = t ;// how many seconds have passed since 1970/01/01
             Esp.updateEsp(esp, (err, esp) => {});
             if(message != "online")  EspRouts.HandleMqttMessage(secret, message, packet);
@@ -100,5 +104,5 @@ module.exports.unsubscribe = function(subscription){
 
 module.exports.sendMessage = function(topic,message) {
   console.log("To SEND : " + "esp/" +topic + "/server"+ "  - message : " + message );
-  mqttClient.publish("esp/" +topic + "/server", message);
+  mqttClient.publish("esp/" +topic + "/server","{ msg : " +  message + "}");
 }
