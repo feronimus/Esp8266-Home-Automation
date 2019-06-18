@@ -31,6 +31,7 @@ export class EspInsertComponent implements OnInit, OnDestroy  {
     ButtonSubmit: "",
   };
   FirmButtons : [{id : String, message: String , title: String}];
+  updateNow = false;
 
   //Cashed
   GroupList;
@@ -92,6 +93,8 @@ export class EspInsertComponent implements OnInit, OnDestroy  {
   RandomizeSecret(){   
     this.secret = uuid();    
   }
+
+ 
   
   onSubmit() {
     this.ClearMessages()
@@ -100,7 +103,7 @@ export class EspInsertComponent implements OnInit, OnDestroy  {
       this.errors = this.validationService.pickErrorsRegisterEsp(esp);
       return; 
     }    
-
+    
     if(this.isNew){
       this.service.registerEsp(esp).subscribe( (msg) => {
         if(msg.success) this.messages.push(msg.msg);
@@ -125,7 +128,10 @@ export class EspInsertComponent implements OnInit, OnDestroy  {
       );
     }
     
+    
   }
+
+  
 
   CreateNewEsp() : any{
     //FocusedFirmware
@@ -138,7 +144,8 @@ export class EspInsertComponent implements OnInit, OnDestroy  {
       owner: this.GetUserID(),
       group: "",
       firmware: "none",
-      buttons: [{id: "" , message: "" , title:"" }]
+      buttons: [{id: "" , message: "" , title:"" }],
+      forceUpdate: this.updateNow
     }
     if(this.FocusedFirmware){
       esp.firmware = this.FocusedFirmware._id;
@@ -215,8 +222,7 @@ export class EspInsertComponent implements OnInit, OnDestroy  {
 
     });
   }
-  SelectedFirmware(firmware :any){
-    console.log(this.FocusedDevice);
+  SelectedFirmware(firmware :any){   
     this.FocusedFirmware = firmware;
     this.selectGroup = firmware.name;
     this.selectDevice= firmware.device;

@@ -48,7 +48,7 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
         eventSheduler: { },//event object
         timer: -1,
         version: 0.1,
-        forceUpdate: false ,  
+        forceUpdate: req.body.forceUpdate ,  
         firmware:    req.body.firmware,     
         buttons: req.body.buttons
     });    
@@ -79,12 +79,13 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
                         Firmware.getFirmwareById(newEsp.firmware , function(err , firm){
                             firm.esp.push(esp._id);
                             Firmware.updateFirmware(firm, function(err){ 
+                                if(esp.forceUpdate) MqtHandler.sendMessage(newEsp.secret, "{ ForceUpdate : \"true\" , link :\""+firm.link+"\"}" );             
                             });                 
                         //Update user
                         User.getUserById(newEsp.owner[0] , function(err , user){                            
                             user.esp.push(esp._id);
                             User.updateUser(user, function(err){
-                            res.json({success: true, msg:'The Esp device is now registered under your acount!!!'});                              
+                                res.json({success: true, msg:'The Esp device is now registered under your acount!!!'});                              
                 
                             });  
                         });  
@@ -107,7 +108,7 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
         eventSheduler: { },//event object
         timer: -1,
         version: 0.1,
-        forceUpdate: false,
+        forceUpdate: req.body.forceUpdate , 
         firmware: req.body.firmware, 
         _id : req.body._id,  
         buttons: req.body.buttons
@@ -131,16 +132,13 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
                     return;
                 }
                  //Update Old Firmware
-                 Firmware.getFirmwareById(oldesp.firmware , function(err , oldfirm){
-                     console.log(oldfirm.esp);
+                 Firmware.getFirmwareById(oldesp.firmware , function(err , oldfirm){                   
                     for( var i = 0; i < oldfirm.esp.length; i++){ 
                         if ( String(oldfirm.esp[i]) === String(oldesp._id)) {
                             oldfirm.esp.splice(i, 1); 
                             i--;
                         }
-                     }        
-                     
-                     console.log(oldfirm.esp);                 
+                     }    
                     Firmware.updateFirmware(oldfirm, function(err){
                         //Update new Firmware 
                         Firmware.getFirmwareById(newEsp.firmware , function(err , firm){
@@ -158,7 +156,9 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
                                 Esp.updateEsp(newEsp, (err, esp) => {
                                     if(err){
                                         res.json({success: false, msg:err});
-                                    }else {                    
+                                    }else {  
+                                        console.log(esp.forceUpdate); 
+                                        if(esp.forceUpdate) MqtHandler.sendMessage(esp.secret, "{ ForceUpdate : \"true\" , link :\""+firm.link+"\"}" );             
                                         res.json({success: true, msg:'The Esp device is now updated!!!'});
                                     }
                                 }); 
@@ -201,6 +201,7 @@ router.post('/signal', passport.authenticate('jwt' , {session:false}), (req, res
         }
     });
 });
+
 
 //populate esps of user
  router.get('/esps', passport.authenticate('jwt' , {session:false}), (req, res, next) => {
