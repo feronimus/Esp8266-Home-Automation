@@ -62,6 +62,7 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
         version: 0.1,
         forceUpdate: false ,  
         firmware:    req.body.firmware,     
+        buttons: req.body.buttons
     });    
     //check Secret
     Esp.getEspBySecret(newEsp.secret, function(err, secret){ 
@@ -70,26 +71,37 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
             res.json({success: false, msg:'This secret is already in use...'});
             return ;
         }else{
-            //register esp              
-            MqtHandler.subscribe(newEsp.secret);
-            Esp.addEsp(newEsp, (err, esp) => {
-                if(err){
-                    res.json({success: false, msg:err});
-                }else {                    
-                    //Update user
-                    User.getUserById(newEsp.owner[0] , function(err , user){                            
-                        user.esp.push(esp._id);
-                        User.updateUser(user, function(err){
-                            //Update Firmware
-                            Firmware.getFirmwareById(newEsp.firmware , function(err , firm){
-                                firm.esp.push(esp._id);
-                                Firmware.updateFirmware(firm, function(err){ 
-                                    res.json({success: true, msg:'The Esp device is now registered under your acount!!!'});                              
-                                });
-                            });                                
-                        });
-                    });                        
-                }                   
+           
+            //Update Firmware
+            Firmware.getFirmwareById(newEsp.firmware , function(err , firm){
+                firm.esp.push(esp._id);
+                Firmware.updateFirmware(firm, function(err){ 
+                   });
+
+                //register esp              
+                MqtHandler.subscribe(newEsp.secret);
+                 //Update esp Buttons
+                 /*
+                 newEsp.buttons.splice(0,newEsp.buttons.length)
+                 firm.buttons.forEach(button => {                     
+                     newEsp.buttons.push({id : button._id, message:""});
+                 });   
+                 */            
+                Esp.addEsp(newEsp, (err, esp) => {
+                    if(err){
+                        res.json({success: false, msg:err});
+                    }else {                    
+                        //Update user
+                        User.getUserById(newEsp.owner[0] , function(err , user){                            
+                            user.esp.push(esp._id);
+                            User.updateUser(user, function(err){
+                            res.json({success: true, msg:'The Esp device is now registered under your acount!!!'});                              
+                
+                            });  
+                        });                                
+                    }
+                });                        
+                                
             }); 
         }
     });    
@@ -110,6 +122,7 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
         forceUpdate: false,
         firmware: req.body.firmware, 
         _id : req.body._id,  
+        buttons: req.body.buttons
     });
     //check Secret
     Esp.getEspBySecret(newEsp.secret, function(err, secret){ 
@@ -118,7 +131,7 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
             res.json({success: false, msg:'This secret is already in use...'});
             return ;
         }else{
-            //Check if this is your device to update.
+            //Check if this is your device.
             Esp.getEspById(newEsp._id, function(err, oldesp){
                 if(err) console.log(err);
                 if(!oldesp) {
@@ -146,7 +159,14 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
                             firm.esp.push(newEsp._id);
                             Firmware.updateFirmware(firm, function(err){ 
                                 //Update esp    
-                                MqtHandler.subscribe(newEsp.secret);  
+                                MqtHandler.subscribe(newEsp.secret);
+                                //Update esp Buttons
+                                  /*
+                                newEsp.buttons.splice(0,newEsp.buttons.length)
+                                firm.buttons.forEach(button => {
+                                    newEsp.buttons.push({id : button._id, message:""});
+                                });  
+                                */
                                 Esp.updateEsp(newEsp, (err, esp) => {
                                     if(err){
                                         res.json({success: false, msg:err});
@@ -165,84 +185,33 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
 
 
 // Updates and handles messages to be send to devices's
-router.post('/signal', passport.authenticate('jwt' , {session:false}), (req, res, next) => {   
-    console.log(req.body);
+router.post('/signal', passport.authenticate('jwt' , {session:false}), (req, res, next) => { 
     Esp.getEspById(req.body.id, (err, esp) => {
         if(err){
             res.json({success: false, msg:err});
-        }else {    
-            MqtHandler.sendMessage(esp.secret,req.body.message);      
-            let msg = "Turned ";
-            msg +=    req.body.status;   
-            res.json({success: true, msg:msg});
-        }
-    }); 
-
-   /*
-    return;
-    //res.send('REGISTER');
-    let newEsp = new Esp({
-        _id :req.body._id,
-        name: req.body.name,
-        description: req.body.description,
-        secret: req.body.secret,
-        group: req.body.group,
-        pins : { 
-            D0: { InUse :req.body.pins.D0.InUse, IsHight: req.body.pins.D0.IsHight},
-            D1: { InUse :req.body.pins.D1.InUse, IsHight: req.body.pins.D1.IsHight},
-            D2: { InUse :req.body.pins.D2.InUse, IsHight: req.body.pins.D2.IsHight},
-            D3: { InUse :req.body.pins.D3.InUse, IsHight: req.body.pins.D3.IsHight},
-            D4: { InUse :req.body.pins.D4.InUse, IsHight: req.body.pins.D4.IsHight},
-            D5: { InUse :req.body.pins.D5.InUse, IsHight: req.body.pins.D5.IsHight},
-            D6: { InUse :req.body.pins.D6.InUse, IsHight: req.body.pins.D6.IsHight},
-            D7: { InUse :req.body.pins.D7.InUse, IsHight: req.body.pins.D7.IsHight},
-            D8: { InUse :req.body.pins.D8.InUse, IsHight: req.body.pins.D8.IsHight},
-            D9: { InUse :req.body.pins.D9.InUse, IsHight: req.body.pins.D9.IsHight},
-            D10: { InUse :req.body.pins.D10.InUse, IsHight: req.body.pins.D10.IsHight},
-            A0: { InUse :req.body.pins.A0.InUse, value : req.body.pins.A0.value}
-        },     
-        owner: req.body.owner,
-        isOnline: req.body.isOnline,
-        viewOrder: req.body.viewOrder,
-        eventSheduler: { },//event object
-        timer: req.body.timer,
-        version: req.body.version,
-        forceUpdate: req.body.forceUpdate
-    });
-    //Find changes
-    
-    Esp.getEspBySecret(newEsp.secret, (err,esp) =>{
-        if(err) {res.json({success: false, msg:err});}
-        
-        //Create message
-        message = "{"
-        if(newEsp.pins.D0.IsHight != esp.pins.D0.IsHight) message += "\"D0\":\""+ newEsp.pins.D0.IsHight +"\",";
-        if(newEsp.pins.D1.IsHight != esp.pins.D1.IsHight) message += "\"D1\":\""+ newEsp.pins.D1.IsHight +"\",";
-        if(newEsp.pins.D2.IsHight != esp.pins.D2.IsHight) message += "\"D2\":\""+ newEsp.pins.D2.IsHight +"\",";
-        if(newEsp.pins.D3.IsHight != esp.pins.D3.IsHight) message += "\"D3\":\""+ newEsp.pins.D3.IsHight +"\",";
-        if(newEsp.pins.D4.IsHight != esp.pins.D4.IsHight) message += "\"D4\":\""+ newEsp.pins.D4.IsHight +"\",";
-        if(newEsp.pins.D5.IsHight != esp.pins.D5.IsHight) message += "\"D5\":\""+ newEsp.pins.D5.IsHight +"\",";
-        if(newEsp.pins.D6.IsHight != esp.pins.D6.IsHight) message += "\"D6\":\""+ newEsp.pins.D6.IsHight +"\",";
-        if(newEsp.pins.D7.IsHight != esp.pins.D7.IsHight) message += "\"D7\":\""+ newEsp.pins.D7.IsHight +"\",";
-        if(newEsp.pins.D8.IsHight != esp.pins.D8.IsHight) message += "\"D8\":\""+ newEsp.pins.D8.IsHight +"\",";
-        if(newEsp.pins.D9.IsHight != esp.pins.D9.IsHight) message += "\"D9\":\""+ newEsp.pins.D9.IsHight +"\",";
-        if(newEsp.pins.D10.IsHight != esp.pins.D10.IsHight) message += "\"D10\":\""+ newEsp.pins.D10.IsHight +"\",";
-        if(newEsp.pins.A0.value != esp.pins.A0.value) message += "\"A10\":\""+ newEsp.pins.A0.value +"\",";        
-        message = message.slice(0, -1);
-        message += "}"
-        //send message
-        if(message != "}")MqtHandler.sendMessage(newEsp.secret,message);
-        //Update esp        
-        Esp.updateEsp(newEsp, (err, esp) => {
-            if(err){
-                res.json({success: false, msg:err});
-            }else {                    
-                res.json({success: true, msg:'The Esp device is now updated!!!'});
+        }else {  
+            //check if this device belongs to you
+            if(String(esp.owner[0]) != String(req.user._id)){
+                res.json({success: false, msg:'This device does not belong to you.'});
+                return;
             }
-        }); 
-        message = "";
+            //Update Device messages
+            esp.buttons.forEach(button => {
+                if(req.body.buttonID == button.id) button.message = req.body.message;
+            });
+            Esp.updateEsp(esp, (err, esp) => { 
+                if(err){
+                    res.json({success: false, msg:err});
+                }else {  
+                    MqtHandler.sendMessage(esp.secret,req.body.message);      
+                    let msg = "Turned ";
+                    if(req.body.status == "true") msg += "ON";   
+                    else  msg += "OFF";   
+                    res.json({success: true, msg:msg});
+                }
+            });            
+        }
     });
-    */
 });
 
 //populate esps of user

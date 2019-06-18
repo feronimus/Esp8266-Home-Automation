@@ -102,7 +102,7 @@
         </div>
 
         <div class="form-group row">
-          <label for="inputName" class="col-sm-3 col-form-label">Choose a general purpose for your device!</label>
+          <label for="inputName" class="col-sm-3 col-form-label">Choose device and firmware release</label>
           <div class=" col-sm-9">
               <div class="input-group">
                 <nb-select name="selectDevice" [(ngModel)]="selectDevice" style="width:30%" placeholder="Select Category" shape="rectangle"> 
@@ -144,13 +144,26 @@
                         <br>
                     </nb-card-body>
                 </nb-card>
+                <nb-card>
+                    <nb-card-header>
+                      Button Names:
+                    </nb-card-header>
+                    <nb-card-body>
+                        <div *ngFor="let button of FirmButtons; let i = index" >
+                            <label>Button nubmer: {{i}}.</label>
+                            <input type="buttons" [(ngModel)]="FirmButtons[i].title" class="form-control" name="buttons" placeholder="Enter Button name"/>
+                          </div>
+                    </nb-card-body>
+                </nb-card>
+               
              
             </div>
-            <div class=" col-sm-9" >
+            <div class=" col-sm-9">
                 <span>
                     <p>Code :  <i><div [innerHTML]="FocusedFirmware.code"></div></i></p>
                 </span>
-              </div>
+            </div>
+            
         </div>
 
 

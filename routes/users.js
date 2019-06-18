@@ -29,13 +29,22 @@ router.post('/register', (req, res, next) => {
             res.status(400).json({data: {errors : "A User with this email already exists."}});
             return;
         }else{
-            //register user
-            User.addUser(newUser, (err, user) => {
-                if(err){
-                    res.status(400).json({data: {errors : err}});
-             }else {
-                res.json({ data :{messages : 'User registerd successfully'}, });
-            }
+            //Check name
+            User.getUserByUsername(newUser.name, function(err, user){ //must check if name exists
+                if(err) console.log(err);
+                if(user){        
+                    res.status(400).json({data: {errors : "A User with this name already exists."}});
+                    return;
+                }else{
+                    //register user
+                    User.addUser(newUser, (err, user) => {
+                        if(err){
+                            res.status(400).json({data: {errors : err}});
+                    }else {
+                        res.json({ data :{messages : 'User registerd successfully'}, });
+                    }
+                    }); 
+                }       
             });
          }       
     });

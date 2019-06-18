@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {BackendService} from '../../services/backend.service';
 import {ValidationService } from '../../services/validation.service';
 import { v4 as uuid } from 'uuid';
@@ -11,7 +11,7 @@ import 'ckeditor';
   templateUrl: './esp-insert.component.html',
   styleUrls: ['./esp-insert.component.scss']
 })
-export class EspInsertComponent implements OnInit  {
+export class EspInsertComponent implements OnInit, OnDestroy  {
   //Field Device
   name;
   description;
@@ -30,6 +30,7 @@ export class EspInsertComponent implements OnInit  {
     CardDeviceHeader : "",
     ButtonSubmit: "",
   };
+  FirmButtons : [{id : String, message: String , title: String}];
 
   //Cashed
   GroupList;
@@ -48,6 +49,9 @@ export class EspInsertComponent implements OnInit  {
     
     //Load Cashed data from the server
     this.LoadLists();
+  }
+  ngOnDestroy() {
+    this.service.FocusedDeviceID == "";
   }
 
   constructor(
@@ -133,10 +137,21 @@ export class EspInsertComponent implements OnInit  {
       secret: this.secret,
       owner: this.GetUserID(),
       group: "",
-      firmware: "none"
+      firmware: "none",
+      buttons: [{id: "" , message: "" , title:"" }]
     }
-    if(this.FocusedFirmware)esp.firmware = this.FocusedFirmware._id;
+    if(this.FocusedFirmware){
+      esp.firmware = this.FocusedFirmware._id;
+      //buttons
+      esp.buttons.splice(0,esp.buttons.length)
+      this.FocusedFirmware.buttons.forEach(button => {
+        this.FirmButtons.forEach(firmbutton => {
+          if(firmbutton.id == button._id) esp.buttons.push({id : button._id, message:"" , title:firmbutton.title });
+        });  
+      });   
+    }
     if(!this.isNew)esp._id = this.FocusedDevice._id;
+    console.log(esp);
     return esp;
   }
 
@@ -201,8 +216,24 @@ export class EspInsertComponent implements OnInit  {
     });
   }
   SelectedFirmware(firmware :any){
+    console.log(this.FocusedDevice);
     this.FocusedFirmware = firmware;
     this.selectGroup = firmware.name;
     this.selectDevice= firmware.device;
+    this.FirmButtons = [{id : "String", message: "String" , title: "String"}];
+
+    this.FirmButtons.splice(0,this.FirmButtons.length)
+    firmware.buttons.forEach(button => { 
+      this.FocusedDevice.buttons.forEach(DevButton => {
+        if(DevButton.id == button._id ){
+          let temp = {
+            id : button._id,
+            message:"" , 
+            title: DevButton.title 
+          };     
+         this.FirmButtons.push(temp);
+        }        
+      });
+    });
   }
 }

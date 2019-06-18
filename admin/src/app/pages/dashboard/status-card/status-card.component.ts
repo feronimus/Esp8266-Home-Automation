@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import {BackendService} from '../../services/backend.service';
 import {  NbAuthService } from '@nebular/auth';
+import {  NbToastrService } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-status-card',
@@ -25,6 +26,7 @@ export class StatusCardComponent {
   @Input() title: string;
   @Input() type: string;
   @Input() device: string;
+  @Input() button_ID:string
   @Input() messageOn: string;
   @Input() messageOff: string;
   @Input() on = true;
@@ -33,23 +35,34 @@ export class StatusCardComponent {
     id: "",
     message :  "",
     status : "",
+    buttonID: ""
   };
 
   constructor(
     private service:BackendService,
-    private authService: NbAuthService
+    private authService: NbAuthService,
+    private toastrService: NbToastrService,
     ) { }
 
   cardClick(){
     this.on = !this.on;
     this.data.id = this.device;
+    this.data.buttonID = this.button_ID;
     if(this.on)  this.data.message = this.messageOn;
     else this.data.message = this.messageOff;
     this.data.status = String(this.on);
-    this.service.signalEsp(this.data).subscribe(() => {});   
+    this.service.signalEsp(this.data).subscribe((res) => {
+      this.showToast(res.msg,this.title);
+    });   
     
   }
 
+  showToast(msg,title) {
+    this.toastrService.show(
+      msg,//message
+      title//title
+       );
+  }
   /*
   public eventOnClick(object){    
    

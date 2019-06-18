@@ -15,8 +15,8 @@ export class BackendService {
     private http: HttpClient,
     private authService: NbAuthService) { }
   
-  serverURL = '';
-  //serverURL = 'http://localhost:3000/';
+  //serverURL = '';
+  serverURL = 'http://localhost:3000/';
 
 
   registerEsp(data){  

@@ -8,23 +8,7 @@ const EspSchema = Schema({
     name: String,
     secret: String,
     description: String,
-    group: String,
-    /*
-    pins : {
-        D0: {InUse:Boolean , IsHight : Boolean},     
-        D1: {InUse:Boolean, IsHight : Boolean},    
-        D2: {InUse:Boolean, IsHight : Boolean},    
-        D3: {InUse:Boolean, IsHight : Boolean},    
-        D4: {InUse:Boolean, IsHight : Boolean},    
-        D5: {InUse:Boolean, IsHight : Boolean},    
-        D6: {InUse:Boolean, IsHight : Boolean},    
-        D7: {InUse:Boolean, IsHight : Boolean},    
-        D8: {InUse:Boolean, IsHight : Boolean},    
-        D9: {InUse:Boolean, IsHight : Boolean},    
-        D10: {InUse:Boolean, IsHight : Boolean},    
-        A0: {InUse:Boolean, value : Number}
-    },
-    */
+    group: String,    
     owner: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     firmware: { type: Schema.Types.ObjectId, ref: 'Firmware' },
     isOnline: Number,
@@ -33,7 +17,7 @@ const EspSchema = Schema({
     timer: Number,
     version: String, //to be removed
     forceUpdate : Boolean,
-    buttons: [{ message: String}],
+    buttons: [{ message: String ,  id : String , title: String}],
     Sliders: [{Name: String, message: String , value : Number }]   
   });
 

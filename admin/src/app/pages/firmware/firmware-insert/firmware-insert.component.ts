@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy  } from '@angular/core';
 import {BackendService} from '../../services/backend.service';
 import {ValidationService } from '../../services/validation.service';
 import {  NbAuthService } from '@nebular/auth';
@@ -32,7 +32,7 @@ export  interface  Firm  {
   templateUrl: './firmware-insert.component.html',
   styleUrls: ['./firmware-insert.component.scss']
 })
-export class FirmwareInsertComponent implements OnInit {
+export class FirmwareInsertComponent implements OnInit, OnDestroy {
 
 
   
@@ -104,6 +104,9 @@ export class FirmwareInsertComponent implements OnInit {
    
     
   }
+  ngOnDestroy() {
+    this.service.FocusedFirmwareID == "";
+  }
   handleChange(){
     this.service.getFirmwareByUser().subscribe(firm => {        
       firm.firmware.forEach(element => {
@@ -167,7 +170,7 @@ export class FirmwareInsertComponent implements OnInit {
             messageOn: element.messageOn, 
             messageOff: element.messageOff , 
             icon: element.icon, 
-            buttonType: element.type
+            buttonType: element.buttonType
         };
         this.newFirmware.buttons.push(temp);
       });
@@ -201,7 +204,7 @@ export class FirmwareInsertComponent implements OnInit {
               messageOn: element.messageOn, 
               messageOff: element.messageOff , 
               icon: element.icon, 
-              buttonType: element.type
+              buttonType: element.buttonType
           };
           this.UpdatedFirmware.buttons.push(temp);
         });
@@ -236,7 +239,7 @@ export class FirmwareInsertComponent implements OnInit {
     text$.pipe(
       debounceTime(200),
       distinctUntilChanged(),
-      map(term => term.length < 2 ? []
+      map(term => term.length < 1 ? []
         : this.GroupArray.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
     )
 
@@ -245,7 +248,7 @@ export class FirmwareInsertComponent implements OnInit {
     text$.pipe(
       debounceTime(200),
       distinctUntilChanged(),
-      map(term => term.length < 2 ? []
+      map(term => term.length < 1 ? []
         : this.DeviceArray.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
     )
 
@@ -336,7 +339,7 @@ export class FirmwareInsertComponent implements OnInit {
           title: 'Icon #',
           type: 'string',
         },
-        type: {
+        buttonType: {
           title: 'Color type',
           type: 'html', 
           editor: {

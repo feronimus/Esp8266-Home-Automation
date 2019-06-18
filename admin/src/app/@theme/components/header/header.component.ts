@@ -67,8 +67,7 @@ export class HeaderComponent implements OnInit {
       )
       .subscribe(title => {
         //console.log(title);
-        if(title == "Log out"){
-          console.log("what");
+        if(title == "Log out"){          
           this.router.navigate(['/auth/logout']); 
         };
         if(title == "Profile") {

@@ -12,6 +12,7 @@ interface CardSettings {
   device :string;
   messageOn :string;
   messageOff :string;
+  button_ID : string;
 }
 
 @Component({
@@ -42,7 +43,8 @@ export class DashboardComponent implements  OnInit {
               type: button.buttonType,
               device: device._id,
               messageOn : button.messageOn,
-              messageOff : button.messageOff,      
+              messageOff : button.messageOff, 
+              button_ID  : button._id,
             };            
             this.statusCards.push(temp);  
       
