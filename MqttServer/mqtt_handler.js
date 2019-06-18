@@ -104,5 +104,5 @@ module.exports.unsubscribe = function(subscription){
 
 module.exports.sendMessage = function(topic,message) {
   console.log("To SEND : " + "esp/" +topic + "/server"+ "  - message : " + message );
-  mqttClient.publish("esp/" +topic + "/server","{ msg : " +  message + "}");
+  mqttClient.publish("esp/" +topic + "/server", message );
 }

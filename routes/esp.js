@@ -191,7 +191,7 @@ router.post('/signal', passport.authenticate('jwt' , {session:false}), (req, res
                 if(err){
                     res.json({success: false, msg:err});
                 }else {  
-                    MqtHandler.sendMessage(esp.secret,req.body.message);      
+                    MqtHandler.sendMessage("{ msg: "+ esp.secret,req.body.message + "}");      
                     let msg = "Turned ";
                     if(req.body.status == "true") msg += "ON";   
                     else  msg += "OFF";   
