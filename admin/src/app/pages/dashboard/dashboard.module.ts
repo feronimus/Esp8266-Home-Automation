@@ -6,7 +6,7 @@ import { StatusCardComponent } from './status-card/status-card.component';
 import { ThemeModule } from '../../@theme/theme.module';
 import { DashboardComponent } from './dashboard.component';
 import {BackendService} from '../services/backend.service';
-/*
+
 import { ContactsComponent } from './contacts/contacts.component';
 import { RoomsComponent } from './rooms/rooms.component';
 import { RoomSelectorComponent } from './rooms/room-selector/room-selector.component';
@@ -22,7 +22,7 @@ import { SolarComponent } from './solar/solar.component';
 import { PlayerComponent } from './rooms/player/player.component';
 import { TrafficComponent } from './traffic/traffic.component';
 import { TrafficChartComponent } from './traffic/traffic-chart.component';
-*/ 
+
 
 @NgModule({
   imports: [
@@ -32,7 +32,7 @@ import { TrafficChartComponent } from './traffic/traffic-chart.component';
   declarations: [
     DashboardComponent,
     StatusCardComponent,
-    /*
+    
     TemperatureDraggerComponent,
     ContactsComponent,
     RoomSelectorComponent,
@@ -48,7 +48,7 @@ import { TrafficChartComponent } from './traffic/traffic-chart.component';
     SolarComponent,
     TrafficComponent,
     TrafficChartComponent,
-    */
+    
   ],
   providers: [BackendService],
 })

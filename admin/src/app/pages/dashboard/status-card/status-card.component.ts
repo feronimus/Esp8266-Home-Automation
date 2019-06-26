@@ -52,7 +52,7 @@ export class StatusCardComponent {
     else this.data.message = this.messageOff;
     this.data.status = String(this.on);
     this.service.signalEsp(this.data).subscribe((res) => {
-      this.showToast(res.msg,this.title);
+      //this.showToast(res.msg,this.title);
     });   
     
   }
