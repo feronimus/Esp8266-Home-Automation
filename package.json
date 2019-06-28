@@ -8,17 +8,18 @@
     "start": "node app"
   },
   "dependencies": {
-    "express": "*",
-    "mongoose": "*",
     "bcryptjs": "*",
-    "cors": "*",
-    "jsonwebtoken": "*",
     "body-parse": "*",
-    "passport": "*",
-    "passport-jwt": "*",
-    "nodemon": "*",
+    "cors": "*",
+    "express": "*",
+    "jsonwebtoken": "*",
+    "mongoose": "*",
+    "mqtt": "*",
     "multer": "*",
-    "mqtt": "*"
+    "node-schedule": "^1.3.2",
+    "nodemon": "*",
+    "passport": "*",
+    "passport-jwt": "*"
   },
   "author": "Alex",
   "license": "ISC"

@@ -22,17 +22,24 @@ import { SolarComponent } from './solar/solar.component';
 import { PlayerComponent } from './rooms/player/player.component';
 import { TrafficComponent } from './traffic/traffic.component';
 import { TrafficChartComponent } from './traffic/traffic-chart.component';
+import { NbDialogModule, NbWindowModule } from '@nebular/theme';
+import { DialogNamePromptComponent } from './status-card/dialog-name-prompt/dialog-name-prompt.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 
 @NgModule({
   imports: [
     ThemeModule,
     NgxEchartsModule,
+    NbDialogModule.forChild(),
+    NbWindowModule.forChild(),
+    OwlDateTimeModule, 
+    OwlNativeDateTimeModule,
   ],
   declarations: [
     DashboardComponent,
-    StatusCardComponent,
-    
+    StatusCardComponent,    
+    DialogNamePromptComponent,
     TemperatureDraggerComponent,
     ContactsComponent,
     RoomSelectorComponent,
@@ -51,5 +58,8 @@ import { TrafficChartComponent } from './traffic/traffic-chart.component';
     
   ],
   providers: [BackendService],
+  entryComponents: [
+    DialogNamePromptComponent,
+  ],
 })
 export class DashboardModule { }

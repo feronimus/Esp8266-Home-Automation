@@ -22,12 +22,12 @@ module.exports.getEspsOfUser= function(userID, callback){
     User.find(query).populate('esp').exec(callback);
 }
 
-/*
+
 module.exports.getUserByUsername = function(usernameValue, callback){
     const query = {username: usernameValue}
     User.findOne(query, callback)
 }
-*/
+
 
 module.exports.getUserByMail = function(email, callback){
     const query = {email: email}

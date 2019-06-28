@@ -120,7 +120,24 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
            
 });
 //MqtHandler.sendMessage(esp.secret,"{\"ForceUpdate\":\"true\",\"link\":\""+firmware.link+"\"}")
-                   
+   
+
+router.post('/delete', passport.authenticate('jwt' , {session:false}), (req, res, next) => {
+     Firmware.getFirmwareById(req.body._id, (err, firm) =>{
+         //check  this device belongs to you
+         if(String(firm.owner) != String(req.user._id)){
+             res.json({success: false, msg:'This device does not belong to you.'});
+             return;
+         }else{             
+             // Remove esp from User and esps 
+             Firmware.removeFirmware(req.body._id, (err) =>{
+                 if(err) throw err;                
+                 res.json({success: true, msg:'Firmware removed.'});
+             });           
+         };
+     });
+ });
+ 
 
 // Get data about this Firmware
 router.post('/profileById', passport.authenticate('jwt' , {session:false}), (req, res, next) => {

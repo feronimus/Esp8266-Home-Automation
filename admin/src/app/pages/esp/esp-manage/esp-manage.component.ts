@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
+import { Ng2SmartTableComponent } from 'ng2-smart-table/ng2-smart-table.component';
 import {BackendService} from '../../services/backend.service';
 import {  Router } from '@angular/router';
 
@@ -21,44 +22,34 @@ export class EspManageComponent  {
     private service: BackendService,
     private router : Router,
     ) {
-    this.service.getEspByUser().subscribe(esps => {
-    this.source.load(esps.esps.esp);
-    esps.esps.esp.forEach(element => {
-      if(!this.Locations.includes(element.group)) this.Locations.push(element.group);
-    });
-    },
-    err => {
-      console.log(err);
-      return false;
-    });
-    
+      this.refreshSource()    
   }
+
+
+  refreshSource(){
+    this.service.getEspByUser().subscribe(esps => {
+      this.source.load(esps.esps.esp);
+      esps.esps.esp.forEach(element => {
+        if(!this.Locations.includes(element.group)) this.Locations.push(element.group);
+      });
+      },
+      err => {
+        console.log(err);
+        return false;
+      });
+  }
+
 
   NewDevice(){   
     this.service.FocusedDeviceID ="";
      this.router.navigate(['/pages/device/input']);
   }
-
-  ManageDevice($event){
-    this.service.FocusedDeviceID =$event.data._id;
-    this.router.navigate(['/pages/device/input']);
-  }
-
-
+  
   settings = {
     hideSubHeader: true,
     actions: {
-      add: false,
-      delete : false,
-      edit:false,
       position: "right",
-      custom: [
-        { 
-          name: 'Edit item',
-           title: '<i class="ion-forward"></i>',
-        },       
-      ],         
-      },
+    },
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
       createButtonContent: '<i class="nb-checkmark"></i>',
@@ -80,46 +71,43 @@ export class EspManageComponent  {
       },
       description: {
         title: 'Description',
-        type: 'string',
+        type: 'html',
       },
       group: {
-        title: 'Location',
-        type: 'html', 
-        editor: {
-          type: 'list',
-          config: { 
-            selectText: 'Select',
-            list: this.Locations
-          }, 
-         },
-        }, 
-      /*
-      username2: { 
-        title: 'User Name', 
-        type: 'html', 
-        editor: { 
-          type: 'list', 
-          config: { 
-            list: [{ value: 'Antonette', title: 'Antonette' }, { value: 'Bret', title: 'Bret' }, { 
-              value: '<b>Samantha</b>', 
-              title: 'Samantha', 
-            }], 
-          }, 
-        }, 
-      }, 
-    */
-  },
-    
+        title: 'Device Location',
+        type: 'string',
+      },
+    },
+    mode: 'external',
   };
-
   
+  @ViewChild('table')
+  smartTable: Ng2SmartTableComponent;
+  ngAfterViewInit(): void {
 
+    this.smartTable.edit.subscribe( (dataObject: any) => {
+      this.ManageDevice(dataObject);
+    });
 
-  onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      event.confirm.resolve();
-    } else {
-      event.confirm.reject();
-    }
+    this.smartTable.delete.subscribe( (dataObject: any) => {
+      if (window.confirm('Are you sure you want to delete?')) {        
+        this.DeleteDevice(dataObject);
+        this.refreshSource()
+      } 
+    });
+    this.smartTable.create.subscribe( (dataObject: any) => {
+      this.NewDevice()
+    });
   }
+
+  ManageDevice(dataObject){
+    this.service.FocusedDeviceID = dataObject.data._id;
+    this.router.navigate(['/pages/device/input']);
+  }
+  DeleteDevice(dataObject){
+    this.service.DeleteEsp({ '_id': dataObject.data._id}).subscribe(esps => {
+
+    });
+  }
+
 }

@@ -116,6 +116,7 @@
     }
 
     .details {
+      flex: 1 1 auto;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -124,6 +125,8 @@
       @include nb-rtl(padding, 0 0.75rem 0 0.5rem);
       border-left: 1px solid transparent;
     }
+
+    
 
     .title {
       font-family: nb-theme(font-secondary);
@@ -138,6 +141,22 @@
       text-transform: uppercase;
       color: nb-theme(card-fg);
     }
+    .actions {
+      padding: 0 1.15rem 0 0.5rem;
+    }
+
+    [nbButton] {
+      height: 60%;
+      width: 60%;
+      vertical-align: text-top;  
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      font-size: 1.2rem;
+      text-shadow: 0 0 16px rgba(0, 0, 0, 0.16);
+      box-shadow: none;
+      cursor: pointer;
+    }
+
   }
 
   @include nb-for-theme(cosmic) {

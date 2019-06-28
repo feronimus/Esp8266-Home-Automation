@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
 import {BackendService} from '../../services/backend.service';
 import {  NbAuthService } from '@nebular/auth';
-import {  NbToastrService } from '@nebular/theme';
+import {  NbDialogService } from '@nebular/theme';
+import { DialogNamePromptComponent } from './dialog-name-prompt/dialog-name-prompt.component';
 
 @Component({
   selector: 'ngx-status-card',
@@ -17,8 +18,22 @@ import {  NbToastrService } from '@nebular/theme';
       <div class="details">
         <div class="title">{{ title }}</div>
         <div class="status">{{ on ? 'ON' : 'OFF' }}</div>
+      </div>     
+
+
+
+      <div class="actions">
+        <a nbButton size="large" hero          
+        class="buttonCard icon {{ type }}"
+        (click)="openDialog()">
+        <i class="fas fa-clock"></i>
+        </a>
       </div>
+      
     </nb-card>
+
+    
+
   `,
 })
 export class StatusCardComponent {
@@ -31,6 +46,7 @@ export class StatusCardComponent {
   @Input() messageOff: string;
   @Input() on = true;
   //@Input() ShowLess= false;
+  flag=false;
   data = {
     id: "",
     message :  "",
@@ -40,11 +56,30 @@ export class StatusCardComponent {
 
   constructor(
     private service:BackendService,
+    private dialogService: NbDialogService,
     private authService: NbAuthService,
-    private toastrService: NbToastrService,
     ) { }
 
+    openDialog() {
+      this.flag=true;
+      this.dialogService.open(DialogNamePromptComponent)
+        .onClose.subscribe((data) =>{
+          this.flag=false;  
+          if(!data)return;        
+        
+          if(data.message == "ON")data.message = this.messageOn;
+          else data.message = this.messageOff;
+          data.buttonID = this.button_ID;
+          data.deviceID = this.device;
+          this.service.taskEsp(data).subscribe((res) => {
+            
+          }); 
+        });
+    }
+
+
   cardClick(){
+    if(this.flag) return;
     this.on = !this.on;
     this.data.id = this.device;
     this.data.buttonID = this.button_ID;
@@ -56,29 +91,4 @@ export class StatusCardComponent {
     });   
     
   }
-
-  showToast(msg,title) {
-    this.toastrService.show(
-      msg,//message
-      title//title
-       );
-  }
-  /*
-  public eventOnClick(object){    
-   
-    this.EspList.forEach(esp => {
-      if(esp._id == object.espItem._id) {
-        esp.pins[object.key].IsHight = object.value;        
-        this.authService.updateEsp(esp).subscribe(data => {
-          if(data.success){
-            this.UpdateEspListValues();
-          }else{
-            this.UpdateEspListValues();
-          }
-        });
-      }
-
-    });
-  }
-  */
 }

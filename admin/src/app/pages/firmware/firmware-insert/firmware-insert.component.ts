@@ -119,7 +119,8 @@ export class FirmwareInsertComponent implements OnInit, OnDestroy {
 
     //Get Focused ID of Firmware and load it 
     this.FocusedID  = this.service.FocusedFirmwareID;
-    if(!(this.FocusedID == undefined) && !(this.FocusedID == "") ) this.isNew= false;    
+    if((this.FocusedID != undefined) && (this.FocusedID != "") ) this.isNew= false;    
+    else this.isNew= true;    
     if(!this.isNew) this.handleChange();
     else this.handleHtmlChange(); 
     
@@ -129,7 +130,7 @@ export class FirmwareInsertComponent implements OnInit, OnDestroy {
     
   }
   ngOnDestroy() {
-    this.service.FocusedFirmwareID == "";
+    this.service.FocusedFirmwareID = "";
   }
   handleChange(){
     this.service.getFirmwareByUser().subscribe(firm => {        
@@ -152,8 +153,7 @@ export class FirmwareInsertComponent implements OnInit, OnDestroy {
         console.log(element)  ;  
         this.source.add(element);
       });
-      */
-      console.log(this.source)  ; 
+      */      
       this.handleHtmlChange();
     });
   }

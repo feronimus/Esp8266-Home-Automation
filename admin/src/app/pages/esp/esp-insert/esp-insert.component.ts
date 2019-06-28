@@ -52,7 +52,7 @@ export class EspInsertComponent implements OnInit, OnDestroy  {
     this.LoadLists();
   }
   ngOnDestroy() {
-    this.service.FocusedDeviceID == "";
+    this.service.FocusedDeviceID = "";
   }
 
   constructor(
@@ -152,13 +152,19 @@ export class EspInsertComponent implements OnInit, OnDestroy  {
       //buttons
       esp.buttons.splice(0,esp.buttons.length)
       this.FocusedFirmware.buttons.forEach(button => {
-        this.FirmButtons.forEach(firmbutton => {
-          if(firmbutton.id == button._id) esp.buttons.push({id : button._id, message:"" , title:firmbutton.title });
+        this.FirmButtons.forEach(firmbutton => {          
+          if(firmbutton.id == button._id) {
+            if(firmbutton.title){
+              esp.buttons.push({id : button._id, message:"" , title:firmbutton.title });
+            }else{
+              esp.buttons.push({id : button._id, message:"" , title:"Button" });
+            }
+            
+        }
         });  
       });   
     }
-    if(!this.isNew)esp._id = this.FocusedDevice._id;
-    console.log(esp);
+    if(!this.isNew)esp._id = this.FocusedDevice._id;    
     return esp;
   }
 

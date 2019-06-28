@@ -13,11 +13,21 @@ const EspSchema = Schema({
     firmware: { type: Schema.Types.ObjectId, ref: 'Firmware' },
     isOnline: Number,
     viewOrder: Number,
-    eventSheduler: { },//event object
+    eventSheduler: [{ 
+        date: Date, 
+        repeat : Boolean, 
+        message: String , 
+        buttonID : String,
+        month :  [] ,
+        dayOfWeek:  [] ,
+        hour : Number, 
+        minute : Number,
+    }],//event object
+    
     timer: Number,
     version: String, //to be removed
     forceUpdate : Boolean,
-    buttons: [{ message: String ,  id : String , title: String}],
+    buttons: [{ message: String ,  id : String , title: String , stateOn: Boolean}],
     Sliders: [{Name: String, message: String , value : Number }]   
   });
 
@@ -61,4 +71,9 @@ module.exports.compareSecret  = function(candidateSecret, hash , callback){
         if(err) throw err;
         callback(null ,isMatch);
     })
+}
+
+module.exports.removeEsp = function(id, callback){  
+    var query = {'_id':id};
+    Esp.deleteOne(query,callback)
 }

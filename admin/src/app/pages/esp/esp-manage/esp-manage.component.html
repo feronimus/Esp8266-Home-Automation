@@ -1,14 +1,15 @@
-<nb-card>
+  <nb-card>
     <nb-card-header>
         <div class="container-btn">
-          Manage your Devices      
-          <button class="btn-primary" nbButton hero (click)="NewDevice()">New Device</button>
+          Manage your Devices 
+          <button style="margin-left: 40px" class="btn-primary" nbButton hero (click)="NewDevice()">New Device</button>
       </div>
     </nb-card-header>
   
     <nb-card-body>
-      <ng2-smart-table [settings]="settings" [source]="source" (custom)="ManageDevice($event)" (deleteConfirm)="onDeleteConfirm($event)">
+      <ng2-smart-table [settings]="settings" [source]="source" #table>
       </ng2-smart-table>
     </nb-card-body>
   </nb-card>
+  
   

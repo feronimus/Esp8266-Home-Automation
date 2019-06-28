@@ -32,6 +32,10 @@ const mqttHandler = require('./MqttServer/mqtt_handler');
 var mqttClient = new mqttHandler();
 mqttClient.connect();
 
+//Sheduler
+const sheduler = require('./Shedule/Sheduler');
+sheduler.startServer();
+
 //CORS middleware
 app.use(cors());
 

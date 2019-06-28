@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
+import { Ng2SmartTableComponent } from 'ng2-smart-table/ng2-smart-table.component';
 import {BackendService} from '../../services/backend.service';
 import {  Router } from '@angular/router';
 
@@ -21,30 +22,24 @@ export class FirmwareManageComponent  {
     private service: BackendService,
     private router : Router,
     ) {
+      this.refreshSource()
+  }
+
+  refreshSource(){
     this.service.getFirmwareByUser().subscribe(firms => {
-        this.source.load(firms.firmware); 
+      this.source.load(firms.firmware); 
     },
     err => {
       console.log(err);
       return false;
     });
-    
   }
 
   settings = {
     hideSubHeader: true,
     actions: {
-      add: false,
-      delete : false,
-      edit:false,
       position: "right",
-      custom: [
-        { 
-          name: 'Edit item',
-           title: '<i class="ion-forward"></i>',
-        },       
-      ],         
-      },
+    },
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
       createButtonContent: '<i class="nb-checkmark"></i>',
@@ -79,9 +74,42 @@ export class FirmwareManageComponent  {
         title: 'Device',
         type: 'string',
       }
-  },
+    },
+  mode: 'external',
     
   };
+
+  @ViewChild('table')
+  smartTable: Ng2SmartTableComponent;
+  ngAfterViewInit(): void {
+
+    this.smartTable.edit.subscribe( (dataObject: any) => {
+      this.ManageFirmware(dataObject);
+    });
+
+    this.smartTable.delete.subscribe( (dataObject: any) => {
+      if (window.confirm('Are you sure you want to delete?')) {        
+        this.DeleteFirmware(dataObject);        
+        this.refreshSource()
+      } 
+    });
+
+    this.smartTable.create.subscribe( (dataObject: any) => {
+      this.NewFirmware()
+    });
+  }
+
+  ManageDevice(dataObject){
+    this.service.FocusedDeviceID = dataObject.data._id;
+    this.router.navigate(['/pages/device/input']);
+  }
+
+
+  DeleteFirmware(dataObject){
+    this.service.DeleteFirmware({ '_id': dataObject.data._id}).subscribe(esps => {
+
+    });
+  }
 
 
   NewFirmware(){   
@@ -94,12 +122,6 @@ export class FirmwareManageComponent  {
     this.router.navigate(['/pages/firmware/input']);
   }
 
-onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      event.confirm.resolve();
-    } else {
-      event.confirm.reject();
-    }
-  }
+
 
 }

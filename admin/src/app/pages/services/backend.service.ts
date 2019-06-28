@@ -15,8 +15,8 @@ export class BackendService {
     private http: HttpClient,
     private authService: NbAuthService) { }
   
-  serverURL = '';
-  //serverURL = 'http://localhost:3000/';
+  //serverURL = '';
+  serverURL = 'http://localhost:3000/';
 
 
   registerEsp(data){  
@@ -29,6 +29,14 @@ export class BackendService {
 
   signalEsp(data){ 
     return this.http.post(this.serverURL +'esp/signal', data,{headers: this.getHeaderWithToken()}).pipe(map((response: any) => response));
+  }
+
+  taskEsp(data){ 
+    return this.http.post(this.serverURL +'esp/task', data,{headers: this.getHeaderWithToken()}).pipe(map((response: any) => response));
+  }
+
+  DeleteEsp(data){ 
+    return this.http.post(this.serverURL +'esp/delete', data,{headers: this.getHeaderWithToken()}).pipe(map((response: any) => response));
   }
 
   getEspByUser(){
@@ -44,6 +52,11 @@ export class BackendService {
   updateFirmware(data){  
     return this.http.post(this.serverURL +'firmware/update', data,{headers: this.getHeaderWithToken()}).pipe(map((response: any) => response));
   }
+
+  DeleteFirmware(data){ 
+    return this.http.post(this.serverURL +'firmware/delete', data,{headers: this.getHeaderWithToken()}).pipe(map((response: any) => response));
+  }
+
  //Get reformed Gouprs data
   getFirmwareGroups(data){  
     return this.http.post(this.serverURL +'firmware/groups', data,{headers: this.getHeaderWithToken()}).pipe(map((response: any) => response));

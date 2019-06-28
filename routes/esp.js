@@ -8,6 +8,7 @@ const Esp =  require('../models/esp');
 const multer = require('multer');
 const Firmware =  require('../models/firmware');
 const MqtHandler = require('../MqttServer/mqtt_handler');
+const Schedule = require('../Shedule/Sheduler');
 
 
 //
@@ -45,7 +46,8 @@ router.post('/register', passport.authenticate('jwt' , {session:false}), (req, r
         owner: req.body.owner,
         isOnline: 0,
         viewOrder: -1,
-        eventSheduler: { },//event object
+        //eventSheduler: [],//event object
+        eventSheduler: [],
         timer: -1,
         version: 0.1,
         forceUpdate: req.body.forceUpdate ,  
@@ -105,7 +107,7 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
         owner: req.body.owner,
         isOnline: 0,
         viewOrder: -1,
-        eventSheduler: { },//event object
+        eventSheduler: [],//event object
         timer: -1,
         version: 0.1,
         forceUpdate: req.body.forceUpdate , 
@@ -114,9 +116,9 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
         buttons: req.body.buttons
     });
     //check Secret
-    Esp.getEspBySecret(newEsp.secret, function(err, secret){ 
+    Esp.getEspBySecret(newEsp.secret, function(err, oldEsp){ 
         if(err) console.log(err);
-        if(secret && String(secret._id) != String(newEsp._id)){
+        if(oldEsp && String(oldEsp._id) != String(newEsp._id)){
             res.json({success: false, msg:'This secret is already in use...'});
             return ;
         }else{
@@ -153,6 +155,7 @@ router.post('/update', passport.authenticate('jwt' , {session:false}), (req, res
                                     newEsp.buttons.push({id : button._id, message:""});
                                 });  
                                 */
+                               newEsp.eventSheduler = oldEsp.eventSheduler;
                                 Esp.updateEsp(newEsp, (err, esp) => {
                                     if(err){
                                         res.json({success: false, msg:err});
@@ -256,19 +259,95 @@ router.get('/profile', passport.authenticate('jwt' , {session:false}), (req, res
     res.json({user: req.user});
 });
 
-
-//TO BE DONE NOT READY
-//unplemented
 router.post('/delete', passport.authenticate('jwt' , {session:false}), (req, res, next) => {
-    //res.send('PROFILE');
-    MqtHandler.unsubscribe(newEsp.secret);    
-    res.json({user: req.user});
+    Esp.getEspById(req.body._id, (err, esp) =>{
+        //check  this device belongs to you
+        if(String(esp.owner[0]) != String(req.user._id)){
+            res.json({success: false, msg:'This device does not belong to you.'});
+            return;
+        }else{
+            
+            // Remove esp from firmware and User
+            Esp.removeEsp(req.body._id, (err) =>{
+                if(err) throw err;
+                MqtHandler.unsubscribe(esp.secret); 
+                res.json({success: true, msg:'Device removed.'});
+            });           
+        };
+    });
 });
+
+
+router.post('/task', passport.authenticate('jwt' , {session:false}), (req, res, next) => {
+    Esp.getEspById(req.body.deviceID, (err, esp) =>{
+        //check  this device belongs to you
+        if(String(esp.owner[0]) != String(req.user._id)){
+            res.json({success: false, msg:'This device does not belong to you.'});
+            return;
+        }else{
+            if(!req.body.repeat){               
+                let task = { 
+                    date: req.body.date, 
+                    repeat : req.body.repeat, 
+                    message: req.body.message, 
+                    buttonID : req.body.buttonID
+                };
+                
+                esp.eventSheduler.push(task);    
+                Esp.updateEsp(esp, (err, newesp) => {  
+                    esp.eventSheduler.forEach(tempTask => {                  
+                        if(
+                            Date(tempTask.date) == Date(task.date) && 
+                            String(tempTask.repeat) == String(task.repeat) && 
+                            String(tempTask.message) == String(task.message) && 
+                            String(tempTask.buttonID) == String(task.buttonID) 
+                            ) {
+                                task._id = tempTask._id                            
+                            }
+                    });
+                    Schedule.sheduleTask(esp,task);
+                    res.json({success: true, msg:'Done'});
+                }); 
+           
+            }else{
+                
+console.log(req.body.repeat)
+                let task = { 
+                    month :  req.body.month ,
+                    dayOfWeek:  req.body.dayOfWeek ,
+                    hour :req.body.hour, 
+                    minute : req.body.minute  ,
+                    repeat : req.body.repeat, 
+                    message: req.body.message, 
+                    buttonID : req.body.buttonID
+                };
+                esp.eventSheduler.push(task);  
+                Esp.updateEsp(esp, (err, newesp) => {  
+                    esp.eventSheduler.forEach(tempTask => {                  
+                        if(
+                            tempTask.month == task.month && 
+                            tempTask.dayOfWeek == task.dayOfWeek && 
+                            tempTask.hour == task.hour && 
+                            tempTask.minute == task.minute && 
+                            String(tempTask.repeat) == String(task.repeat) && 
+                            String(tempTask.message) == String(task.message) && 
+                            String(tempTask.buttonID) == String(task.buttonID) 
+                            ) {
+                                task._id = tempTask._id                            
+                            }
+                    });
+                });
+                Schedule.sheduleTask(esp,task);
+                res.json({success: true, msg:'Done'});
+            }
+
+
+
+        };
+    });
+});
+
 //----------- Upload-downalod files .bin codes -----------\\
-
-
-
-
 router.post('/espuploads',  (req, res, next) =>{
     var store = multer.diskStorage({
         destination:function(req,file,cb){

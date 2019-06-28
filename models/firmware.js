@@ -100,3 +100,9 @@ module.exports.getFirmwareByUser = function(id, callback){
     Firmware.find(query, callback)
 }
 //group [{name;string , [{device:string, [{  version}]}]       }]
+
+
+module.exports.removeFirmware = function(id, callback){  
+    var query = {'_id':id};
+    Firmware.deleteOne(query,callback)
+}

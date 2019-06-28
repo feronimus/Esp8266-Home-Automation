@@ -1,0 +1,82 @@
+<nb-card style="min-width: 40vw">
+  <nb-tabset>
+    <nb-tab tabTitle="One Time Only">
+      <nb-card class="align-items-center" style="min-width: 40vw; ">
+        <nb-card-header> 
+          <h4 style="text-align: center">Execute Task</h4>
+          <nb-radio-group  [(ngModel)]="Turn" name="my-radio-Turn1">
+            <nb-radio value="ON" >Turn ON</nb-radio>
+            <nb-radio value="OFF">Turn OFF</nb-radio>
+          </nb-radio-group> 
+        </nb-card-header>
+        <nb-card-body>  
+<!--   <nb-card-body>  
+          <input nbInput [min]="min" [(ngModel)]="selectedMoment" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Pick Date Time">
+-->
+          <owl-date-time-inline [min]="min" [(ngModel)]="selectedMoment"  #dt1></owl-date-time-inline>
+        </nb-card-body>
+        <nb-card-footer>
+          <button nbButton status="danget" (click)="cancel()">Cancel</button>
+          <button nbButton status="success" (click)="submit1()">Submit</button>
+        </nb-card-footer>
+      </nb-card>
+    </nb-tab>
+    <nb-tab tabTitle="Repeat Forever">
+      <nb-card class="align-items-center" style="min-width: 40vw">
+          <nb-card-header>
+            <h4 style="text-align: center">Execute Task</h4>
+           
+              <nb-radio-group  [(ngModel)]="Turn" name="my-radio-Turn2">
+                <nb-radio value="ON" >Turn ON</nb-radio>
+                <nb-radio value="OFF">Turn OFF</nb-radio>
+              </nb-radio-group> 
+            </nb-card-header>
+            <nb-card-body>  
+          <div class="form-group row">
+            <div class="col-sm-3">
+              Which days
+              <nb-checkbox (Click)="AllDays()" >All Days</nb-checkbox>
+              <div *ngFor="let day of days" > 
+                <nb-checkbox [(ngModel)]="day.chosen" >{{day.title}}</nb-checkbox>
+              </div>
+            </div>
+
+            <div class="col-sm-3">
+              Which Months
+              <div *ngFor="let month of months" > 
+                <nb-checkbox [(ngModel)]="month.chosen" >{{month.title}}</nb-checkbox>
+              </div>
+            </div>
+            <div class="col-sm-3">
+                <owl-date-time-inline [pickerType]="'timer'" [(ngModel)]="selectedTime"></owl-date-time-inline>
+            </div>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+            <button nbButton status="danget" (click)="cancel()">Cancel</button>
+            <button nbButton status="success" (click)="submit2()">Submit</button>
+          </nb-card-footer>
+      </nb-card>
+    </nb-tab>
+
+  </nb-tabset>
+</nb-card>
+
+
+
+
+
+
+<!--
+
+   <br>
+          <h3>Repeat</h3>
+          <nb-radio-group [(ngModel)]="Repeat"  name="my-radio-Repeat">
+              <nb-radio value="0">Once</nb-radio>
+              <nb-radio value="60">Every Hour</nb-radio>
+              <nb-radio value="1440">Every Day</nb-radio>
+              <nb-radio value="100800">Every Week</nb-radio>
+            </nb-radio-group> 
+-->
+
+
