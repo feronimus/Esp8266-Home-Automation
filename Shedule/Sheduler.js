@@ -44,8 +44,8 @@ module.exports.removeTask = removeTask;
 
 const sheduleTask = function(esp,task,callback){    
     if(!task.repeat){
-        //let newTask  = schedule.scheduleJob(task.date, function() {
-        let newTask  = schedule.scheduleJob(new Date().getTime()+1000, function() {   
+        let newTask  = schedule.scheduleJob(task.date, function() {
+        //let newTask  = schedule.scheduleJob(new Date().getTime()+1000, function() {   
             taskCalling(esp,task)
         });
         let tasker = {

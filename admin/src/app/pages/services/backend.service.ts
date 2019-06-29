@@ -36,6 +36,7 @@ export class BackendService {
   }
 
   DeleteEsp(data){ 
+    console.log("inside DeleteEsp of service backend ts")
     return this.http.post(this.serverURL +'esp/delete', data,{headers: this.getHeaderWithToken()}).pipe(map((response: any) => response));
   }
 

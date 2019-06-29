@@ -92,7 +92,6 @@ export class EspManageComponent  {
     this.smartTable.delete.subscribe( (dataObject: any) => {
       if (window.confirm('Are you sure you want to delete?')) {        
         this.DeleteDevice(dataObject);
-        this.refreshSource()
       } 
     });
     this.smartTable.create.subscribe( (dataObject: any) => {
@@ -105,8 +104,9 @@ export class EspManageComponent  {
     this.router.navigate(['/pages/device/input']);
   }
   DeleteDevice(dataObject){
+    console.log("inside deletedevice of espmanage ts")
     this.service.DeleteEsp({ '_id': dataObject.data._id}).subscribe(esps => {
-
+      this.refreshSource()
     });
   }
 

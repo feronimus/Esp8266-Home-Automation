@@ -260,6 +260,8 @@ router.get('/profile', passport.authenticate('jwt' , {session:false}), (req, res
 });
 
 router.post('/delete', passport.authenticate('jwt' , {session:false}), (req, res, next) => {
+    
+    console.log("inside delete of ngx")
     Esp.getEspById(req.body._id, (err, esp) =>{
         //check  this device belongs to you
         if(String(esp.owner[0]) != String(req.user._id)){
